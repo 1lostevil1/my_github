@@ -5,11 +5,12 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class Task1 {
+
     public static int minutesToSeconds(String str) {
+        final int trans = 60;
         int result;
         if (check(str)) {
             int pos = str.indexOf(':');
-            final int trans = 60;
             result = Integer.parseInt(str.substring(0, pos)) * trans + Integer.parseInt(str.substring(pos + 1));
         } else {
             result = -1;
@@ -21,6 +22,7 @@ public class Task1 {
     }
 
     public static boolean check(String str) {
+        final int trans = 60;
         boolean flag = true;
         int len = str.length();
         Integer pos = str.indexOf(':');
@@ -30,7 +32,7 @@ public class Task1 {
         if (flag) {
             String checkmin = str.substring(0, str.indexOf(':'));
             String checksec = str.substring(str.indexOf(':') + 1, len);
-            if (checkmin.length() < 2 || checksec.length() != 2 || Integer.parseInt(checksec) > 60) {
+            if (checkmin.length() < 2 || checksec.length() != 2 || Integer.parseInt(checksec) > trans) {
                 flag = false;
             }
         }
