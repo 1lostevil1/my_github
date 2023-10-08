@@ -9,7 +9,7 @@ public class Task1 {
         int result;
         if (check(str)) {
             int pos = str.indexOf(':');
-            final int trans=60;
+            final int trans = 60;
             result = Integer.parseInt(str.substring(0, pos)) * trans + Integer.parseInt(str.substring(pos + 1));
         } else {
             result = -1;
@@ -46,6 +46,7 @@ public class Task1 {
         }
         return (flag && flag2 && str.charAt(0) != ':');
     }
+
     private final static Logger LOGGER = LogManager.getLogger();
 
     //main
