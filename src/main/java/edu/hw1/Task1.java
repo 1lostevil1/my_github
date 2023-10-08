@@ -1,20 +1,23 @@
 package edu.hw1;
 
 import java.util.Scanner;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class Task1 {
     public static int minutesToSeconds(String str) {
         int result;
         if (check(str)) {
             int pos = str.indexOf(':');
-            result = Integer.parseInt(str.substring(0, pos)) * 60 + Integer.parseInt(str.substring(pos + 1));
+            final int trans=60;
+            result = Integer.parseInt(str.substring(0, pos)) * trans + Integer.parseInt(str.substring(pos + 1));
         } else {
             result = -1;
         }
         return result;
     }
 
-    Task1() {
+    private Task1() {
     }
 
     public static boolean check(String str) {
@@ -43,12 +46,14 @@ public class Task1 {
         }
         return (flag && flag2 && str.charAt(0) != ':');
     }
+    private final static Logger LOGGER = LogManager.getLogger();
 
+    //main
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
-        System.out.print("Input time: ");
+        LOGGER.info("Input time: ");
         String str = in.nextLine();
-        System.out.print(minutesToSeconds(str));
+        LOGGER.info(minutesToSeconds(str));
         in.close();
     }
 }
