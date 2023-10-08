@@ -16,7 +16,7 @@ public final class Main {
 
         for (int i = 0; i <= 2; i++) {
 
-            // Press Shift+F9 to start debugging your code. We have set one breakpoint
+
             // for you, but you can always add more by pressing Ctrl+F8.
             LOGGER.info("i = {}", i);
         }
