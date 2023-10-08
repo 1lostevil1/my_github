@@ -4,6 +4,8 @@ import java.util.Scanner;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+@SuppressWarnings("uncommentedmain")
+
 public class Task1 {
 
     public static int minutesToSeconds(String str) {
