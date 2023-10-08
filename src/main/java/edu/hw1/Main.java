@@ -12,7 +12,7 @@ public final class Main {
     }
 
     public static void main(String[] args) {
-        // IntelliJ IDEA suggests fixing it.
+
         LOGGER.info("Hello and welcome!");
 
         // Press Shift+F10 or click the green arrow button in the gutter to run the code.
