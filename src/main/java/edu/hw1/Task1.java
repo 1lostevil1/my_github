@@ -7,9 +7,8 @@ import org.apache.logging.log4j.Logger;
 @SuppressWarnings("uncommentedmain")
 
 public class Task1 {
-
+    private final static int trans = 60;
     public static int minutesToSeconds(String str) {
-        final int trans = 60;
         int result;
         if (check(str)) {
             int pos = str.indexOf(':');
@@ -24,7 +23,6 @@ public class Task1 {
     }
 
     public static boolean check(String str) {
-        final int trans = 60;
         boolean flag = true;
         int len = str.length();
         Integer pos = str.indexOf(':');
