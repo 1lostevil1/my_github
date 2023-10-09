@@ -21,7 +21,6 @@ class Task3Test {
         mas1 = new int[] {0, 0, 0};
         mas2 = new int[] {0};
         actual = Task3.isNested(mas1, mas2);
-        expected = false;
         assertEquals(actual, expected);
 
         mas1 = new int[] {-10, 1, 4};
