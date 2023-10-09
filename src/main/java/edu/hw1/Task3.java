@@ -30,12 +30,7 @@ public class Task3 {
     }
 
     public static boolean isNested(int[] mas1, int[] mas2) {
-        boolean flag = false;
-
-        if (min(mas1) > min(mas2) && max(mas1) < max(mas2)) {
-            flag = true;
-        }
-        return flag;
+        return (min(mas1) > min(mas2) && max(mas1) < max(mas2));
     }
 
     private final static Logger LOGGER = LogManager.getLogger();
@@ -45,13 +40,13 @@ public class Task3 {
         Scanner in = new Scanner(System.in);
         LOGGER.info("Input mas1 length: ");
         int len1 = in.nextInt();
-        int mas1[] = new int[len1];
+        int[] mas1 = new int[len1];
         for (int i = 0; i < len1; ++i) {
             mas1[i] = in.nextInt();
         }
         LOGGER.info("Input mas2 length: ");
         int len2 = in.nextInt();
-        int mas2[] = new int[len2];
+        int[] mas2 = new int[len2];
         for (int i = 0; i < len2; ++i) {
             mas2[i] = in.nextInt();
         }
