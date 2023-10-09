@@ -30,6 +30,12 @@ class Task3Test {
         expected = true;
         assertEquals(actual, expected);
 
+        mas1 = new int[] {1,2,3,4};
+        mas2 = new int[] {2,3};
+        actual = Task3.isNested(mas1, mas2);
+        expected = false;
+        assertEquals(actual, expected);
+
     }
 
 }
