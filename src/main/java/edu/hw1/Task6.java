@@ -37,17 +37,17 @@ public class Task6 {
         return a;
     }
 
-    public static int kapr(int val){
-        Integer a[]=numToArray(val);
-        Integer[] a_min=Arrays.copyOf(a,FOUR);
-        Integer[] a_max=Arrays.copyOf(a,FOUR);
+    public static int kapr(int val) {
+        Integer a[] = numToArray(val);
+        Integer[] a_min = Arrays.copyOf(a, FOUR);
+        Integer[] a_max = Arrays.copyOf(a, FOUR);
         Arrays.sort(a_min);
         Arrays.sort(a_max, Comparator.reverseOrder());
         return arrayToNum(a_max) - arrayToNum(a_min);
 
     }
 
-    public static int countOfK(int val){
+    public static int countOfK(int val) {
 
         int res = 0;
         if (val != CONSTKAPR) {
@@ -58,6 +58,7 @@ public class Task6 {
         }
         return res + 1;
     }
+
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
         LOGGER.info("Input value: ");
@@ -66,7 +67,7 @@ public class Task6 {
         in.close();
     }
 
-    }
+}
 
 
 

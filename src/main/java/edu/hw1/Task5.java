@@ -12,9 +12,9 @@ public class Task5 {
     }
 
     static boolean isPalindrome(String word) {
-        boolean flag=true;
-        int len= word.length();
-        for (int i = 0; i < ( len/ 2); i++) {
+        boolean flag = true;
+        int len = word.length();
+        for (int i = 0; i < (len / 2); i++) {
             if (word.charAt(i) != word.charAt(len - i - 1)) {
                 return false;
             }
@@ -46,7 +46,6 @@ public class Task5 {
         }
         return flag;
     }
-
 
     private final static Logger LOGGER = LogManager.getLogger();
 
