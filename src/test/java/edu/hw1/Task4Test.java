@@ -15,7 +15,7 @@ class Task4Test {
         expected = "214365";
         assertEquals(actual, expected);
 
-        actual = Task4.fixString("123 a 456");
+        actual = Task4.fixString("hTsii  s aimex dpus rtni.g");
         expected = "This is a mixed up string.";
         assertEquals(actual, expected);
     }
