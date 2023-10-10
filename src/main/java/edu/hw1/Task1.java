@@ -54,7 +54,7 @@ public class Task1 {
     //main
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
-        LOGGER.info("Input time: ");
+        LOGGER.info("Input time mm:ss ");
         String str = in.nextLine();
         LOGGER.info(minutesToSeconds(str));
         in.close();

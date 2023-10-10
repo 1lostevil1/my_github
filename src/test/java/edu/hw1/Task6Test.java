@@ -7,15 +7,15 @@ class Task6Test {
 
     @Test
     void countOfK() {
-        int actual = Task6.countOfK(6621);
+        int actual = Task6.countK(6621);
         int expected = 5;
         assertEquals(expected, actual);
 
-        actual = Task6.countOfK(6554);
+        actual = Task6.countK(6554);
         expected = 4;
         assertEquals(expected, actual);
 
-        actual = Task6.countOfK(1234);
+        actual = Task6.countK(1234);
         expected = 3;
         assertEquals(expected, actual);
 

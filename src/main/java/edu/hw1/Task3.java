@@ -50,7 +50,7 @@ public class Task3 {
         for (int i = 0; i < len2; ++i) {
             mas2[i] = in.nextInt();
         }
-        LOGGER.info(isNested(mas1, mas2));
+        LOGGER.info("value length is " + isNested(mas1, mas2));
         in.close();
     }
 }

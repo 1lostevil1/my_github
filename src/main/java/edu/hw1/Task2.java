@@ -12,7 +12,7 @@ public class Task2 {
     private Task2() {
     }
 
-    public static int countof(int value) {
+    public static int countDigits(int value) {
         Integer copy = value;
         int count = 0;
         if (copy.equals(0)) {
@@ -32,7 +32,7 @@ public class Task2 {
         Scanner in = new Scanner(System.in);
         LOGGER.info("Input value: ");
         int val = in.nextInt();
-        LOGGER.info(countof(val));
+        LOGGER.info(countDigits(val));
         in.close();
     }
 }

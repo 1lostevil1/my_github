@@ -47,13 +47,13 @@ public class Task6 {
 
     }
 
-    public static int countOfK(int val) {
+    public static int countK(int val) {
 
         int res = 0;
         if (val != CONSTKAPR) {
             int val1 = kapr(val);
             if (val1 != CONSTKAPR) {
-                res = countOfK(val1);
+                res = countK(val1);
             }
         }
         return res + 1;
@@ -63,7 +63,7 @@ public class Task6 {
         Scanner in = new Scanner(System.in);
         LOGGER.info("Input value: ");
         int val = in.nextInt();
-        LOGGER.info(countOfK(val));
+        LOGGER.info("count of steps to get a 6174 value " + countK(val));
         in.close();
     }
 

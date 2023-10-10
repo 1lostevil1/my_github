@@ -6,19 +6,19 @@ import static org.junit.jupiter.api.Assertions.*;
 class Task2Test {
     @Test
     void countof(){
-        Integer actual=Task2.countof(1234);
+        Integer actual=Task2.countDigits(1234);
         Integer expected=4;
         assertEquals(actual, expected);
 
-        actual=Task2.countof(0);
+        actual=Task2.countDigits(0);
         expected=1;
         assertEquals(actual, expected);
 
-        actual=Task2.countof(-1);
+        actual=Task2.countDigits(-1);
         expected=1;
         assertEquals(actual, expected);
 
-        actual=Task2.countof(-500);
+        actual=Task2.countDigits(-500);
         expected=3;
         assertEquals(actual, expected);
 
