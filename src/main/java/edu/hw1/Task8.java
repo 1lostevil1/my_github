@@ -14,6 +14,7 @@ public class Task8 {
 
     private Task8() {
     }
+
     public static boolean checkLeft(int[][] a, int i, int j) {
         return (i - ONE >= 0 && j - TWO >= 0 && a[i - ONE][j - TWO] == ONE
             || i + ONE < EIGHT && j - TWO >= 0 && a[i + ONE][j - TWO] == ONE);
