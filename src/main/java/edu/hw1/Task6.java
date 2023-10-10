@@ -38,12 +38,12 @@ public class Task6 {
     }
 
     public static int kapr(int val) {
-        Integer a[] = numToArray(val);
-        Integer[] a_min = Arrays.copyOf(a, FOUR);
-        Integer[] a_max = Arrays.copyOf(a, FOUR);
-        Arrays.sort(a_min);
-        Arrays.sort(a_max, Comparator.reverseOrder());
-        return arrayToNum(a_max) - arrayToNum(a_min);
+        Integer[] a = numToArray(val);
+        Integer[] amin = Arrays.copyOf(a, FOUR);
+        Integer[] amax = Arrays.copyOf(a, FOUR);
+        Arrays.sort(amin);
+        Arrays.sort(amax, Comparator.reverseOrder());
+        return arrayToNum(amax) - arrayToNum(amin);
 
     }
 
