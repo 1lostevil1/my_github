@@ -20,7 +20,7 @@ public class Task2 {
         }
         while (copy != 0) {
             count++;
-            copy /= TEN ;
+            copy /= TEN;
         }
         return count;
     }
