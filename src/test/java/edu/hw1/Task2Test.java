@@ -9,7 +9,7 @@ class Task2Test {
     @Test
     @DisplayName("Проверка отрицательного числа")
     void test1() {
-        int actual = Task2.countDigits(-3);
+        int actual = Task2.countDigits(-10);
         int expected = 1;
         assertEquals(expected, actual);
     }
@@ -25,7 +25,7 @@ class Task2Test {
     @Test
     @DisplayName("Проверка положительного числа")
     void test3() {
-        int actual = Task2.countDigits(3);
+        int actual = Task2.countDigits(10);
         int expected = 1;
         assertEquals(expected, actual);
     }

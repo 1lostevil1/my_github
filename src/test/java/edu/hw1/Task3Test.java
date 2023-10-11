@@ -44,7 +44,7 @@ class Task3Test {
     @Test
     @DisplayName("Неинициализированный массив")
     void test3() {
-        int[] a1 = {}, a2 = {0, 0};
+        int[] a1 = {}, a2 = {0, 0, 0};
         boolean actual = Task3.isNested(a1, a2);
         boolean expected = false;
         assertEquals(expected, actual);
