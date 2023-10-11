@@ -12,7 +12,7 @@ public class Task4 {
 
     }
 
-    private final static int DEL = 2;
+    private final static int TWO = 2;
 
     public static String fixString(String str) {
         String copy = new String();
@@ -22,7 +22,7 @@ public class Task4 {
                 copy += str.substring(i + 1, i + 2);
                 copy += str.substring(i, i + 1);
             }
-            if (len % DEL != 0) {
+            if (len % TWO != 0) {
                 copy += str.substring(len - 1, len);
             }
 

@@ -54,7 +54,7 @@ public class Task5 {
         Scanner in = new Scanner(System.in);
         LOGGER.info("Input value: ");
         Integer value = in.nextInt();
-        LOGGER.info("Does it palindrome? " + isPalindromeDescendant(value));
+        LOGGER.info("Does it or its descendant palindrome? " + isPalindromeDescendant(value));
         in.close();
     }
 }

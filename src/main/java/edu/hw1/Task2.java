@@ -7,7 +7,7 @@ import org.apache.logging.log4j.Logger;
 @SuppressWarnings("uncommentedmain")
 
 public class Task2 {
-    private final static int DEL = 10;
+    private final static int TEN = 10;
 
     private Task2() {
     }
@@ -20,7 +20,7 @@ public class Task2 {
         }
         while (copy != 0) {
             count++;
-            copy /= DEL;
+            copy /= TEN ;
         }
         return count;
     }

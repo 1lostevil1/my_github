@@ -7,13 +7,13 @@ import org.apache.logging.log4j.Logger;
 @SuppressWarnings("uncommentedmain")
 
 public class Task1 {
-    private final static int TRANS = 60;
+    private final static int SIXTY = 60;
 
     public static int minutesToSeconds(String str) {
         int result;
         if (check(str)) {
             int pos = str.indexOf(':');
-            result = Integer.parseInt(str.substring(0, pos)) * TRANS + Integer.parseInt(str.substring(pos + 1));
+            result = Integer.parseInt(str.substring(0, pos)) * SIXTY + Integer.parseInt(str.substring(pos + 1));
         } else {
             result = -1;
         }
@@ -33,7 +33,7 @@ public class Task1 {
         if (flag) {
             String checkmin = str.substring(0, str.indexOf(':'));
             String checksec = str.substring(str.indexOf(':') + 1, len);
-            if (checkmin.length() < 2 || checksec.length() != 2 || Integer.parseInt(checksec) > TRANS) {
+            if (checkmin.length() < 2 || checksec.length() != 2 || Integer.parseInt(checksec) > SIXTY) {
                 flag = false;
             }
         }

@@ -30,7 +30,7 @@ public class Task3 {
     }
 
     public static boolean isNested(int[] mas1, int[] mas2) {
-        return (min(mas1) > min(mas2) && max(mas1) < max(mas2));
+        return (mas1.length * mas2.length > 0) ? (min(mas1) > min(mas2) && max(mas1) < max(mas2)) : false;
     }
 
     private final static Logger LOGGER = LogManager.getLogger();

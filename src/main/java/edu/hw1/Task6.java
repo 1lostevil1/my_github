@@ -10,9 +10,9 @@ import org.apache.logging.log4j.Logger;
 
 public class Task6 {
 
-    final static int FOUR = 4;
-    final static int TEN = 10;
-    final static int CONSTKAPR = 6174;
+    private final static int FOUR = 4;
+    private final static int TEN = 10;
+    private final static int CONSTKAPR = 6174;
 
     private final static Logger LOGGER = LogManager.getLogger();
 
@@ -49,8 +49,9 @@ public class Task6 {
 
     public static int countK(int val) {
 
-        int res = 0;
+        int res = -1;
         if (val != CONSTKAPR) {
+            res = 0;
             int val1 = kapr(val);
             if (val1 != CONSTKAPR) {
                 res = countK(val1);

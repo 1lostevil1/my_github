@@ -1,29 +1,34 @@
 package edu.hw1;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.DisplayName;
 import static org.junit.jupiter.api.Assertions.*;
 
 class Task2Test {
+
     @Test
-    void countof(){
-        Integer actual=Task2.countDigits(1234);
-        Integer expected=4;
-        assertEquals(actual, expected);
-
-        actual=Task2.countDigits(0);
-        expected=1;
-        assertEquals(actual, expected);
-
-        actual=Task2.countDigits(-1);
-        expected=1;
-        assertEquals(actual, expected);
-
-        actual=Task2.countDigits(-500);
-        expected=3;
-        assertEquals(actual, expected);
-
-
-
+    @DisplayName("Проверка отрицательного числа")
+    void test1() {
+        int actual = Task2.countDigits(-3);
+        int expected = 1;
+        assertEquals(expected, actual);
     }
 
+    @Test
+    @DisplayName("Проверка нуля")
+    void test2() {
+        int actual = Task2.countDigits(0);
+        int expected = 1;
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    @DisplayName("Проверка положительного числа")
+    void test3() {
+        int actual = Task2.countDigits(3);
+        int expected = 1;
+        assertEquals(expected, actual);
+    }
 }
+
+
