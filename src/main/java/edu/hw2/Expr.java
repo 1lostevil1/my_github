@@ -17,7 +17,7 @@ public sealed interface Expr permits Expr.Addition, Expr.Constant, Expr.Exponent
 
     public record Negate(Expr value) implements Expr {
         public double evaluate() {
-            return (-1) * value.evaluate();
+            return (value.equals(0)) ? 0 : (-1) * value.evaluate();
         }
     }
 
