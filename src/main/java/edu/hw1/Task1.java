@@ -8,6 +8,12 @@ import org.apache.logging.log4j.Logger;
 
 public class Task1 {
     private final static int SIXTY = 60;
+    // Press Alt+Enter with your caret at the highlighted text to see how
+    // Press Alt+Enter with your caret at the highlighted text to see how
+    // Press Alt+Enter with your caret at the highlighted text to see how
+    // Press Alt+Enter with your caret at the highlighted text to see how
+    // Press Alt+Enter with your caret at the highlighted text to see how
+    // Press Alt+Enter with your caret at the highlighted text to see how
 
     public static int minutesToSeconds(String str) {
         int result;
