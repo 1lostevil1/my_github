@@ -1,4 +1,4 @@
-package project1;
+package edu.project1;
 
 public class Init {
 }
