@@ -6,8 +6,8 @@ import org.apache.logging.log4j.LogManager;
 
 @SuppressWarnings("uncommentedmain")
 public class GameLogic {
-    final static int WRONG_COUNT_MISTAKES = 6;
-    final static int MAX_COUNT_MISTAKES = 6;
+    final static int WRONG_MISTAKES_COUNT = -1;
+    final static int MAX_MISTAKES_COUNT = 5;
     private final static org.apache.logging.log4j.Logger LOGGER = LogManager.getLogger();
     private final RandomWordSelector wordSelector = new RandomWordSelector();
     private final WordMaskOperator maskOperator = new WordMaskOperator();
@@ -24,7 +24,7 @@ public class GameLogic {
                 flag = false;
             } else {
                 if (letter.equals("give up")) {
-                    mistakesCount = WRONG_COUNT_MISTAKES;
+                    mistakesCount = WRONG_MISTAKES_COUNT;
                     letter = " ";
                     return;
                 }
@@ -52,7 +52,7 @@ public class GameLogic {
                 while (!win(maskOperator.getNumberGuessletter(), maskOperator.getWordUniqueLetters())) {
                     LOGGER.info("\nGuess a letter: ");
                     input();
-                    if (mistakesCount == WRONG_COUNT_MISTAKES) {
+                    if (mistakesCount == WRONG_MISTAKES_COUNT) {
                         LOGGER.info("\nYou give up!");
                         flag = true;
                         break;
@@ -72,7 +72,7 @@ public class GameLogic {
 
                         }
                     }
-                    if (mistakesCount == MAX_COUNT_MISTAKES) {
+                    if (mistakesCount == MAX_MISTAKES_COUNT) {
                         LOGGER.info("\nYou lost!");
                         flag = true;
                         break;

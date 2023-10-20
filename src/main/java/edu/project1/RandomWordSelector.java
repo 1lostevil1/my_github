@@ -13,10 +13,10 @@ public class RandomWordSelector {
     private String[] words = new String[0];
 
     public RandomWordSelector() {
-        scanWordsFromFile();
+        GetWordsFromFile();
     }
 
-    private void scanWordsFromFile() {
+    private void GetWordsFromFile() {
         StringBuilder strbuild = new StringBuilder();
         try (BufferedReader br = new BufferedReader(new FileReader( "src\\main\\java\\edu\\project1\\words.txt"))) {
             br.lines().forEach(strbuild::append);
