@@ -8,13 +8,13 @@ import org.apache.logging.log4j.Logger;
 
 public class Task3 {
 
-    final static String ERROR =  "Error";
+    final static String ERROR = "Error";
 
-    final static String COMPLETE =  " выполнена!";
+    final static String COMPLETE = " выполнена!";
 
-    final static String CONNECTION =  "Соединение для ";
+    final static String CONNECTION = "Соединение для ";
 
-    final static String CLOSE =  " закрыто";
+    final static String CLOSE = " закрыто";
 
     private final static Logger LOGGER = LogManager.getLogger();
 
