@@ -20,12 +20,11 @@ public class Task4 {
             return new CallingInfo(str.substring(0, str.lastIndexOf('.')), str.substring(str.lastIndexOf('.') + 1));
         }
     }
-
+public static void call (){
+        LOGGER.info(callingInfo());
+}
     public static void main(String[] args) throws Exception {
-        Scanner cin = new Scanner(System.in);
-        CallingInfo elem = callingInfo();
-        LOGGER.info(elem);
-        cin.close();
+        call();
     }
 
     protected record CallingInfo(String className, String methodName) {
