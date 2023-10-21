@@ -27,7 +27,7 @@ public sealed interface Expr permits Expr.Addition, Expr.Constant, Expr.Exponent
         }
     }
 
-    public record Exponent(Expr val, int exp) implements Expr {
+    public record Exponent(Expr val, double exp) implements Expr {
         public double evaluate() {
             return Math.pow(val.evaluate(), exp);
         }
