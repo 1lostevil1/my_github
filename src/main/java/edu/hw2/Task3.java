@@ -8,6 +8,8 @@ import org.apache.logging.log4j.Logger;
 
 public class Task3 {
 
+    private static final int MAX_ATTEMPTS = 3;
+
     final static String ERROR = "Error";
 
     final static String COMPLETE = " выполнена!";
@@ -23,7 +25,7 @@ public class Task3 {
 
     public static void main(String[] args) throws Exception {
         PopularCommandExecutor executor;
-        executor = new PopularCommandExecutor(1);
+        executor = new PopularCommandExecutor();
         executor.updatePackages();
     }
 
@@ -91,11 +93,15 @@ public class Task3 {
         private final ConnectionManager manager;
         private final int maxAttempts;
 
-        PopularCommandExecutor(int maxAttempts) {
-            final int intBOUND = 2;
+        PopularCommandExecutor() {
+            final int intCase = 3;
             Random random = new Random();
-            manager = (random.nextInt(intBOUND) == 1) ? new DefaultConnectionManager() : new FaultyConnectionManager();
-            this.maxAttempts = maxAttempts;
+            if (random.nextInt(intCase) == 1) {
+                manager = new DefaultConnectionManager();
+            } else {
+                manager = new FaultyConnectionManager();
+            }
+            this.maxAttempts = MAX_ATTEMPTS;
         }
 
         public void updatePackages() throws Exception {
