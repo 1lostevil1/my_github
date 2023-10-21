@@ -39,10 +39,10 @@ public class GameLogic {
 
     public void start() {
         Scanner scanner = new Scanner(System.in);
-        String vubor = "N";
+        String choise = "N";
         Boolean flag = false;
         while (true) {
-            if (vubor.equalsIgnoreCase("N")) {
+            if (choise.equalsIgnoreCase("N")) {
                 mistakesCount = 0;
                 maskOperator.clearBuffer();
                 String guessedWord = wordSelector.getRandomWord();
@@ -85,7 +85,7 @@ public class GameLogic {
                 System.exit(0);
             }
             LOGGER.info("\nMenu: [N]ew game/ [E]xit");
-            vubor = scanner.nextLine();
+            choise = scanner.nextLine();
         }
     }
 }
