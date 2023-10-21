@@ -53,7 +53,7 @@ public class GameLogic {
                     LOGGER.info("\nGuess a letter: ");
                     input();
                     if (mistakesCount == WRONG_MISTAKES_COUNT) {
-                        LOGGER.info("\nYou give up!");
+                        LOGGER.info("\nYou gave up!");
                         flag = true;
                         break;
                     }
