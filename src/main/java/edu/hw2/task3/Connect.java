@@ -1,8 +1,8 @@
 package edu.hw2.task3;
 
+import java.util.Random;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import java.util.Random;
 
 public class Connect {
 
@@ -18,7 +18,8 @@ public class Connect {
 
     private final static Logger LOGGER = LogManager.getLogger();
 
-
+    private Connect() {
+    }
 
     public interface Connection extends AutoCloseable {
         void execute(String command);

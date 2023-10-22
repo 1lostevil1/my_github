@@ -1,5 +1,7 @@
 package edu.hw2.task3;
+
 import java.util.Random;
+
 @SuppressWarnings("uncommentedmain")
 
 public class Manager {
