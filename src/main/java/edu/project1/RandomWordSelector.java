@@ -6,17 +6,17 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Random;
 
-@SuppressWarnings("uncommentedmain")
+@SuppressWarnings("RegexpSinglelineJava")
 public class RandomWordSelector {
     private String[] words = new String[0];
 
     public RandomWordSelector() {
-        GetWordsFromFile();
+        getWordsFromFile();
     }
 
-    private void GetWordsFromFile() {
+    private void getWordsFromFile() {
         StringBuilder strbuild = new StringBuilder();
-        try (BufferedReader br = new BufferedReader(new FileReader( "src\\main\\java\\edu\\project1\\words.txt"))) {
+        try (BufferedReader br = new BufferedReader(new FileReader("src\\main\\java\\edu\\project1\\words.txt"))) {
             br.lines().forEach(strbuild::append);
         } catch (FileNotFoundException e) {
             System.out.print("\nFile not found!");
