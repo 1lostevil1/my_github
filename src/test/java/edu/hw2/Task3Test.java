@@ -1,5 +1,7 @@
 package edu.hw2;
 
+import edu.hw2.task3.*;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -17,7 +19,7 @@ public class Task3Test {
         boolean actual = false;
         boolean expected = true;
         try {
-            Task3.PopularCommandExecutor exe = new Task3.PopularCommandExecutor();
+            PopularCommandExecutor exe = new PopularCommandExecutor();
             try {
                 exe.tryExecute(command);
             } catch (Exception e) {
@@ -36,7 +38,7 @@ public class Task3Test {
         boolean actual = false;
         boolean expected = true;
         try {
-            Task3.PopularCommandExecutor exe = new Task3.PopularCommandExecutor();
+            PopularCommandExecutor exe = new PopularCommandExecutor();
             exe.updatePackages();
             actual = true;
         } catch (RuntimeException exception) {
