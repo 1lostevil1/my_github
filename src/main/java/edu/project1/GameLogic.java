@@ -57,7 +57,7 @@ public class GameLogic {
                 && (result.equals("N") || result.equals("n") || result.equals("e") || result.equals("E"))) {
                 return result;
             } else {
-                System.out.print(">Input correct vubor:\n<");
+                System.out.print(">Input correct choise:\n<");
             }
         } while (true);
     }
