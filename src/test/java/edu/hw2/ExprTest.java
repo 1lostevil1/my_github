@@ -71,5 +71,19 @@ class ExprTest {
         assertEquals(expected, actual);
 
     }
+
+    @Test
+    @DisplayName("проверка решения")
+    void test6() {
+        var two = new Expr.Constant(2);
+        var four = new Expr.Constant(4);
+        var negOne = new Expr.Negate(new Expr.Constant(1));
+        var sumTwoFour = new Expr.Addition(two, four);
+        var mult = new Expr.Multiplication(sumTwoFour, negOne);
+        var exp = new Expr.Exponent(mult, 2);
+        double actual = new Expr.Addition(exp, new Expr.Constant(1)).evaluate();
+        double expected = 37.0;
+        assertEquals(expected, actual);
+    }
 }
 

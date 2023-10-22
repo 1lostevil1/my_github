@@ -6,7 +6,7 @@ import java.util.Random;
     public  class PopularCommandExecutor {
         final static String ERROR = "Error";
         private Manager.ConnectionManager manager;
-        private int maxAttempts = 5;
+        private int maxAttempts = 1;
 
         public PopularCommandExecutor() {
             final int intBOUND = 2;
@@ -26,7 +26,7 @@ import java.util.Random;
                 throw new Task3.ConnectionException(ERROR, new RuntimeException());
             }
             for (int cnt = 1; cnt <= maxAttempts && fl; cnt++) {
-                try {
+                try(connection) {
                     connection.execute(command);
                     fl = false;
                 } catch (Task3.ConnectionException e) {
@@ -36,7 +36,6 @@ import java.util.Random;
                     }
                 }
             }
-            connection.close();
         }
     }
 
