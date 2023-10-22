@@ -53,8 +53,8 @@ public class GameLogic {
         String result;
         do {
             result = scanner.nextLine();
-            if (result.length() == 1 &&
-                (result.equals("N") || result.equals("n") || result.equals("e") || result.equals("E"))) {
+            if (result.length() == 1
+                && (result.equals("N") || result.equals("n") || result.equals("e") || result.equals("E"))) {
                 return result;
             } else {
                 System.out.print(">Input correct vubor:\n<");
