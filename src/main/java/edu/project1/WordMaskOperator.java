@@ -6,7 +6,7 @@ import java.util.HashSet;
 import java.util.Set;
 import org.apache.logging.log4j.LogManager;
 
-@SuppressWarnings("uncommentedmain")
+@SuppressWarnings("RegexpSinglelineJava")
 public class WordMaskOperator {
     private String word;
     private final static org.apache.logging.log4j.Logger LOGGER = LogManager.getLogger();
@@ -31,7 +31,7 @@ public class WordMaskOperator {
     }
 
     public void printMask() {
-        LOGGER.info("\n\nThe word: " + String.join("", mask) + "\n");
+        System.out.print(">\n>The word: " + String.join("", mask) + "\n>");
     }
 
     public void updateMask(String letter) {

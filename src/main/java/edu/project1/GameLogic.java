@@ -1,22 +1,38 @@
 package edu.project1;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.util.Scanner;
 import java.util.Set;
-import org.apache.logging.log4j.LogManager;
 
-@SuppressWarnings("uncommentedmain")
+@SuppressWarnings("RegexpSinglelineJava")
 public class GameLogic {
-    final static int WRONG_MISTAKES_COUNT = -1;
-    final static int MAX_MISTAKES_COUNT = 5;
-    private final static org.apache.logging.log4j.Logger LOGGER = LogManager.getLogger();
+    public GameLogic() {
+        scanner = new Scanner(System.in);
+    }
+
+    public GameLogic(String in) {
+        scanner = new Scanner(in);
+        outputStream = new ByteArrayOutputStream();
+        stream = new PrintStream(outputStream);
+        System.setOut(stream);
+    }
+
+    public String getOut() {
+        return outputStream.toString();
+    }
+
+    final static int WRONG_COUNT_MISTAKES = -1;
+    final static int MAX_COUNT_MISTAKES = 5;
     private final RandomWordSelector wordSelector = new RandomWordSelector();
     private final WordMaskOperator maskOperator = new WordMaskOperator();
     int mistakesCount;
-    private String letter = "";
+    private Scanner scanner;
+    private ByteArrayOutputStream outputStream;
+    private PrintStream stream;
+    private String letter;
 
     private void input() {
-        Scanner scanner = new Scanner(System.in);
-
         boolean flag = true;
         do {
             letter = scanner.nextLine();
@@ -24,68 +40,81 @@ public class GameLogic {
                 flag = false;
             } else {
                 if (letter.equals("give up")) {
-                    mistakesCount = WRONG_MISTAKES_COUNT;
+                    mistakesCount = WRONG_COUNT_MISTAKES;
                     letter = " ";
                     return;
                 }
-                LOGGER.info("\nInput correct letter:");
+                System.out.print(">Input correct letter:\n<");
             }
         } while (flag);
+    }
+
+    private String inputChoise() {
+        String result;
+        do {
+            result = scanner.nextLine();
+            if (result.length() == 1 && (result.equals("N") || result.equals("n") || result.equals("e") || result.equals("E"))) {
+                return result;
+            } else {
+                System.out.print(">Input correct vubor:\n<");
+            }
+        } while (true);
     }
 
     private boolean win(int numberGuessletter, Set<String> wordUniqueLetters) {
         return numberGuessletter == wordUniqueLetters.size();
     }
 
-    public void start() {
-        Scanner scanner = new Scanner(System.in);
-        String choise = "N";
-        Boolean flag = false;
-        while (true) {
-            if (choise.equalsIgnoreCase("N")) {
-                mistakesCount = 0;
-                maskOperator.clearBuffer();
-                String guessedWord = wordSelector.getRandomWord();
-                maskOperator.setWord(guessedWord);
-                LOGGER.info("\nA word has been guessed!\nIf you want to give up, enter - give up\n");
-
-                while (!win(maskOperator.getNumberGuessletter(), maskOperator.getWordUniqueLetters())) {
-                    LOGGER.info("\nGuess a letter: ");
-                    input();
-                    if (mistakesCount == WRONG_MISTAKES_COUNT) {
-                        LOGGER.info("\nYou gave up!");
-                        flag = true;
-                        break;
-                    }
-                    if (maskOperator.isLetterbeused(letter)) {
-                        LOGGER.info("\nThis letter is already by used!");
+    public boolean start(String guessedWord) {
+        if (!guessedWord.isEmpty()) {
+            boolean flag;
+            mistakesCount = 0;
+            flag = false;
+            maskOperator.clearBuffer();
+            maskOperator.setWord(guessedWord);
+            System.out.print(">A word has been guessed!\n>If you want to give up, enter - give up\n");
+            while (!win(maskOperator.getNumberGuessletter(), maskOperator.getWordUniqueLetters())) {
+                System.out.print("\n>Guess a letter: \n<");
+                input();
+                if (mistakesCount == WRONG_COUNT_MISTAKES) {
+                    System.out.print("\n>You give up!");
+                    flag = true;
+                    break;
+                }
+                if (maskOperator.isLetterbeused(letter)) {
+                    System.out.print(">\n>This letter is already by used!");
+                } else {
+                    maskOperator.inputLetterInSet(letter);
+                    if (maskOperator.checkLetterinSet(letter)) {
+                        System.out.print(">Hit!\n");
+                        maskOperator.updateMask(letter);
+                        maskOperator.printMask();
                     } else {
-                        maskOperator.inputLetterInSet(letter);
-                        if (maskOperator.checkLetterinSet(letter)) {
-                            LOGGER.info("\nHit!");
-                            maskOperator.updateMask(letter);
-                            maskOperator.printMask();
-                        } else {
-                            mistakesCount++;
-                            LOGGER.info("\nMissed, mistake " + mistakesCount + " out of 5.\n");
-                            maskOperator.printMask();
+                        mistakesCount++;
+                        System.out.print(">Missed, mistake " + mistakesCount + " out of "
+                            + MAX_COUNT_MISTAKES + ".\n");
+                        maskOperator.printMask();
 
-                        }
-                    }
-                    if (mistakesCount == MAX_MISTAKES_COUNT) {
-                        LOGGER.info("\nYou lost!");
-                        flag = true;
-                        break;
                     }
                 }
-                if (!flag) {
-                    LOGGER.info("\nYou won!");
+                if (mistakesCount == MAX_COUNT_MISTAKES) {
+                    System.out.print("\n>You lost!");
+                    flag = true;
+                    break;
                 }
-            } else {
-                System.exit(0);
             }
-            LOGGER.info("\nMenu: [N]ew game/ [E]xit");
-            choise = scanner.nextLine();
+            if (!flag) {
+                System.out.print("\n>You won!");
+            }
+            System.out.print("\n>Menu: [N]ew game/ [E]xit\n<");
+            String choise = inputChoise();
+            if (choise.equals("N") || choise.equals("n")) {
+                return start(wordSelector.getRandomWord());
+            } else {
+                return true;
+            }
+        } else {
+            return false;
         }
     }
 }
