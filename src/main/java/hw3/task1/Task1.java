@@ -5,23 +5,18 @@ import org.apache.logging.log4j.Logger;
 
 public class Task1 {
 
-    private final static int COUNT_OF_LETTERS = 25;
     private final static Logger LOGGER = LogManager.getLogger();
 
     public Task1() {
     }
 
     public static String atbash(String object) {
-        alphabetList list = new alphabetList();
+        alphabetMap alphabet = new alphabetMap();
         char[] tmp = object.toCharArray();
         int len = object.length();
         for (int i = 0; i < len; i++) {
-            int index = COUNT_OF_LETTERS - list.alphabet.indexOf(Character.toUpperCase(tmp[i]));
-            System.out.print(tmp[i]);
-            if (Character.isLowerCase(tmp[i])) {
-                tmp[i] = Character.toLowerCase(list.alphabet.get(index));
-            } else {
-                tmp[i] = list.alphabet.get(index);
+            if ((tmp[i] >= 'a' && tmp[i] <= 'z') || (tmp[i] >= 'A' && tmp[i] <= 'Z')) {
+                tmp[i] = alphabet.alphabet.get(tmp[i]);
             }
         }
         object = String.copyValueOf(tmp);
@@ -29,7 +24,8 @@ public class Task1 {
     }
 
     public static void main(String[] args) {
-        LOGGER.info(atbash("Hello"));
+        LOGGER.info(atbash(
+            "Any fool can write code that a computer can understand. Good programmers write code that humans can understand. ― Martin Fowler"));
     }
 
 }
