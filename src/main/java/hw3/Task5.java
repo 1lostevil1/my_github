@@ -1,4 +1,4 @@
-package edu.hw3;
+package hw3;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -10,14 +10,14 @@ public class Task5 {
 
     public List<String> parseContacts(List<String> list, String isComp) {
         if (isComp.equals("ASC")) {
-            Collections.sort(list, new MyComparator1());
+            Collections.sort(list, new Comparator1());
         } else {
-            Collections.sort(list, new MyComparator2());
+            Collections.sort(list, new Comparator2());
         }
         return list;
     }
 
-    class MyComparator1 implements Comparator {
+    class Comparator1 implements Comparator {
         @Override
         public int compare(Object o1, Object o2) {
             String s1 = o1.toString();
@@ -28,7 +28,7 @@ public class Task5 {
         }
     }
 
-    class MyComparator2 implements Comparator {
+    class Comparator2 implements Comparator {
         @Override
         public int compare(Object o1, Object o2) {
             String s1 = o1.toString();
