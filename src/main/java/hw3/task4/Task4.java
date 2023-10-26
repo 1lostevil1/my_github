@@ -33,7 +33,7 @@ public class Task4 {
 
  private final static org.apache.logging.log4j.Logger LOGGER = LogManager.getLogger();
     public static void main(String[] args) {
-        String wtf = toRoman(123);
+        String wtf = toRoman(4994);
        LOGGER.info(wtf);
     }
 }
