@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class Task4Test {
 
     @Test
-    @DisplayName("1628")
+    @DisplayName("123")
     void convertToRoman123() {
         String actual = Task4.toRoman(123);
         String expected = "CXXIII";
@@ -16,10 +16,10 @@ class Task4Test {
     }
 
     @Test
-    @DisplayName("1628")
-    void convertToRoman4994() {
-        String actual = Task4.toRoman(4994);
-        String expected = "MMMMCMXCIV";
+    @DisplayName("3994")
+    void convertToRoman3994() {
+        String actual = Task4.toRoman(3994);
+        String expected = "MMMCMXCIV";
         assertEquals(expected, actual);
     }
 
