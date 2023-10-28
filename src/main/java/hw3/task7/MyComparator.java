@@ -1,4 +1,5 @@
 package hw3.task7;
+
 import java.util.Comparator;
 
 public class MyComparator implements Comparator<String> {

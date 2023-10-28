@@ -7,7 +7,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class Task2Test {
 
-
     @Test
     @DisplayName("тесты с сайта")
     void baseTests() {
@@ -16,7 +15,7 @@ class Task2Test {
         assertEquals(expected, actual);
 
         actual = Task2.clusterize("((()))");
-         expected = "[\"((()))\"]";
+        expected = "[\"((()))\"]";
         assertEquals(expected, actual);
 
         actual = Task2.clusterize("((()))(())()()(()())");

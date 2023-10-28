@@ -1,4 +1,5 @@
 package hw3.task6;
+
 import java.util.Random;
 
 public class Stock implements Comparable<Stock> {
@@ -12,7 +13,7 @@ public class Stock implements Comparable<Stock> {
 
     public Stock() {
         Random rnd = new Random();
-        price = rnd.nextInt(MAX_PRICE)+1;
+        price = rnd.nextInt(MAX_PRICE) + 1;
     }
 
     public Integer get() {
@@ -21,6 +22,6 @@ public class Stock implements Comparable<Stock> {
 
     @Override
     public int compareTo(Stock stock) {
-        return  stock.price - this.price ;
+        return stock.price - this.price;
     }
 }

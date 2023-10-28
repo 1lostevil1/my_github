@@ -6,7 +6,6 @@ public class Task7 {
     private Task7() {
     }
 
-
     public static void main(String[] args) {
         TreeMap<String, String> tree = new TreeMap<>(new MyComparator());
         tree.put("a", "a");
