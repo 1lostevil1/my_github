@@ -22,10 +22,11 @@ public class Task3 {
     }
 
     private final static org.apache.logging.log4j.Logger LOGGER = LogManager.getLogger();
+
     public static void main(String[] args) {
         List<Integer> list1 = Arrays.asList(1, 2, 1, 1, 1, 2);
         List<String> list2 = Arrays.asList("aa", "aa", "bb", "cc");
-        HashMap< ?, Integer> map = freqDict(list2);
+        HashMap<?, Integer> map = freqDict(list2);
         LOGGER.info(map);
     }
 }

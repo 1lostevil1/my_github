@@ -1,6 +1,6 @@
 package hw3.task6;
-public interface StockMarketInterface {
 
+public interface StockMarketInterface {
 
     void add(Stock stock);
 

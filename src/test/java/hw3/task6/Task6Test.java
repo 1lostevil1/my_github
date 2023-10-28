@@ -1,4 +1,5 @@
 package hw3.task6;
+
 import hw3.task6.Task6;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -20,9 +21,9 @@ class Task6Test {
     void basicTest() {
 
         StockMarket market = new StockMarket();
-       Stock stock1 =  new Stock(10000);
+        Stock stock1 = new Stock(10000);
         Stock stock2 = new Stock(5);
-        Stock stock3 =  new Stock(123);
+        Stock stock3 = new Stock(123);
         Stock stock4 = new Stock(46000);
         Stock stock5 = new Stock(2000);
         market.add(stock1);
