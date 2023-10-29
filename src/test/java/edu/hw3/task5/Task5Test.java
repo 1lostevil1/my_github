@@ -13,9 +13,9 @@ class Task5Test {
     @DisplayName("Тест 1")
     void parseContacts1() {
         Task5 task = new Task5();
-        List<String> list = Arrays.asList("John Locke", "Thomas Aquinas", "David Hume", "Rene Descartes");
+        List<String> list = Arrays.asList("John Locke", "Aquinas", "David Hume", "Rene Descartes");
         String actual = task.parseContacts(list, "ASC").toString();
-        String expected = "[Thomas Aquinas, Rene Descartes, David Hume, John Locke]";
+        String expected = "[Aquinas, Rene Descartes, David Hume, John Locke]";
         assertEquals(expected, actual);
     }
 
@@ -23,9 +23,9 @@ class Task5Test {
     @DisplayName("Тест 2")
     void parseContacts2() {
         Task5 task = new Task5();
-        List<String> list = Arrays.asList("Paul Erdos", "Leonhard ", "Carl Gauss");
+        List<String> list = Arrays.asList("Paul Erdos", "Leonhard", "Carl Gauss");
         String actual = task.parseContacts(list, "DESC").toString();
-        String expected = "[Carl Gauss,Paul Erdos, Aaonhard ]";
+        String expected = "[Leonhard, Carl Gauss, Paul Erdos]";
         assertEquals(expected, actual);
     }
 
