@@ -1,6 +1,6 @@
-package edu.hw3;
+package edu.hw3.task2;
 
-import edu.hw3.Task2;
+import edu.hw3.task2.Task2;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -40,3 +40,4 @@ class Task2Test {
         assertEquals(expected, actual);
     }
 }
+
