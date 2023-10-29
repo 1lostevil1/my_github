@@ -1,4 +1,4 @@
-package hw3.task4;
+package hw3.Task4;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -7,18 +7,18 @@ import java.util.List;
 
 public class RomanMap {
 
-    private final static Integer[] KeyArray = {1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1};
-    private final static String[] ValArray = {"M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"};
+    private final static Integer[] KEY = {1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1};
+    private final static String[] VAL = {"M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"};
     public static HashMap<Integer, String> map;
     public static List<Integer> list;
 
     public RomanMap() {
         map = new HashMap<>();
         list = new ArrayList<>();
-        Collections.addAll(list, KeyArray);
-        int val = KeyArray.length;
+        Collections.addAll(list, KEY);
+        int val = KEY.length;
         for (int i = 0; i < val; i++) {
-            map.put(list.get(i), ValArray[i]);
+            map.put(list.get(i), VAL[i]);
         }
     }
 }

@@ -1,24 +1,26 @@
 package hw3;
 
-import org.apache.logging.log4j.LogManager;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Arrays;
+import org.apache.logging.log4j.LogManager;
+import java.util.List;
+
+@SuppressWarnings("uncommentedmain")
 
 public class Task3 {
     private Task3() {
     }
 
     public static HashMap<?, Integer> freqDict(List<?> list) {
-        HashMap<Object, Integer> Map = new HashMap<>();
+        HashMap<Object, Integer> map = new HashMap<>();
         for (int i = 0; i < list.size(); ++i) {
-            if (Map.containsKey(list.get(i))) {
-                Map.replace(list.get(i), Map.get(list.get(i)) + 1);
+            if (map.containsKey(list.get(i))) {
+                map.replace(list.get(i), map.get(list.get(i)) + 1);
             } else {
-                Map.put(list.get(i), 1);
+                map.put(list.get(i), 1);
             }
         }
-        return Map;
+        return map;
     }
 
     private final static org.apache.logging.log4j.Logger LOGGER = LogManager.getLogger();

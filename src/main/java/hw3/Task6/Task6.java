@@ -1,8 +1,9 @@
-package hw3.task6;
+package hw3.Task6;
 
-import hw3.task6.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+@SuppressWarnings("uncommentedmain")
 
 public class Task6 {
 
@@ -14,11 +15,9 @@ public class Task6 {
     public static void main(String[] args) {
 
         StockMarket market = new StockMarket();
-        market.add(new Stock(10000));
-        market.add(new Stock(2000));
-        market.add(new Stock(3000));
-        market.add(new Stock(46000));
-        market.add(new Stock(5000));
+        for( int i = 0; i < 5; i++){
+            market.add(new Stock(i*5000));
+        }
         LOGGER.info(market.mostValuableStock().get());
 
     }
