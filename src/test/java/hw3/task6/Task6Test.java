@@ -1,4 +1,4 @@
-package hw3.Task6;
+package hw3.task6;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

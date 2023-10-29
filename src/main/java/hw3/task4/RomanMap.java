@@ -1,4 +1,4 @@
-package hw3.Task4;
+package hw3.task4;
 
 import java.util.ArrayList;
 import java.util.Collections;

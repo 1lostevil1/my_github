@@ -1,11 +1,11 @@
-package hw3.Task6;
+package hw3.task6;
 
 import java.util.Random;
 
 public class Stock implements Comparable<Stock> {
 
     private Integer price;
-    private Integer MAXPRICE = 5000;
+    private final static Integer maxprice = 5000;
 
     public Stock(Integer price) {
         this.price = price;
@@ -13,7 +13,7 @@ public class Stock implements Comparable<Stock> {
 
     public Stock() {
         Random rnd = new Random();
-        price = rnd.nextInt(MAXPRICE) + 1;
+        price = rnd.nextInt(maxprice) + 1;
     }
 
     public Integer get() {

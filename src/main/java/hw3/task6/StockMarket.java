@@ -1,4 +1,4 @@
-package hw3.Task6;
+package hw3.task6;
 
 import java.util.PriorityQueue;
 

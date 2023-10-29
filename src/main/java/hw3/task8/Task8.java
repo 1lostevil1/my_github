@@ -1,6 +1,8 @@
-package hw3.Task8;
+package hw3.task8;
 
 import java.util.List;
+
+@SuppressWarnings("uncommentedmain")
 
 public class Task8 {
     private Task8() {

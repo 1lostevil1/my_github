@@ -1,4 +1,4 @@
-package hw3.Task1;
+package hw3.task1;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -12,17 +12,17 @@ public class Task1 {
     public Task1() {
     }
 
-    public static String atbash(String object) {
+    public static String atbash(String o) {
         AlphabetMap alphabet = new AlphabetMap();
-        char[] tmp = object.toCharArray();
-        int len = object.length();
+        char[] tmp = o.toCharArray();
+        int len = o.length();
         for (int i = 0; i < len; i++) {
             if ((tmp[i] >= 'a' && tmp[i] <= 'z') || (tmp[i] >= 'A' && tmp[i] <= 'Z')) {
                 tmp[i] = alphabet.alphabet.get(tmp[i]);
             }
         }
-        object = String.copyValueOf(tmp);
-        return object;
+        o = String.copyValueOf(tmp);
+        return o;
     }
 
     public static void main(String[] args) {
