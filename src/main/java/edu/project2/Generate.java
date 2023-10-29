@@ -89,7 +89,7 @@ public class Generate {
     }
 
     public void removeWall(Cell first, Cell second) {
-        int xDiff = second.x - first.y;
+        int xDiff = second.x - first.x;
         int yDiff = second.y - first.y;
         int addX, addY;
 
