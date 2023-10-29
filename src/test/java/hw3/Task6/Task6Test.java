@@ -1,6 +1,5 @@
-package hw3.task6;
+package hw3.Task6;
 
-import hw3.task6.Task6;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
