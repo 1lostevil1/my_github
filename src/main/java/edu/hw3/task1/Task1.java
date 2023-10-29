@@ -9,20 +9,19 @@ public class Task1 {
 
     private final static Logger LOGGER = LogManager.getLogger();
 
-    public Task1() {
+    private Task1() {
     }
 
-    public static String atbash(String o) {
-        AlphabetMap alphabet = new AlphabetMap();
-        char[] tmp = o.toCharArray();
-        int len = o.length();
+    public static String atbash(String str) {
+
+        char[] tmp = str.toCharArray();
+        int len = str.length();
         for (int i = 0; i < len; i++) {
             if ((tmp[i] >= 'a' && tmp[i] <= 'z') || (tmp[i] >= 'A' && tmp[i] <= 'Z')) {
-                tmp[i] = alphabet.alphabet.get(tmp[i]);
+                tmp[i] = AlphabetMap.alphabet.get(tmp[i]);
             }
         }
-        o = String.copyValueOf(tmp);
-        return o;
+        return String.copyValueOf(tmp, 0, tmp.length);
     }
 
     public static void main(String[] args) {

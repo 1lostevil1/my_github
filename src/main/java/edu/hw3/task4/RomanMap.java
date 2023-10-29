@@ -5,14 +5,16 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
-public class RomanMap {
 
-    private final static Integer[] KEY = {1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1};
-    private final static String[] VAL = {"M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"};
+
+public abstract class RomanMap {
+
     public static HashMap<Integer, String> map;
     public static List<Integer> list;
 
     public RomanMap() {
+         final Integer[] KEY = {1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1};
+         final String[] VAL = {"M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"};
         map = new HashMap<>();
         list = new ArrayList<>();
         Collections.addAll(list, KEY);
