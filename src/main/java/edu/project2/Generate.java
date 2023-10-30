@@ -6,21 +6,30 @@ import java.util.Stack;
 
 public class Generate {
 
-    public class Cell {
-        private int x, y;
-        private boolean isWall, isVisited;
+    public static class Cell {
+        private final int x, y;
+        private boolean isWall, isVisited, isWay;
 
-        Cell(int x, int y, boolean isWall, boolean isVisited) {
+        Cell(int x, int y, boolean isWall, boolean isVisited, boolean isWay) {
             this.x = x;
             this.y = y;
             this.isWall = isWall;
             this.isVisited = isVisited;
+            this.isWay = isWay;
         }
 
-        public boolean isWall() {
-            return isWall;
-        }
     }
+public void print(){
+    for (int i = 0; i < SIZE; i++) {
+        for (int j = 0; j < SIZE; j++) {
+            if (mazeMatrix[i][j].isWall)  System.out.print("[]") ;
+            if (mazeMatrix[i][j].isWay) System.out.print("* ");
+                else if (!mazeMatrix[i][j].isWall) System.out.print("  ");
+        }
+        System.out.println();
+    }
+
+}
 
     private static Cell[][] mazeMatrix;
 
@@ -47,6 +56,22 @@ public class Generate {
 
         }
 
+        public void notIgnoreWallBetween(Cell val) {
+            Cell currentCell = val;
+            for(int i =0; i<NeighboursList.size();i++) {
+                currentCell = NeighboursList.get(i);
+                int xDiff = val.x - currentCell.x;
+                int yDiff = val.y - currentCell.y;
+                int addX, addY;
+
+                addX = (xDiff != 0) ? (xDiff / Math.abs(xDiff)) : 0;
+                addY = (yDiff != 0) ? (yDiff / Math.abs(yDiff)) : 0;
+
+                if (mazeMatrix[val.x + addX][val.y + addY].isWall) NeighboursList.remove(i);
+            }
+            size = NeighboursList.size();
+        }
+
         public List<Cell> getNeighbours(Cell c) {
             int x = c.x;
             int y = c.y;
@@ -71,18 +96,15 @@ public class Generate {
         }
     }
 
-    public void add(Cell value) {
-        CoordStack.add(value);
-    }
 
     public void maze() {
         for (int i = 0; i < SIZE; i++) {
             for (int j = 0; j < SIZE; j++) {
                 if ((j % 2 != 0 && i % 2 != 0) &&
                     (i < SIZE - 1 && j < SIZE - 1)) {
-                    mazeMatrix[i][j] = new Cell(i, j, false, false);
+                    mazeMatrix[i][j] = new Cell(i, j, false, false,false);
                 } else {
-                    mazeMatrix[i][j] = new Cell(i, j, true, false);
+                    mazeMatrix[i][j] = new Cell(i, j, true, false,false);
                 }
             }
         }
@@ -100,33 +122,59 @@ public class Generate {
         mazeMatrix[first.x + addX][first.y + addY].isVisited = true;
     }
 
+
+
     public int unvisitedCount() {
         int count = 0;
         for (int i = 0; i < SIZE; i++) {
             for (int j = 0; j < SIZE; j++) {
-                if (mazeMatrix[i][j].isVisited == false && !mazeMatrix[i][j].isWall)
+                if (!mazeMatrix[i][j].isVisited  && !mazeMatrix[i][j].isWall)
                     count++;
             }
         }
         return count;
     }
 
-    public ArrayList<Cell> unvisitedList() {
-        ArrayList<Cell> list = new ArrayList<>();
-        for (int i = 0; i < SIZE; i++) {
-            for (int j = 0; j < SIZE; j++) {
-                if (mazeMatrix[i][j].isVisited == false && !mazeMatrix[i][j].isWall)
-                    list.add(mazeMatrix[i][j]);
+    public void makeUnvisited(){
+        for(int i =0; i< SIZE;i++){
+            for(int j = 0; j< SIZE; j++){
+                if(mazeMatrix[i][j].isVisited) mazeMatrix[i][j].isVisited=false;
             }
         }
-        return list;
     }
+
+    public void wayFound(Cell start, Cell finish){
+        mazeMatrix[start.x][start.y].isVisited = true;
+        mazeMatrix[start.x][start.y].isWay = true;
+        CoordStack.clear();
+        CoordStack.push(start);
+        Cell currentCell = start;
+        Cell neighbourCell;
+        while(currentCell.x != finish.x || currentCell.y != finish.y){
+            Neighbours Neighbours = new Neighbours(currentCell);
+            Neighbours.notIgnoreWallBetween(currentCell);
+            if (Neighbours.size != 0) {
+                Random random = new Random();
+                int randNum = random.nextInt(0, Neighbours.size );
+                neighbourCell = Neighbours.NeighboursList.get(randNum);
+                CoordStack.push(currentCell);
+                currentCell = neighbourCell;
+                mazeMatrix[ currentCell.x][ currentCell.y].isVisited = true;
+                mazeMatrix[ currentCell.x][ currentCell.y].isWay = true;
+            } else if (CoordStack.size() > 0) {
+                mazeMatrix[CoordStack.peek().x][CoordStack.peek().y].isWay = false;
+                CoordStack.pop();
+                currentCell =  mazeMatrix[CoordStack.peek().x][CoordStack.peek().y];
+            }
+
+        }
+    }
+
     public void GEN3000() {
         mazeMatrix[1][1].isVisited = true;
         Cell startCell = mazeMatrix[1][1];
         Cell currentCell = startCell;
-        Cell neighbourCell = new Cell(0,0,false,false);
-        ArrayList<Cell> UnvisitedList = new ArrayList<>();
+        Cell neighbourCell;
         do {
             Neighbours Neighbours = new Neighbours(currentCell);
             if (Neighbours.size != 0) {  //если у клетки есть непосещенные соседи
@@ -138,7 +186,7 @@ public class Generate {
                 currentCell = neighbourCell; //делаем соседнюю точку текущей и отмечаем ее посещенной
                 mazeMatrix[ currentCell.x][ currentCell.y].isVisited = true;
             } else if (CoordStack.size() > 0) {
-                mazeMatrix[CoordStack.peek().x][CoordStack.peek().y].isVisited = true;//если нет соседей, возвращаемся на предыдущую точку
+                                    //если нет соседей, возвращаемся на предыдущую точку
                 CoordStack.pop();
                 currentCell =  mazeMatrix[CoordStack.peek().x][CoordStack.peek().y];
             }
