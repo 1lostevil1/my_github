@@ -46,17 +46,17 @@ public void print(){
         return mazeMatrix;
     }
 
-    private class Neighbours {
+    public static class Neighbours {
         private static int size;
         public List<Cell> NeighboursList;
 
         public Neighbours(Cell c) {
-            this.NeighboursList = new ArrayList<Cell>();
+            this.NeighboursList = new ArrayList<>();
             this.NeighboursList = getNeighbours(c);
 
         }
 
-        public void notIgnoreWallBetween(Cell val) {
+        /*public void notIgnoreWallBetween(Cell val) {
             Cell currentCell = val;
             for(int i =0; i<NeighboursList.size();i++) {
                 currentCell = NeighboursList.get(i);
@@ -72,13 +72,15 @@ public void print(){
             size = NeighboursList.size();
         }
 
+         */
+
         public List<Cell> getNeighbours(Cell c) {
             int x = c.x;
             int y = c.y;
-            Cell up = (y<SIZE-2 ? mazeMatrix[x][y + 2]: mazeMatrix[x][y]);
-            Cell dw = (y>1?  mazeMatrix[x][y - 2] :mazeMatrix[x][y]) ;
-            Cell rt = (x<SIZE-2 ? mazeMatrix[x+2][y]: mazeMatrix[x][y]);
-            Cell lt = (x>1?  mazeMatrix[x-2][y] :mazeMatrix[x][y]) ;
+            Cell up = (x>=3 ? mazeMatrix[x-2][y ]: mazeMatrix[x][y]);
+            Cell rt = (y<SIZE-3 ?  mazeMatrix[x][y+2] :mazeMatrix[x][y]) ;
+            Cell dw = (x<SIZE-3 ? mazeMatrix[x+2][y]: mazeMatrix[x][y]);
+            Cell lt = (y>=3?  mazeMatrix[x][y-2] :mazeMatrix[x][y]) ;
             Cell[] neighboursArray = {dw, rt, up, lt};
             List<Cell> neighboursList = new ArrayList<>();
 
@@ -143,7 +145,7 @@ public void print(){
         }
     }
 
-    public void wayFound(Cell start, Cell finish){
+   /* public void wayFound(Cell start, Cell finish){
         mazeMatrix[start.x][start.y].isVisited = true;
         mazeMatrix[start.x][start.y].isWay = true;
         CoordStack.clear();
@@ -170,27 +172,40 @@ public void print(){
         }
     }
 
-    public void GEN3000() {
+    */
+
+    public boolean GEN3000() {
+        maze();
+        Stack<Cell> test = new Stack<>();
         mazeMatrix[1][1].isVisited = true;
         Cell startCell = mazeMatrix[1][1];
         Cell currentCell = startCell;
+        Neighbours neighbours;
         Cell neighbourCell;
+        Random random ;
+        int randNum;
         do {
-            Neighbours Neighbours = new Neighbours(currentCell);
-            if (Neighbours.size != 0) {  //если у клетки есть непосещенные соседи
-                Random random = new Random();
-                int randNum = random.nextInt(0, Neighbours.size );
-                neighbourCell = Neighbours.NeighboursList.get(randNum); //выбираем случайного соседа
-                CoordStack.push(currentCell); //заносим текущую точку в стек
-                removeWall(currentCell, neighbourCell); //убираем стену между текущей и сосендней точками
-                currentCell = neighbourCell; //делаем соседнюю точку текущей и отмечаем ее посещенной
+             neighbours = new Neighbours(currentCell);
+            if (Neighbours.size != 0) {
+                 random = new Random();
+                 randNum = random.nextInt(0, Neighbours.size );
+                neighbourCell = neighbours.NeighboursList.get(randNum);
+                CoordStack.push(currentCell);
+                test.push(neighbourCell);
+                removeWall(currentCell, neighbourCell);
+                currentCell = neighbourCell;
                 mazeMatrix[ currentCell.x][ currentCell.y].isVisited = true;
             } else if (CoordStack.size() > 0) {
-                                    //если нет соседей, возвращаемся на предыдущую точку
                 CoordStack.pop();
+                if(CoordStack.isEmpty()) {
+                    print();
+                    return false;
+                }
                 currentCell =  mazeMatrix[CoordStack.peek().x][CoordStack.peek().y];
             }
 
         } while ( unvisitedCount() > 0);
+        test.clear();
+        return true;
     }
 }

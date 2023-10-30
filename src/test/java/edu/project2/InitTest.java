@@ -7,8 +7,13 @@ import static org.junit.jupiter.api.Assertions.*;
 class InitTest {
 
     @Test
-    @RepeatedTest(50)
+    @RepeatedTest(4000)
     public void someRepeatableTest() {
+        Generate a = new Generate(7);
+        a.maze();
+        boolean expected = true;
+        boolean  actual = a.GEN3000() ;
+        assertEquals(expected, actual);
 
     }
 
