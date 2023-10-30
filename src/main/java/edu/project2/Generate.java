@@ -122,8 +122,8 @@ public class Generate {
         return list;
     }
     public void GEN3000() {
-        mazeMatrix[0][0].isVisited = true;
-        Cell startCell = mazeMatrix[0][0];
+        mazeMatrix[1][1].isVisited = true;
+        Cell startCell = mazeMatrix[1][1];
         Cell currentCell = startCell;
         Cell neighbourCell = new Cell(0,0,false,false);
         ArrayList<Cell> UnvisitedList = new ArrayList<>();
@@ -136,15 +136,11 @@ public class Generate {
                 CoordStack.push(currentCell); //заносим текущую точку в стек
                 removeWall(currentCell, neighbourCell); //убираем стену между текущей и сосендней точками
                 currentCell = neighbourCell; //делаем соседнюю точку текущей и отмечаем ее посещенной
-                mazeMatrix[CoordStack.peek().x][CoordStack.peek().y].isVisited = true;
-            } else if (CoordStack.size() > 0) { //если нет соседей, возвращаемся на предыдущую точку
+                mazeMatrix[ currentCell.x][ currentCell.y].isVisited = true;
+            } else if (CoordStack.size() > 0) {
+                mazeMatrix[CoordStack.peek().x][CoordStack.peek().y].isVisited = true;//если нет соседей, возвращаемся на предыдущую точку
                 CoordStack.pop();
-            } else {    //если нет соседей и точек в стеке, но не все точки посещены, выбираем случайную из непосещенных
-                mazeMatrix[currentCell.x][currentCell.y].isVisited = true;
-                Random random = new Random();
-                 UnvisitedList = unvisitedList();
-                int randNum = random.nextInt(UnvisitedList.size());
-                currentCell = UnvisitedList.get(randNum);
+                currentCell =  mazeMatrix[CoordStack.peek().x][CoordStack.peek().y];
             }
 
         } while ( unvisitedCount() > 0);

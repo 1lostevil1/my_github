@@ -4,7 +4,7 @@ public class Init {
 
 
     public static void main(String[] args) {
-        int size = 5;
+        int size = 101;
         Generate a = new Generate(size);
         a.maze();
         a.GEN3000();
