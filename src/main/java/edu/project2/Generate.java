@@ -8,24 +8,30 @@ public class Generate {
 
     public static class Cell {
         private final int x, y;
-        private boolean isWall, isVisited, isWay;
+        private boolean isWall, isVisited, isWay,isStartOrFinish;
 
-        Cell(int x, int y, boolean isWall, boolean isVisited, boolean isWay) {
+        Cell(int x, int y, boolean isWall, boolean isVisited, boolean isWay, boolean isStartOrFinish) {
             this.x = x;
             this.y = y;
             this.isWall = isWall;
             this.isVisited = isVisited;
             this.isWay = isWay;
+            this.isStartOrFinish = isStartOrFinish;
         }
 
     }
 public void print(){
     String ANSI_RESET = "\u001B[0m";
     String ANSI_RED = "\u001B[31m";
+    String ANSI_GREEN = "\u001B[32m";
     for (int i = 0; i < SIZE; i++) {
         for (int j = 0; j < SIZE; j++) {
             if (mazeMatrix[i][j].isWall)  System.out.print("[=]") ;
-            if (mazeMatrix[i][j].isWay) System.out.print(ANSI_RED+ " * " + ANSI_RESET);
+            if (mazeMatrix[i][j].isWay) {
+                if(mazeMatrix[i][j].isStartOrFinish)
+                    System.out.print(ANSI_GREEN+ "!!!" + ANSI_RESET);
+                else  System.out.print(ANSI_RED+ " * " + ANSI_RESET);
+            }
                 else if (!mazeMatrix[i][j].isWall) System.out.print("   ");
         }
         System.out.println();
@@ -109,9 +115,9 @@ public void print(){
             for (int j = 0; j < SIZE; j++) {
                 if ((j % 2 != 0 && i % 2 != 0) &&
                     (i < SIZE - 1 && j < SIZE - 1)) {
-                    mazeMatrix[i][j] = new Cell(i, j, false, false,false);
+                    mazeMatrix[i][j] = new Cell(i, j, false, false,false,false);
                 } else {
-                    mazeMatrix[i][j] = new Cell(i, j, true, false,false);
+                    mazeMatrix[i][j] = new Cell(i, j, true, false,false,false);
                 }
             }
         }
@@ -151,8 +157,11 @@ public void print(){
     }
 
     public void wayFound(Cell start, Cell finish){
+        makeUnvisited();
         mazeMatrix[start.x][start.y].isVisited = true;
         mazeMatrix[start.x][start.y].isWay = true;
+        mazeMatrix[start.x][start.y].isStartOrFinish = true;
+        mazeMatrix[finish.x][finish.y].isStartOrFinish = true;
         CoordStack.clear();
         Random random;
         int randNum;
