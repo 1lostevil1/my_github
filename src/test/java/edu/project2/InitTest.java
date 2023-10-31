@@ -9,7 +9,7 @@ class InitTest {
     @Test
     @RepeatedTest(4000)
     public void someRepeatableTest() {
-        Generate a = new Generate(7);
+        Generate a = new Generate(11);
         a.maze();
         boolean expected = true;
         boolean  actual = a.GEN3000() ;
