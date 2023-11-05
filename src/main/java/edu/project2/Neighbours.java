@@ -15,7 +15,8 @@ public class Neighbours {
 
     public static void notIgnoreWallBetween(Cell val) {
         Cell currentCell;
-        for (int i = 0; i < neighboursList.size(); i++) {
+        int i = 0;
+        while (i < neighboursList.size()) {
             currentCell = neighboursList.get(i);
             int xDiff = currentCell.x - val.x;
             int yDiff = currentCell.y - val.y;
@@ -29,6 +30,7 @@ public class Neighbours {
                 neighboursList.remove(i);
                 i--;
             }
+            i++;
         }
         size = neighboursList.size();
     }
@@ -44,22 +46,22 @@ public class Neighbours {
         Cell dw = (x < Generate.size - THREE ? Generate.mazeMatrix[x + TWO][y] : Generate.mazeMatrix[x][y]);
         Cell lt = (y >= THREE ? Generate.mazeMatrix[x][y - TWO] : Generate.mazeMatrix[x][y]);
         Cell[] neighboursArray = {dw, rt, up, lt};
-        List<Cell> neighboursList = new ArrayList<>();
+        List<Cell> tmpneighboursList = new ArrayList<>();
 
         for (int i = 0; i < FOUR; i++) {
             if (neighboursArray[i] != Generate.mazeMatrix[x][y]
                 && neighboursArray[i].x > 0
                 && neighboursArray[i].x < Generate.size
-                && neighboursArray[i].y > 0 &&
-                neighboursArray[i].y < Generate.size) { //если не выходит за границы лабиринта
+                && neighboursArray[i].y > 0
+                && neighboursArray[i].y < Generate.size) { //если не выходит за границы лабиринта
                 if (!neighboursArray[i].isWall
                     && !neighboursArray[i].isVisited) { //и не посещена\является стеной
-                    neighboursList.add(neighboursArray[i]);
+                    tmpneighboursList.add(neighboursArray[i]);
                 }
             }
         }
-        size = neighboursList.size();
-        return neighboursList;
+        size = tmpneighboursList.size();
+        return tmpneighboursList;
 
     }
 }
