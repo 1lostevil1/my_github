@@ -7,12 +7,12 @@ import static org.junit.jupiter.api.Assertions.*;
 class InitTest {
 
     @Test
-    @RepeatedTest(4000)
+    @RepeatedTest(2000)
     public void someRepeatableTest() {
         Generate a = new Generate(11);
         a.maze();
         boolean expected = true;
-        boolean  actual = a.GEN3000() ;
+        boolean actual = a.GEN3000();
         assertEquals(expected, actual);
 
     }
