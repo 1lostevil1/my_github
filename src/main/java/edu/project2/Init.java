@@ -2,14 +2,20 @@ package edu.project2;
 
 import java.util.Random;
 
+@SuppressWarnings("uncommentedmain")
+
 public class Init {
+
+    private Init() {
+    }
+
     public static void main(String[] args) {
-        int size = 101;
-        Generate a = new Generate(size);
-        a.GEN3000();
+        final int SIZE = 101;
+        Generate a = new Generate(SIZE);
+        a.gen3000();
         Random random = new Random();
-        int rand1 = random.nextInt(1, size - 2);
-        int rand2 = random.nextInt(1, size - 2);
+        int rand1 = random.nextInt(1, SIZE - 2);
+        int rand2 = random.nextInt(1, SIZE - 2);
         if (rand1 % 2 == 0) {
             rand1++;
         }

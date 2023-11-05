@@ -12,7 +12,7 @@ class InitTest {
         Generate a = new Generate(11);
         a.maze();
         boolean expected = true;
-        boolean actual = a.GEN3000();
+        boolean actual = a.gen3000();
         assertEquals(expected, actual);
 
     }

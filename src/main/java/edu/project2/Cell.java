@@ -1,8 +1,12 @@
 package edu.project2;
 
 public class Cell {
-    public final int x, y;
-    public boolean isWall, isVisited, isWay, isStartOrFinish;
+    public final int x;
+    public final int y;
+    public boolean isWall;
+    public boolean isVisited;
+    public boolean  isWay;
+    public boolean isStartOrFinish;
 
     Cell(int x, int y, boolean isWall, boolean isVisited, boolean isWay, boolean isStartOrFinish) {
         this.x = x;
