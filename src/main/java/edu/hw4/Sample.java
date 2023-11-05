@@ -7,33 +7,33 @@ import java.util.List;
 public class Sample {
     protected final List<List<Animal>> megaUserList;
     protected final List<Animal> userList = Arrays.asList(
-        new Animal("Барсик", Animal.Type.CAT, Animal.Sex.M, 10, 20, 5, true),
-        new Animal("Дима", Animal.Type.DOG, Animal.Sex.M, 7, 40, 10, true),
-        new Animal("Чижик D", Animal.Type.BIRD, Animal.Sex.F, 2, 10, 1, false),
-        new Animal("Вася", Animal.Type.FISH, Animal.Sex.F, 3, 5, 1, false),
+        new Animal("MrБарсик", Animal.Type.CAT, Animal.Sex.M, 10, 20, 5, true),
+        new Animal("Кругль", Animal.Type.DOG, Animal.Sex.M, 7, 40, 10, true),
+        new Animal("Чижик ", Animal.Type.BIRD, Animal.Sex.F, 2, 10, 1, false),
+        new Animal("Капрыч", Animal.Type.FISH, Animal.Sex.F, 3, 5, 1, false),
         new Animal("Гена", Animal.Type.SPIDER, Animal.Sex.M, 77, 20, 2, true),
-        new Animal("Саша", Animal.Type.CAT, Animal.Sex.M, 18, 170, 60, true),
-        new Animal("Миша", Animal.Type.DOG, Animal.Sex.M, 10, 50, 6, true),
-        new Animal("Леха", Animal.Type.SPIDER, Animal.Sex.F, 7, 20, 3, true)
+        new Animal("Саня", Animal.Type.CAT, Animal.Sex.M, 18, 170, 60, true),
+        new Animal("Барон", Animal.Type.DOG, Animal.Sex.M, 10, 50, 6, true),
+        new Animal("Питер", Animal.Type.SPIDER, Animal.Sex.F, 7, 20, 3, true)
 
     );
 
     protected final List<Animal> userList2 = Arrays.asList(
         new Animal("Кентик", Animal.Type.CAT, Animal.Sex.F, 101, 23, 3, true),
         new Animal("Крутыш", Animal.Type.DOG, Animal.Sex.F, 73, 30, 16, true),
-        new Animal("Бублик", Animal.Type.BIRD, Animal.Sex.M, 22, 50, 5, false),
-        new Animal("Вася Петя", Animal.Type.FISH, Animal.Sex.M, 5, 25, 2, false),
+        new Animal("Бубль", Animal.Type.BIRD, Animal.Sex.M, 22, 50, 5, false),
+        new Animal("Глупи", Animal.Type.FISH, Animal.Sex.M, 5, 25, 2, false),
         new Animal("Генадий", Animal.Type.SPIDER, Animal.Sex.F, 3, 10, 3, true),
-        new Animal("Сашок", Animal.Type.CAT, Animal.Sex.F, 1, 10, 67, true),
-        new Animal("Мишутка", Animal.Type.DOG, Animal.Sex.F, 15, 40, 9, true)
+        new Animal("Мурзик", Animal.Type.CAT, Animal.Sex.F, 1, 10, 67, true),
+        new Animal("Кира", Animal.Type.DOG, Animal.Sex.F, 15, 40, 9, true)
     );
 
     protected final List<Animal> brokenList = Arrays.asList(
         new Animal("", Animal.Type.CAT, Animal.Sex.F, 101, 23, 3, true),
-        new Animal("Куча", Animal.Type.DOG, Animal.Sex.F, 73, 30, 16, true),
+        new Animal("Собака", Animal.Type.DOG, Animal.Sex.F, 73, 30, 16, true),
         new Animal("Бубликс", null, Animal.Sex.M, -22, 50, 5, false),
-        new Animal("Вася Петя и Катя", Animal.Type.FISH, Animal.Sex.F, 5, 25, 2, false),
-        new Animal("Генадиенко", Animal.Type.SPIDER, Animal.Sex.F, 10, 10, 3, true),
+        new Animal("Рыба", Animal.Type.FISH, Animal.Sex.F, 5, 25, 2, false),
+        new Animal("Лапыч", Animal.Type.SPIDER, Animal.Sex.F, 10, 10, 3, true),
         new Animal("Сашкент", Animal.Type.CAT, Animal.Sex.F, 1, 10, 67, true),
         new Animal("Медведь", Animal.Type.DOG, Animal.Sex.F, 15, 40, 9, true)
     );
