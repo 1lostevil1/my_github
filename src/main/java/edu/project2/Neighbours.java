@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Neighbours {
-    public static int size;
-    public static List<Cell> neighboursList;
+    public  int size;
+    public  List<Cell> neighboursList;
 
     public Neighbours(Cell c) {
         this.neighboursList = new ArrayList<>();
@@ -13,7 +13,7 @@ public class Neighbours {
 
     }
 
-    public static void notIgnoreWallBetween(Cell val) {
+    public  void notIgnoreWallBetween(Cell val) {
         Cell currentCell;
         int i = 0;
         while (i < neighboursList.size()) {

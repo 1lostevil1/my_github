@@ -20,9 +20,9 @@ public class Generate {
     }
 
     public void print() {
-        String ansiReset = "\u001B[0m";
-        String ansiRed = "\u001B[31m";
-        String ansiGreen = "\u001B[32m";
+        String reset = "\u001B[0m";
+        String red = "\u001B[31m";
+        String green = "\u001B[32m";
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 if (mazeMatrix[i][j].isWall) {
@@ -30,9 +30,9 @@ public class Generate {
                 }
                 if (mazeMatrix[i][j].isWay) {
                     if (mazeMatrix[i][j].isStartOrFinish) {
-                        System.out.print(ansiGreen + "!!!" + ansiRed);
+                        System.out.print(green + "!!!" + reset);
                     } else {
-                        System.out.print(ansiGreen + " * " + ansiReset);
+                        System.out.print(red + " * " + reset);
                     }
                 } else if (!mazeMatrix[i][j].isWall) {
                     System.out.print("   ");
@@ -40,7 +40,6 @@ public class Generate {
             }
             System.out.println();
         }
-
     }
 
     public void maze() {
@@ -111,7 +110,12 @@ public class Generate {
         }
     }
 
-    public void wayFound(Cell start, Cell finish) {
+    public void wayFound(Cell start, Cell finish) throws Exception  {
+
+        if (mazeMatrix[start.x][start.y].isWall || mazeMatrix[finish.x][finish.y].isWall) {
+            throw new Exception("!!CELL IS WALL!!");
+        }
+
         makeUnvisited();
         mazeMatrix[start.x][start.y].isVisited = true;
         mazeMatrix[start.x][start.y].isWay = true;
@@ -120,15 +124,16 @@ public class Generate {
         coordStack.clear();
         Random random;
         int randNum;
+        Neighbours neighbours;
         coordStack.push(start);
         Cell currentCell = start;
         Cell neighbourCell;
         while (currentCell.x != finish.x || currentCell.y != finish.y) {
-            Neighbours neighbours = new Neighbours(currentCell);
-            Neighbours.notIgnoreWallBetween(currentCell);
-            if (Neighbours.size != 0) {
+            neighbours = new Neighbours(currentCell);
+            neighbours.notIgnoreWallBetween(currentCell);
+            if (neighbours.size != 0) {
                 random = new Random();
-                randNum = random.nextInt(0, Neighbours.size);
+                randNum = random.nextInt(0, neighbours.size);
                 neighbourCell = neighbours.neighboursList.get(randNum);
                 coordStack.push(neighbourCell);
                 makeWay(currentCell, neighbourCell, false);
@@ -142,6 +147,7 @@ public class Generate {
             }
 
         }
+
     }
 
     public boolean gen3000() {
@@ -156,9 +162,9 @@ public class Generate {
         int randNum;
         do {
             neighbours = new Neighbours(currentCell);
-            if (Neighbours.size != 0) {
+            if (neighbours.size != 0) {
                 random = new Random();
-                randNum = random.nextInt(0, Neighbours.size);
+                randNum = random.nextInt(0, neighbours.size);
                 neighbourCell = neighbours.neighboursList.get(randNum);
                 coordStack.push(neighbourCell);
                 removeWall(currentCell, neighbourCell);
@@ -169,7 +175,6 @@ public class Generate {
                 if (coordStack.isEmpty()) {
                     print();
                     return false;
-
                 }
                 currentCell = mazeMatrix[coordStack.peek().x][coordStack.peek().y];
             }
