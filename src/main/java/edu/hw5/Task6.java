@@ -5,12 +5,14 @@ import java.util.regex.Pattern;
 
 public class Task6 {
 
-    private Task6(){
+    private Task6() {
     }
 
     public static boolean isSubsequence(String subsequence, String str) {
-        if(subsequence!= null && str!=null ) {
-            if(subsequence.equals("")) return true;
+        if (subsequence != null && str != null) {
+            if (subsequence.equals("")) {
+                return true;
+            }
             String[] subsequents = subsequence.split("");
             StringBuilder pattern = new StringBuilder();
             for (String i : subsequents) {

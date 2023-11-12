@@ -5,7 +5,7 @@ import java.util.regex.Pattern;
 
 public class Task7 {
 
-    private Task7(){
+    private Task7() {
     }
 
     //содержит не менее 3 символов, причем третий символ равен 0
@@ -17,10 +17,14 @@ public class Task7 {
     //длина не менее 1 и не более 3
     public static final Pattern THIRD_PATTERN = Pattern.compile("^[01]{1,3}$");
 
-    public static boolean isValidString(String str, Pattern pattern){
-        if(str == null) return false;
+    public static boolean isValidString(String str, Pattern pattern) {
+        if (str == null) {
+            return false;
+        }
         Matcher matcher = pattern.matcher(str);
-        if(matcher.find()) return true;
+        if (matcher.find()) {
+            return true;
+        }
         return false;
     }
 }

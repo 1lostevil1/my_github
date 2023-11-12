@@ -23,6 +23,7 @@ class Task4Test {
         boolean actual = Task4.isPassword("abcde");
         assertFalse(actual);
     }
+
     @Test
     @DisplayName("Пустой пароль")
     void isEmpty() {
