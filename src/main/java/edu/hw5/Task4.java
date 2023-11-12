@@ -8,11 +8,11 @@ public class Task4 {
 private Task4(){
 }
 
-public static final Pattern PATTERN = Pattern.compile("[~ ! @ # $ % ^ & * |]");
+public static final Pattern PASSWORD_PATTERN = Pattern.compile("[~ ! @ # $ % ^ & * |]");
 
 public static boolean isPassword(String password){
     if(password == null) return false;
-    Matcher matcher = PATTERN.matcher(password);
+    Matcher matcher = PASSWORD_PATTERN.matcher(password);
     if(matcher.find()) return true;
     return false;
 }

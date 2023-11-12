@@ -23,11 +23,17 @@ class Task4Test {
         boolean actual = Task4.isPassword("abcde");
         assertFalse(actual);
     }
+    @Test
+    @DisplayName("Пустой пароль")
+    void isEmpty() {
+        boolean actual = Task4.isPassword("");
+        assertFalse(actual);
+    }
 
     @Test
-    @DisplayName("Пароль пуст")
+    @DisplayName("Пароль null")
     void isNull() {
-        boolean actual = Task4.isPassword("");
+        boolean actual = Task4.isPassword(null);
         assertFalse(actual);
     }
 
