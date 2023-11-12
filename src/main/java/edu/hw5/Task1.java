@@ -12,14 +12,16 @@ import java.util.regex.Pattern;
 
 public class Task1 {
 
-    private Task1(){
+    private Task1() {
     }
 
-    final static int SECOND_DATE = 5;
+    final static int SECOND_DATE = 6;
+    final static int SECOND_TIME = 9;
     final static int FIRST_DATE = 1;
-    public static final Pattern DATA_PATTERN = Pattern.compile("^(\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2]\\d|3[0-1]),"
-        + " ([0-1]\\d|2[0-4]):[0-5]\\d) - (\\d{4}-(0[1-9]|1[0-2])"
-        + "-(0[1-9]|[1-2]\\d|3[0-1]), ([0-1]\\d|2[0-4]):[0-5]\\d)$");
+    final static int FIRST_TIME = 4;
+    public static final Pattern DATA_PATTERN = Pattern.compile("^(\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2]\\d|3[0-1])),"
+        + " (([0-1]\\d|2[0-4]):[0-5]\\d) - (\\d{4}-(0[1-9]|1[0-2])"
+        + "-(0[1-9]|[1-2]\\d|3[0-1])), (([0-1]\\d|2[0-4]):[0-5]\\d)$");
 
     public static Duration getDuration(List<String> baseTime) {
         int sessionCount = 0;
@@ -32,10 +34,14 @@ public class Task1 {
 
             if (matcher.find()) {
                 try {
-                    String[] First = (matcher.group(FIRST_DATE)).split(", ");
-                    String[] Second = (matcher.group(SECOND_DATE)).split(", ");
-                    LocalDateTime FirstDateTime = LocalDateTime.of( LocalDate.parse(First[0]), LocalTime.parse(First[1]));
-                    LocalDateTime SecondDateTime = LocalDateTime.of( LocalDate.parse(Second[0]), LocalTime.parse(Second[1]));
+                    LocalDateTime FirstDateTime = LocalDateTime.of(
+                        LocalDate.parse(matcher.group(FIRST_DATE)),
+                        LocalTime.parse(matcher.group(FIRST_TIME))
+                    );
+                    LocalDateTime SecondDateTime = LocalDateTime.of(
+                        LocalDate.parse(matcher.group(SECOND_DATE)),
+                        LocalTime.parse(matcher.group(SECOND_TIME))
+                    );
                     fullDuration += (int) Duration.between(FirstDateTime, SecondDateTime).getSeconds();
                     ++sessionCount;
                 } catch (DateTimeParseException e) {
@@ -49,16 +55,14 @@ public class Task1 {
         return Duration.ofSeconds((long) fullDuration / sessionCount);
     }
 
+    public static void main(String[] args) {
 
+        List<String> list = List.of(
+            "2022-03-12, 20:20 - 2022-03-12, 23:50",
+            "2022-04-01, 21:30 - 2022-04-02, 01:20"
+        );
 
-    public static  void main(String[] args){
-
-    List<String> list = List.of(
-        "2022-03-12, 20:20 - 2022-03-12, 23:50",
-        "2022-04-01, 21:30 - 2022-04-02, 01:20"
-    );
-
-   Duration a = getDuration(list);
-   System.out.println(a);
+        Duration a = getDuration(list);
+        System.out.println(a);
     }
 }
