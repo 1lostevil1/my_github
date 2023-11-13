@@ -25,10 +25,10 @@ public class Task2 {
     }
 
     public static LocalDate closestFriday13(LocalDate date) {
-        List<LocalDate> Fridays = collectFriday13(date.getYear());
-        for (LocalDate Date : Fridays) {
-            if (Date.isAfter(date)) {
-                return Date;
+        List<LocalDate> fridays = collectFriday13(date.getYear());
+        for (LocalDate localdate : fridays) {
+            if (localdate.isAfter(date)) {
+                return localdate;
             }
         }
 
