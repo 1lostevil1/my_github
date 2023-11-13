@@ -5,21 +5,23 @@ import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+@SuppressWarnings("uncommentedmain")
+
 public class Task3 {
 
     private Task3() {
     }
 
-    private final static Pattern DATE_PATTERN = Pattern.compile("^((\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2]\\d|3[0-1]))|" +
-        "(\\d{4}-(0[1-9]|1[0-2])-([1-9]|[1-2]\\d|3[0-1]))|" +
-        "(([1-9]|[1-2]\\d|3[0-1])/([1-9]|1[0-2])/\\d{4})|" +
-        "(([1-9]|[1-2]\\d|3[0-1])/([1-9]|1[0-2])/\\d{2})|" +
-        "(tomorrow)|" +
-        "(today)|" +
-        "(yesterday)|" +
-        "((\\d+) days? ago))$");
+    private final static Pattern DATE_PATTERN = Pattern.compile("^((\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2]\\d|3[0-1]))|"
+        + "(\\d{4}-(0[1-9]|1[0-2])-([1-9]|[1-2]\\d|3[0-1]))|"
+        + "(([1-9]|[1-2]\\d|3[0-1])/([1-9]|1[0-2])/\\d{4})|"
+        + "(([1-9]|[1-2]\\d|3[0-1])/([1-9]|1[0-2])/\\d{2})|"
+        + "(tomorrow)|"
+        + "(today)|"
+        + "(yesterday)|"
+        + "((\\d+) days? ago))$");
 
-    private static LocalDate DateSwitcher(String string) {
+    private static LocalDate dateSwitcher(String string) {
         LocalDate date = null;
         switch (string) {
             case ("tomorrow"): {
@@ -64,6 +66,7 @@ public class Task3 {
                             }
                             break;
                         }
+                        default: break;
 
                     }
                     break;
@@ -72,8 +75,8 @@ public class Task3 {
                     int days = Integer.parseInt(string.substring(0, string.indexOf(" ")));
                     date = LocalDate.now().minusDays(days);
                     break;
-                } else if (string.matches("(\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2]\\d|3[0-1]))|" +
-                    "(\\d{4}-(0[1-9]|1[0-2])-([1-9]|[1-2]\\d|3[0-1]))")) {
+                } else if (string.matches("(\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2]\\d|3[0-1]))|"
+                    + "(\\d{4}-(0[1-9]|1[0-2])-([1-9]|[1-2]\\d|3[0-1]))")) {
                     String[] args = string.split("-");
                     date = LocalDate.of(
                         Integer.parseInt(args[0]),
@@ -91,7 +94,7 @@ public class Task3 {
         LocalDate date;
         Matcher matcher = DATE_PATTERN.matcher(string);
         if (matcher.find()) {
-            date = DateSwitcher(string);
+            date = dateSwitcher(string);
         } else {
             return Optional.empty();
         }

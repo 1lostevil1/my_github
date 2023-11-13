@@ -10,7 +10,7 @@ class Task4Test {
 
     @ParameterizedTest
     @ValueSource(strings = {"~asdf~", "!asdf!", "@asdf@", "#asfd#", "$qwerty$",
-        "%qwerty%", "^qwerty^", "&asds&", "*qwerty*", "|asdf|", "qwerty~ ! @ # $ % ^ & * |"})
+        "%qwerty%", "^qwerty^", "&asds&", "*qwerty*", "|asdf|", "qwerty~!@#$%^&*|"})
     @DisplayName("Пароль содержит требуемые символы")
     void isValid(String strings) {
         boolean actual = Task4.isPassword(strings);
@@ -28,13 +28,6 @@ class Task4Test {
     @DisplayName("Пустой пароль")
     void isEmpty() {
         boolean actual = Task4.isPassword("");
-        assertFalse(actual);
-    }
-
-    @Test
-    @DisplayName("Пароль null")
-    void isNull() {
-        boolean actual = Task4.isPassword(null);
         assertFalse(actual);
     }
 

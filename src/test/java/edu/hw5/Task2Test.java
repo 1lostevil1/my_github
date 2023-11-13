@@ -2,10 +2,8 @@ package edu.hw5;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import java.time.Duration;
 import java.time.LocalDate;
 import java.util.List;
-import static edu.hw5.Task1.getDuration;
 import static org.junit.jupiter.api.Assertions.*;
 
 class Task2Test {
@@ -33,7 +31,7 @@ class Task2Test {
     @DisplayName("Проверка ближайшей пятницы13 если такая есть")
     void isValidClosest() {
         List<LocalDate> tmp = Task2.isFriday13(1925);
-        LocalDate actual = Task2.ClosestFriday13(tmp, LocalDate.of(1925, 9, 10));
+        LocalDate actual = Task2.closestFriday13(tmp, LocalDate.of(1925, 9, 10));
         LocalDate expected = LocalDate.parse("1925-11-13");
         assertEquals(expected, actual);
     }
@@ -42,7 +40,7 @@ class Task2Test {
     @DisplayName("Проверка ближайшей пятницы13 если такой нет")
     void isNotValidClosest() {
         List<LocalDate> tmp = Task2.isFriday13(1925);
-        LocalDate actual = Task2.ClosestFriday13(tmp, LocalDate.of(1925, 12, 20));
+        LocalDate actual = Task2.closestFriday13(tmp, LocalDate.of(1925, 12, 20));
         assertNull(actual);
     }
 }

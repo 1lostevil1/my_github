@@ -24,8 +24,8 @@ public class Task2 {
         return result;
     }
 
-    public static LocalDate ClosestFriday13(List<LocalDate> Fridays, LocalDate date) {
-        for (LocalDate tmp : Fridays) {
+    public static LocalDate closestFriday13(List<LocalDate> fridays, LocalDate date) {
+        for (LocalDate tmp : fridays) {
             if (tmp.isAfter(date)) {
                 return tmp;
             }
@@ -33,12 +33,4 @@ public class Task2 {
         return null;
     }
 
-    public static void main(String[] args) {
-
-        List<LocalDate> list = isFriday13(1925);
-        for (int i = 0; i < list.size(); i++) {
-            System.out.print(list.get(i).toString() + ", ");
-        }
-
-    }
 }

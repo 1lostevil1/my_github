@@ -1,9 +1,8 @@
 package edu.hw5;
 
-import java.text.ParseException;
 import java.time.Duration;
-import java.time.LocalDateTime;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
 import java.util.List;
@@ -34,15 +33,15 @@ public class Task1 {
 
             if (matcher.find()) {
                 try {
-                    LocalDateTime FirstDateTime = LocalDateTime.of(
+                    LocalDateTime firstDateTime = LocalDateTime.of(
                         LocalDate.parse(matcher.group(FIRST_DATE)),
                         LocalTime.parse(matcher.group(FIRST_TIME))
                     );
-                    LocalDateTime SecondDateTime = LocalDateTime.of(
+                    LocalDateTime secondDateTime = LocalDateTime.of(
                         LocalDate.parse(matcher.group(SECOND_DATE)),
                         LocalTime.parse(matcher.group(SECOND_TIME))
                     );
-                    fullDuration += (int) Duration.between(FirstDateTime, SecondDateTime).getSeconds();
+                    fullDuration += (int) Duration.between(firstDateTime, secondDateTime).getSeconds();
                     ++sessionCount;
                 } catch (DateTimeParseException e) {
                     throw new RuntimeException("Parse Exeption");
@@ -55,14 +54,4 @@ public class Task1 {
         return Duration.ofSeconds((long) fullDuration / sessionCount);
     }
 
-    public static void main(String[] args) {
-
-        List<String> list = List.of(
-            "2022-03-12, 20:20 - 2022-03-12, 23:50",
-            "2022-04-01, 21:30 - 2022-04-02, 01:20"
-        );
-
-        Duration a = getDuration(list);
-        System.out.println(a);
-    }
 }
