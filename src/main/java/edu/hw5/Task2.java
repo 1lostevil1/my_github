@@ -9,7 +9,7 @@ public class Task2 {
     private Task2() {
     }
 
-    public static List<LocalDate> isFriday13(Integer year) {
+    public static List<LocalDate> CollectFriday13(Integer year) {
         if (year == null) {
             throw new IllegalArgumentException();
         }
@@ -24,13 +24,15 @@ public class Task2 {
         return result;
     }
 
-    public static LocalDate closestFriday13(List<LocalDate> fridays, LocalDate date) {
-        for (LocalDate tmp : fridays) {
-            if (tmp.isAfter(date)) {
-                return tmp;
+    public static LocalDate closestFriday13( LocalDate date) {
+        List<LocalDate> Fridays = CollectFriday13(date.getYear());
+        for(LocalDate Date : Fridays){
+            if(Date.isAfter(date)){
+                return Date;
             }
         }
-        return null;
+
+        return CollectFriday13(date.getYear()+1).get(0);
     }
 
 }
