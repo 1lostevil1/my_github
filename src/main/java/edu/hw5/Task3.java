@@ -12,6 +12,10 @@ public class Task3 {
     private Task3() {
     }
 
+    private final static int FOUR = 4;
+    private final static int TWO = 2;
+    private final static int TWENTYTHREE = 23;
+
     private final static Pattern DATE_PATTERN = Pattern.compile("^((\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2]\\d|3[0-1]))|"
         + "(\\d{4}-(0[1-9]|1[0-2])-([1-9]|[1-2]\\d|3[0-1]))|"
         + "(([1-9]|[1-2]\\d|3[0-1])/([1-9]|1[0-2])/\\d{4})|"
@@ -38,10 +42,11 @@ public class Task3 {
             }
             default: {
                 if (string.matches(
-                    "(([1-9]|[1-2]\\d|3[0-1])/([1-9]|1[0-2])/\\d{2})|(([1-9]|[1-2]\\d|3[0-1])/([1-9]|1[0-2])/\\d{4})")) {
+                    "(([1-9]|[1-2]\\d|3[0-1])/([1-9]|1[0-2])/\\d{2})|"
+                        + "(([1-9]|[1-2]\\d|3[0-1])/([1-9]|1[0-2])/\\d{4})")) {
                     String[] args = string.split("/");
                     switch (args[2].length()) {
-                        case 4: {
+                        case FOUR: {
                             date = LocalDate.of(
                                 Integer.parseInt(args[2]),
                                 Integer.parseInt(args[1]),
@@ -50,8 +55,8 @@ public class Task3 {
                             break;
                         }
 
-                        case 2: {
-                            if (Integer.parseInt(args[2]) > 23) {
+                        case TWO: {
+                            if (Integer.parseInt(args[2]) > TWENTYTHREE) {
                                 date = LocalDate.of(
                                     Integer.parseInt("19" + args[2]),
                                     Integer.parseInt(args[1]),
@@ -101,8 +106,4 @@ public class Task3 {
         return Optional.of(date);
     }
 
-    public static void main(String[] args) {
-        Optional<LocalDate> a = parseDate("2020-12-2");
-        System.out.print(a);
-    }
 }
