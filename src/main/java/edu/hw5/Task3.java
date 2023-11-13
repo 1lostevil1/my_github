@@ -42,8 +42,8 @@ public class Task3 {
             }
             default: {
                 if (string.matches(
-                    "(([1-9]|[1-2]\\d|3[0-1])/([1-9]|1[0-2])/\\d{2})|"
-                        + "(([1-9]|[1-2]\\d|3[0-1])/([1-9]|1[0-2])/\\d{4})")) {
+                    "^(([1-9]|[1-2]\\d|3[0-1])/([1-9]|1[0-2])/\\d{2})|"
+                        + "(([1-9]|[1-2]\\d|3[0-1])/([1-9]|1[0-2])/\\d{4})$")) {
                     String[] args = string.split("/");
                     switch (args[2].length()) {
                         case FOUR: {
@@ -80,8 +80,8 @@ public class Task3 {
                     int days = Integer.parseInt(string.substring(0, string.indexOf(" ")));
                     date = LocalDate.now().minusDays(days);
                     break;
-                } else if (string.matches("(\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2]\\d|3[0-1]))|"
-                    + "(\\d{4}-(0[1-9]|1[0-2])-([1-9]|[1-2]\\d|3[0-1]))")) {
+                } else if (string.matches("^(\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2]\\d|3[0-1]))|"
+                    + "(\\d{4}-(0[1-9]|1[0-2])-([1-9]|[1-2]\\d|3[0-1]))$")) {
                     String[] args = string.split("-");
                     date = LocalDate.of(
                         Integer.parseInt(args[0]),
