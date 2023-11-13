@@ -1,9 +1,6 @@
 package edu.hw5;
 
-import java.time.Duration;
 import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
-import java.util.List;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -14,20 +11,19 @@ public class Task3 {
     }
 
     private final static Pattern DATE_PATTERN = Pattern.compile("^((\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2]\\d|3[0-1]))|" +
-        "((\\d{4}-(0[1-9]|1[0-2])-([1-9]|[1-2]\\d|3[0-1])))|" +
+        "(\\d{4}-(0[1-9]|1[0-2])-([1-9]|[1-2]\\d|3[0-1]))|" +
         "(([1-9]|[1-2]\\d|3[0-1])/([1-9]|1[0-2])/\\d{4})|" +
         "(([1-9]|[1-2]\\d|3[0-1])/([1-9]|1[0-2])/\\d{2})|" +
         "(tomorrow)|" +
         "(today)|" +
         "(yesterday)|" +
-        "((\\d+)\sdays?\sago))$");
+        "((\\d+) days? ago))$");
 
-    private static LocalDate Switcher(String string) {
+    private static LocalDate DateSwitcher(String string) {
         LocalDate date = null;
         switch (string) {
             case ("tomorrow"): {
-                date = LocalDate.now();
-                date = date.plusDays(1);
+                date = LocalDate.now().plusDays(1);
                 break;
             }
             case ("today"): {
@@ -35,8 +31,7 @@ public class Task3 {
                 break;
             }
             case ("yesterday"): {
-                date = LocalDate.now();
-                date = date.minusDays(1);
+                date = LocalDate.now().minusDays(1);
                 break;
             }
             default: {
@@ -71,10 +66,20 @@ public class Task3 {
                         }
 
                     }
-                } else {
+                    break;
+
+                } else if (string.matches("((\\d+) days? ago)")) {
                     int days = Integer.parseInt(string.substring(0, string.indexOf(" ")));
-                    date = LocalDate.now();
-                    date = date.minusDays(days);
+                    date = LocalDate.now().minusDays(days);
+                    break;
+                } else if (string.matches("(\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2]\\d|3[0-1]))|" +
+                    "(\\d{4}-(0[1-9]|1[0-2])-([1-9]|[1-2]\\d|3[0-1]))")) {
+                    String[] args = string.split("-");
+                    date = LocalDate.of(
+                        Integer.parseInt(args[0]),
+                        Integer.parseInt(args[1]),
+                        Integer.parseInt(args[2])
+                    );
                 }
                 break;
             }
@@ -86,11 +91,7 @@ public class Task3 {
         LocalDate date;
         Matcher matcher = DATE_PATTERN.matcher(string);
         if (matcher.find()) {
-            try {
-                date = LocalDate.parse(string);
-            } catch (DateTimeParseException e) {
-                date = Switcher(string);
-            }
+            date = DateSwitcher(string);
         } else {
             return Optional.empty();
         }
@@ -98,8 +99,7 @@ public class Task3 {
     }
 
     public static void main(String[] args) {
-
-        Optional<LocalDate> a = parseDate("1/3/76");
-        System.out.println(a);
+        Optional<LocalDate> a = parseDate("2020-12-2");
+        System.out.print(a);
     }
 }
