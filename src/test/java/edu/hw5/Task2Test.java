@@ -10,12 +10,12 @@ class Task2Test {
     @Test
     @DisplayName("Корректный год")
     void validInput() {
-        List<LocalDate> actual = Task2.CollectFriday13(1925);
+        List<LocalDate> actual = Task2.collectFriday13(1925);
         List<LocalDate> expected =
             List.of(LocalDate.parse("1925-02-13"), LocalDate.parse("1925-03-13"), LocalDate.parse("1925-11-13"));
         assertEquals(expected, actual);
 
-        actual = Task2.CollectFriday13(2024);
+        actual = Task2.collectFriday13(2024);
         expected = List.of(LocalDate.parse("2024-09-13"), LocalDate.parse("2024-12-13"));
         assertEquals(expected, actual);
     }
@@ -23,7 +23,7 @@ class Task2Test {
     @Test
     @DisplayName("Некорректный ввод")
     void invalidInput() {
-        assertThrows(IllegalArgumentException.class, () -> Task2.CollectFriday13(null));
+        assertThrows(IllegalArgumentException.class, () -> Task2.collectFriday13(null));
 
     }
 
