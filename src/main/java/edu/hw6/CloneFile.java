@@ -4,36 +4,24 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-public class Task2 {
+public class CloneFile {
 
+        private CloneFile() {}
 
-        private static final String DOT = "\\.";
-
-        private Task2() {}
-
-        @SuppressWarnings("checkstyle:ReturnCount")
         public static void cloneFile(Path path) throws IOException {
             if (!Files.exists(path)) {
-                return;
+                throw new IOException();
             }
-
-            String filename = path.getFileName().toString();
-            String[] parts = filename.split(DOT);
+            String[] args =  path.getFileName().toString().split("\\.");
+            String filename =args[0];
+            String extension="";
+            if(args.length>1){
+                extension = "."+args[1];}
             int i = 1;
-            boolean startsWithDot = filename.startsWith(DOT);
-            StringBuilder extensionBuilder = new StringBuilder(".");
 
-            for (int l = startsWithDot ? 2 : 1; l < parts.length; l++) {
-                extensionBuilder.append(parts[l]);
-                if (l != parts.length - 1) {
-                    extensionBuilder.append(".");
-                }
-            }
-
-            String extension = extensionBuilder.toString();
 
             while (true) {
-                StringBuilder builder = new StringBuilder(startsWithDot ? parts[1] : parts[0]);
+                StringBuilder builder = new StringBuilder(filename);
 
                 builder.append(" - копия");
                 if (i > 1) {
@@ -55,5 +43,11 @@ public class Task2 {
                 return;
             }
         }
+    public static void main(String[] args) throws IOException {
+
+        cloneFile(Path.of("src\\main\\java\\edu\\hw6\\TEST\\2"));
+
+
+    }
     }
 
