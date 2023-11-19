@@ -43,7 +43,7 @@ class FilterTest {
         // Given
         List<Path> list = new ArrayList<>();
         List<Path> expected = List.of(
-            Path.of("src/main/java/edu/hw6/Task3/files/1.txt, src/main/java/edu/hw6/Task3/files/2.txt")
+            Path.of("src/main/java/edu/hw6/Task3/files/2.txt, src/main/java/edu/hw6/Task3/files/1.txt")
         );
 
         // When
@@ -112,8 +112,8 @@ class FilterTest {
         // Given
         List<Path> list = new ArrayList<>();
         List<Path> expected = List.of(
-            Path.of("src/main/java/edu/hw6/Task3/files/1.txt, src/main/java/edu/hw6/Task3/files/2.txt" +
-                ", src/main/java/edu/hw6/Task3/files/3.dox")
+            Path.of("src/main/java/edu/hw6/Task3/files/2.txt, src/main/java/edu/hw6/Task3/files/3.txt" +
+                ", src/main/java/edu/hw6/Task3/files/1.dox")
         );
 
         // When
