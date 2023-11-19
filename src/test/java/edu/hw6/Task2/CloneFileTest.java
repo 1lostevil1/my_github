@@ -1,10 +1,12 @@
-package edu.hw6;
+package edu.hw6.Task2;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import static org.assertj.core.api.Assertions.assertThat;
+
+import edu.hw6.Task2.CloneFile;
 import org.junit.jupiter.api.AfterEach;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.BeforeEach;

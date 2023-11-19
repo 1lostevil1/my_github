@@ -1,4 +1,4 @@
-package edu.hw6;
+package edu.hw6.Task1;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
