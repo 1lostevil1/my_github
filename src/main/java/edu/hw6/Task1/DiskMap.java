@@ -1,7 +1,5 @@
 package edu.hw6.Task1;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -10,6 +8,8 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 public class DiskMap implements Map<String, String> {
 
@@ -23,7 +23,7 @@ public class DiskMap implements Map<String, String> {
         if (!Files.exists(directory)) {
             try {
                 Files.createDirectory(directory);
-            } catch(IOException e){
+            } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         }
@@ -115,7 +115,7 @@ public class DiskMap implements Map<String, String> {
 
     @Override
     public String remove(Object key) {
-        String Value = get(key);
+        String value = get(key);
 
         try {
             Files.deleteIfExists(getPath((String) key));
@@ -123,7 +123,7 @@ public class DiskMap implements Map<String, String> {
             throw new RuntimeException(e);
         }
 
-        return Value;
+        return value;
     }
 
     @Override
@@ -175,7 +175,7 @@ public class DiskMap implements Map<String, String> {
                 .forEach(path -> {
                     try {
                         values.add(Files.readString(path));
-                    } catch(IOException ignored) {
+                    } catch (IOException ignored) {
                     }
                 });
         } catch (IOException ignored) {
@@ -191,33 +191,16 @@ public class DiskMap implements Map<String, String> {
         try (var stream = Files.list(getPath())) {
             stream
                 .filter(Files::isRegularFile)
-                .forEach(path ->  {
+                .forEach(path -> {
                     try {
-                        entries.add( Map.entry(path.getFileName().toString(), Files.readString(path)));
+                        entries.add(Map.entry(path.getFileName().toString(), Files.readString(path)));
                     } catch (IOException ignored) {
                     }
-            });
+                });
         } catch (IOException ignored) {
         }
 
         return entries;
-    }
-
-    public static void main(String[] args) throws IOException {
-
-        DiskMap map=new DiskMap("src\\main\\java\\edu\\hw6\\TEST");
-        map.put("1","a");
-        map.put("2","b");
-        map.put("3","c");
-        map.put("4","d");
-        map.put("5","e");
-        map.put("6","f");
-        map.put("7","g");
-        map.put("8","h");
-        map.put("9","i");
-        System.out.print(map.get("4"));
-
-
     }
 
 }
