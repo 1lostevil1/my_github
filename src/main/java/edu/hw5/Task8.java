@@ -4,9 +4,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Task8 {
-    private Task8() {
-
-    }
 
     //нечетной длины
     public static final Pattern STRING_PATTERN_1 =
@@ -21,6 +18,10 @@ public class Task8 {
     //нет последовательных 1
     public static final Pattern STRING_PATTERN_4 =
         Pattern.compile("^(?![01]*1{2})[01]*$");
+
+    private Task8() {
+
+    }
 
     public static boolean isValidString(String str, Pattern stringPattern) {
         boolean result = false;
