@@ -2,10 +2,14 @@ package edu.project2;
 
 import java.util.Random;
 import java.util.Stack;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 @SuppressWarnings("RegexpSinglelineJava")
 
 public class Generate {
+
+    private final static Logger LOGGER = LogManager.getLogger();
 
     public static Cell[][] mazeMatrix;
 
@@ -25,17 +29,18 @@ public class Generate {
         String green = "\u001B[32m";
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
-                if (mazeMatrix[i][j].isWall) {
-                    System.out.print("[=]");
+                if (mazeMatrix[i][j].isStartOrFinish) {
+                    System.out.print(green + "!!!" + reset);
+                    continue;
                 }
                 if (mazeMatrix[i][j].isWay) {
-                    if (mazeMatrix[i][j].isStartOrFinish) {
-                        System.out.print(green + "!!!" + reset);
-                    } else {
-                        System.out.print(red + " * " + reset);
-                    }
-                } else if (!mazeMatrix[i][j].isWall) {
-                    System.out.print("   ");
+                    System.out.print(red + " * " + reset);
+                    continue;
+                }
+                if (mazeMatrix[i][j].isWall) {
+                    System.out.print("[=]");
+                } else {
+                    System.out.print(red + "   " + reset);
                 }
             }
             System.out.println();
@@ -110,7 +115,7 @@ public class Generate {
         }
     }
 
-    public void wayFound(Cell start, Cell finish) throws Exception  {
+    public void wayFound(Cell start, Cell finish) throws Exception {
 
         if (mazeMatrix[start.x][start.y].isWall || mazeMatrix[finish.x][finish.y].isWall) {
             throw new Exception("!!CELL IS WALL!!");
