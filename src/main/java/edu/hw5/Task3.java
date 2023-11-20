@@ -6,7 +6,7 @@ import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-@SuppressWarnings("uncommentedmain")
+@SuppressWarnings("magicnumber")
 
 public class Task3 {
 
@@ -23,7 +23,7 @@ public class Task3 {
     private final static Pattern DATE_PATTERN5 = Pattern.compile("^(today)$");
     private final static Pattern DATE_PATTERN6 = Pattern.compile("^(yesterday)$");
     private final static Pattern DATE_PATTERN7 = Pattern.compile("^((\\d+) days? ago)$");
-    private final static List<Pattern> PatternList = List.of(
+    private final static List<Pattern> PATTERN_LIST = List.of(
         DATE_PATTERN1,
         DATE_PATTERN2,
         DATE_PATTERN3,
@@ -82,6 +82,9 @@ public class Task3 {
                 );
                 break;
             }
+            default: {
+                break;
+            }
 
         }
         return date;
@@ -89,10 +92,10 @@ public class Task3 {
 
     public static Optional<LocalDate> parseDate(String string) {
         Matcher matcher;
-        for (var pattern : PatternList) {
+        for (var pattern : PATTERN_LIST) {
             matcher = pattern.matcher(string);
             if (matcher.find()) {
-                return Optional.of(dateSwitcher(PatternList.indexOf(pattern), string));
+                return Optional.of(dateSwitcher(PATTERN_LIST.indexOf(pattern), string));
             }
         }
 
