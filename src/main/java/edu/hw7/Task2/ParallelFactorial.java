@@ -1,5 +1,6 @@
 package edu.hw7.Task2;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -15,43 +16,16 @@ public class ParallelFactorial {
         this.value = value;
     }
 
-    private boolean isSimpleValue(Integer value) {
-        for (int i = 2; i <= value / 2; i++) {
-            if (value % i == 0) {
-                return false;
-            }
-        }
-        return true;
-    }
 
-    private int Factorize(int value) {
-        int result = value;
-        if (value == 3) {
-            value = 3;
-        }
-        int power = 0;
-        while (result <= this.value) {
-            power += this.value / result;
-            result *= value;
-        }
-        return (int) Math.pow(value, power);
-    }
 
-    public int factorial() {
-        List<Integer> list = new ArrayList<>();
+    public BigInteger factorial() {
+
+        if(value<=1) return new BigInteger("1");
+        List<BigInteger> list = new ArrayList<>();
         for (int i = 2; i <= value; i++) {
-            list.add(i);
+            list.add(new BigInteger(String.valueOf(i)));
         }
-        int result = 1;
-        list = list.parallelStream()
-            .filter(elem -> isSimpleValue(elem))
-            .map(val -> Factorize(val))
-            .collect(Collectors.toList());
-        Iterator<Integer> Iterator = list.iterator();
-        while (Iterator.hasNext()) {
-            result *= Iterator.next();
-        }
-        return result;
+        return list.parallelStream().reduce(new BigInteger("1"), BigInteger::multiply);
     }
 
     public static void main(String[] args) {
