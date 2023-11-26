@@ -10,27 +10,18 @@ import java.util.stream.Stream;
 
 public class ParallelFactorial {
 
-    public int value;
-
-    public ParallelFactorial(int value) {
-        this.value = value;
+    private ParallelFactorial() {
     }
 
+    public static BigInteger factorial(int value) {
 
-
-    public BigInteger factorial() {
-
-        if(value<=1) return new BigInteger("1");
+        if (value <= 1) {
+            return new BigInteger("1");
+        }
         List<BigInteger> list = new ArrayList<>();
         for (int i = 2; i <= value; i++) {
             list.add(new BigInteger(String.valueOf(i)));
         }
         return list.parallelStream().reduce(new BigInteger("1"), BigInteger::multiply);
-    }
-
-    public static void main(String[] args) {
-
-        ParallelFactorial a = new ParallelFactorial(11);
-        System.out.print(a.factorial());
     }
 }

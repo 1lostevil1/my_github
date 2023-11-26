@@ -9,7 +9,7 @@ class RaceConditionTest {
     @Test
     @DisplayName("проверка на состояние гонки")
     void checkRace() {
-
+        assertEquals(200,  RaceCondition.Increment());
     }
 
 }
