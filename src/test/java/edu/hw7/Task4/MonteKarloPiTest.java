@@ -14,7 +14,7 @@ class MonteKarloPiTest {
         double delta = 0.001;
 
         // Then
-        assertTrue(Math.abs(MonteKarloPi.ParallelPiCalculate(numberOfIterations) - Math.PI) <delta);
-        assertTrue(Math.abs(MonteKarloPi.ParallelPiCalculate(numberOfIterations) - Math.PI) < delta);
+        assertTrue(Math.abs(MonteKarloPi.parallelPiCalculate(numberOfIterations) - Math.PI) <delta);
+        assertTrue(Math.abs(MonteKarloPi.parallelPiCalculate(numberOfIterations) - Math.PI) < delta);
     }
 }

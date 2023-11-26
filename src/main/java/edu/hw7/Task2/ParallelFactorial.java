@@ -2,11 +2,7 @@ package edu.hw7.Task2;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class ParallelFactorial {
 

@@ -1,10 +1,10 @@
 package edu.hw7.Task3;
 
-import org.jetbrains.annotations.Nullable;
 import java.util.HashMap;
 import java.util.Map;
+import org.jetbrains.annotations.Nullable;
 
-public class PersonDatabaseImpl implements PersonDatabase{
+public class PersonDatabaseImpl implements PersonDatabase {
 
     private static final Map<Integer, Person> ID_MAP = new HashMap<>();
     private static final Map<String, Person> NAME_MAP = new HashMap<>();

@@ -3,11 +3,14 @@ package edu.hw7.Task4;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.atomic.LongAdder;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 @SuppressWarnings({"UncommentedMain", "RegexpSinglelineJava", "MagicNumber"})
 public class MonteKarloPi {
 
     private final static int RADIUS = 4;
+    private final static Logger LOGGER = LogManager.getLogger();
 
     private MonteKarloPi() {
     }
@@ -22,11 +25,11 @@ public class MonteKarloPi {
     // в 100млн симуляций - 0.0000484
     // в 1млрд симуляций  - 0.00000658
 
-    public static double PiCalculate(long iterCount) {
+    public static double piCalculate(long iterCount) {
 
         double circleCount = 0;
         for (long i = 0; i < iterCount; i++) {
-            point point = new point(new Random().nextFloat(-RADIUS, RADIUS), new Random().nextFloat(-RADIUS, RADIUS));
+            Point point = new Point(new Random().nextFloat(-RADIUS, RADIUS), new Random().nextFloat(-RADIUS, RADIUS));
             if (point.x() * point.x() + point.y() * point.y() <= RADIUS * RADIUS) {
                 circleCount++;
             }
@@ -34,14 +37,14 @@ public class MonteKarloPi {
         return 4 * (circleCount / iterCount);
     }
 
-    public static double ParallelPiCalculate(long iterCount) {
+    public static double parallelPiCalculate(long iterCount) {
 
         LongAdder circleCount = new LongAdder();
         int numberOfThread = 2;
         Runnable lambda = (() -> {
             for (int i = 1; i <= iterCount / numberOfThread; ++i) {
-                point point =
-                    new point(
+                Point point =
+                    new Point(
                         ThreadLocalRandom.current().nextFloat(-RADIUS, RADIUS),
                         ThreadLocalRandom.current().nextFloat(-RADIUS, RADIUS)
                     );
@@ -59,6 +62,7 @@ public class MonteKarloPi {
             thread2.join();
 
         } catch (InterruptedException e) {
+            LOGGER.error(e);
             throw new RuntimeException(e);
         }
         return (4.0 * circleCount.longValue()) / iterCount;
@@ -66,12 +70,12 @@ public class MonteKarloPi {
 
     public static void main(String[] args) {
         long before = System.nanoTime();
-        double result1 = PiCalculate(10000);
+        double result1 = piCalculate(10000);
         long after = System.nanoTime();
         long nanoSecFirst = after - before;
 
         before = after;
-        double result2 = ParallelPiCalculate(1000000000);
+        double result2 = parallelPiCalculate(1000000000);
         after = System.nanoTime();
         long nanoSecSecond = after - before;
         System.out.println(Math.abs((float) result2 - Math.PI));

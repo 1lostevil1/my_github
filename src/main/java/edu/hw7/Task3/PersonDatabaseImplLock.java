@@ -5,10 +5,13 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.Nullable;
 
 @SuppressWarnings("MagicNumber")
-public class PersonDatabaseImplLock implements PersonDatabase{
+public class PersonDatabaseImplLock implements PersonDatabase {
+    private final static Logger LOGGER = LogManager.getLogger();
     private static final ReadWriteLock LOCK = new ReentrantReadWriteLock();
     private static final Map<Integer, Person> ID_MAP = new HashMap<>();
     private static final Map<String, Person> NAME_MAP = new HashMap<>();
@@ -33,6 +36,7 @@ public class PersonDatabaseImplLock implements PersonDatabase{
                 PHONE_MAP.put(person.phoneNumber(), person);
             }
         } catch (InterruptedException e) {
+            LOGGER.error(e);
             throw new RuntimeException(e);
         } finally {
             LOCK.writeLock().unlock();
@@ -49,6 +53,7 @@ public class PersonDatabaseImplLock implements PersonDatabase{
                 PHONE_MAP.remove(person.phoneNumber());
             }
         } catch (InterruptedException e) {
+            LOGGER.error(e);
             throw new RuntimeException(e);
         } finally {
             LOCK.writeLock().unlock();
@@ -65,6 +70,7 @@ public class PersonDatabaseImplLock implements PersonDatabase{
                 }
             }
         } catch (InterruptedException e) {
+            LOGGER.error(e);
             throw new RuntimeException(e);
         } finally {
             LOCK.readLock().unlock();
@@ -81,6 +87,7 @@ public class PersonDatabaseImplLock implements PersonDatabase{
                 return ADDRESS_MAP.get(address);
             }
         } catch (InterruptedException e) {
+            LOGGER.error(e);
             throw new RuntimeException(e);
         } finally {
             LOCK.readLock().unlock();
@@ -97,6 +104,7 @@ public class PersonDatabaseImplLock implements PersonDatabase{
                 return PHONE_MAP.get(phone);
             }
         } catch (InterruptedException e) {
+            LOGGER.error(e);
             throw new RuntimeException(e);
         } finally {
             LOCK.readLock().unlock();

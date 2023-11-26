@@ -1,12 +1,18 @@
 package edu.hw7.Task1;
 
 import java.util.concurrent.atomic.AtomicInteger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class RaceCondition {
     private final static int MAX = 100;
+    private final static Logger LOGGER = LogManager.getLogger();
     private static AtomicInteger value = new AtomicInteger(0);
 
-    public static int Increment () {
+    private RaceCondition() {
+    }
+
+    public static int increment() {
         Thread firstThread = new Thread(() -> {
             for (int i = 0; i < MAX; i++) {
                 value.incrementAndGet();
@@ -26,7 +32,8 @@ public class RaceCondition {
 
         } catch (
             InterruptedException e) {
-            e.printStackTrace();
+            LOGGER.error(e);
+            throw new RuntimeException(e);
         }
         return value.get();
 
