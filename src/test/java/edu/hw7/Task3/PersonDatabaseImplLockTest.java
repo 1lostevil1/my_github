@@ -11,14 +11,14 @@ public class PersonDatabaseImplLockTest {
     private static final PersonDatabaseImplLock PERSON_DATABASE = new PersonDatabaseImplLock();
 
     private final Thread thread1 = new Thread(() -> {
-        PERSON_DATABASE.add(new Person(0, "Alexei", "Belozerov", "12345"));
-        PERSON_DATABASE.add(new Person(1, "Dima", "Dolzhnikov", "54321"));
+        PERSON_DATABASE.add(new Person(0, "Alex", "Sailor", "12345"));
+        PERSON_DATABASE.add(new Person(1, "Dima", "Kireev", "54321"));
         PERSON_DATABASE.add(new Person(2, null, "D", "5"));
     });
 
     private final Thread thread2 = new Thread(() -> {
-        PERSON_DATABASE.add(new Person(3, "Sasha", "Gonnyih", "67890"));
-        PERSON_DATABASE.add(new Person(4, "Vera", "Em", "09876"));
+        PERSON_DATABASE.add(new Person(3, "Ryan", "Gosling", "67890"));
+        PERSON_DATABASE.add(new Person(4, "V filme", "Drive", "09876"));
         PERSON_DATABASE.add(new Person(5, "V", null, "0"));
     });
 
@@ -101,6 +101,6 @@ public class PersonDatabaseImplLockTest {
     @DisplayName("Запись найдется если у неё есть все атрибуты")
     void test6(){
         // Expect
-        assertNotNull(PERSON_DATABASE.findByName("Vera"));
+        assertNotNull(PERSON_DATABASE.findByName("V filme"));
     }
 }
