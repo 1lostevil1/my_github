@@ -30,7 +30,7 @@ public class Generate {
         String red = "\u001B[31m";
         String green = "\u001B[32m";
         String white = "\u001B[37m";
-        str.append(white  + '\n' + reset );
+        str.append(white + '\n' + reset);
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 if (mazeMatrix[i][j].isStartOrFinish) {
