@@ -9,32 +9,31 @@ import static org.junit.jupiter.api.Assertions.*;
 class Task4Test {
 
     @ParameterizedTest
-    // Given
     @ValueSource(strings = {"~asdf~", "!asdf!", "@asdf@", "#asfd#", "$qwerty$",
         "%qwerty%", "^qwerty^", "&asds&", "*qwerty*", "|asdf|", "qwerty~!@#$%^&*|"})
     @DisplayName("Пароль содержит требуемые символы")
     void isValid(String strings) {
-        // When
+        // when
         boolean actual = Task4.isPassword(strings);
-        // Then
+        // then
         assertTrue(actual);
     }
 
     @Test
     @DisplayName("Пароль не содержит необходимые символы")
     void isNotValid() {
-        // When
+        // when
         boolean actual = Task4.isPassword("abcde");
-        // Then
+        // then
         assertFalse(actual);
     }
 
     @Test
     @DisplayName("Пустой пароль")
     void isEmpty() {
-        // When
+        // when
         boolean actual = Task4.isPassword("");
-        // Then
+        // then
         assertFalse(actual);
     }
 

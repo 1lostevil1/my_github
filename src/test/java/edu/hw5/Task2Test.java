@@ -10,27 +10,27 @@ class Task2Test {
     @Test
     @DisplayName("Корректный год")
     void validInput() {
-        // Given
+        // given
         List<LocalDate> expected =
             List.of(LocalDate.parse("1925-02-13"), LocalDate.parse("1925-03-13"), LocalDate.parse("1925-11-13"));
-        // When
+        // when
         List<LocalDate> actual = Task2.collectFriday13(1925);
 
-        // Then
+        // then
         assertEquals(expected, actual);
 
-        // Given
+        // given
         expected = List.of(LocalDate.parse("2024-09-13"), LocalDate.parse("2024-12-13"));
-        // When
+        // when
         actual = Task2.collectFriday13(2024);
-        // Then
+        // then
         assertEquals(expected, actual);
     }
 
     @Test
     @DisplayName("Некорректный ввод")
     void invalidInput() {
-        // Then
+        // expect
         assertThrows(IllegalArgumentException.class, () -> Task2.collectFriday13(null));
 
     }
@@ -38,18 +38,18 @@ class Task2Test {
     @Test
     @DisplayName("Проверка ближайшей пятницы13 если такая есть")
     void isValidClosest() {
-        // Given
+        // given
         LocalDate expected = LocalDate.parse("1925-11-13");
-        // When
+        // when
         LocalDate actual = Task2.closestFriday13(LocalDate.of(1925, 9, 10));
-        // Then
+        // then
         assertEquals(expected, actual);
 
-        // Given
+        // given
         expected = LocalDate.parse("1925-02-13");
-        // When
+        // when
         actual = Task2.closestFriday13(LocalDate.of(1924, 12, 30));
-        // Then
+        // then
         assertEquals(expected, actual);
     }
 

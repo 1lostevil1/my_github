@@ -8,9 +8,9 @@ class Task6Test {
     @Test
     @DisplayName("Является подпоследовательностью")
     void isValid() {
-        // When
+        // when
         boolean actual = Task6.isSubsequence("abc", "achfdbaabgacaabg");
-        // Then
+        // then
         assertTrue(actual);
 
     }
@@ -18,9 +18,9 @@ class Task6Test {
     @Test
     @DisplayName("Не является подпоследовательностью")
     void isNotValid() {
-        // When
+        // when
         boolean actual = Task6.isSubsequence("qwe", "achfdbaabgabcaabg");
-        // Then
+        // then
         assertFalse(actual);
 
     }
@@ -28,9 +28,9 @@ class Task6Test {
     @Test
     @DisplayName("Не является подпоследовательностью")
     void isEmptyubsequence() {
-        // When
+        // when
         boolean actual = Task6.isSubsequence("", "achfdbaabgabcaabg");
-        // Then
+        // then
         assertTrue(actual);
 
     }
@@ -38,9 +38,9 @@ class Task6Test {
     @Test
     @DisplayName("Null")
     void nullStr() {
-        // When
+        // when
         boolean actual = Task6.isSubsequence(null, "achfdbaabgabcaabg");
-        // Then
+        // then
         assertFalse(actual);
 
     }

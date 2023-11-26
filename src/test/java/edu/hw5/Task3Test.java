@@ -10,52 +10,52 @@ class Task3Test {
     @Test
     @DisplayName("Корректная строка")
     void validInput() {
-        // Given
+        // given
         Optional<LocalDate> expected = Optional.of(LocalDate.now().minusDays(1));
-        // When
+        // when
         Optional<LocalDate> actual = Task3.parseDate("yesterday");
-        // Then
+        // then
         assertEquals(expected, actual);
-        // Given
+        // given
         expected = Optional.of(LocalDate.now());
-        // When
+        // when
         actual = Task3.parseDate("today");
-        // Then
+        // then
         assertEquals(expected, actual);
 
-        // Given
+        // given
         expected = Optional.of(LocalDate.now().plusDays(1));
-        // When
+        // when
         actual = Task3.parseDate("tomorrow");
-        // Then
+        // then
         assertEquals(expected, actual);
 
-        // Given
+        // given
         expected = Optional.of(LocalDate.of(2020,10,10));
-        // When
+        // when
         actual = Task3.parseDate("2020-10-10");
-        // Then
+        // then
         assertEquals(expected, actual);
 
-        // Given
+        // given
         expected = Optional.of(LocalDate.of(2020,10,2));
-        // When
+        // when
         actual = Task3.parseDate("2020-10-2");
-        // Then
+        // then
         assertEquals(expected, actual);
 
-        // Given
+        // given
         expected = Optional.of(LocalDate.of(1976,3,1));
-        // When
+        // when
         actual = Task3.parseDate("1/3/1976");
-        // Then
+        // then
         assertEquals(expected, actual);
 
-        // Given
+        // given
         expected = Optional.of(LocalDate.of(2020,3,1));
-        // When
+        // when
         actual = Task3.parseDate("1/3/20");
-        // Then
+        // then
         assertEquals(expected, actual);
 
     }
@@ -63,11 +63,11 @@ class Task3Test {
     @Test
     @DisplayName("Некорректная строка")
     void invalidInput() {
-        // Given
+        // given
         Optional<LocalDate> expected = Optional.empty();
-        // When
+        // when
          Optional<LocalDate> actual = Task3.parseDate("yesterdayy");
-        // Then
+        // then
         assertEquals(expected, actual);
 
     }

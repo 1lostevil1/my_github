@@ -11,22 +11,22 @@ class Task1Test {
     @Test
     @DisplayName("Корректый ввод")
     void validInput() {
-        // Given
+        // given
         String expected = "PT3H40M";
-        // When
+        // when
         Duration actual = getDuration(List.of(
             "2022-03-12, 20:20 - 2022-03-12, 23:50",
             "2022-04-01, 21:30 - 2022-04-02, 01:20"
         ));
 
-        // Then
+        // then
         assertEquals(expected, actual.toString());
     }
 
     @Test
     @DisplayName("Некорректный ввод")
     void invalidInput() {
-        // Then
+        // expect
         assertThrows(RuntimeException.class, () -> getDuration(List.of(
             "2022-03-12, 25:20 - 2022-03-12, 23:50",
             "2022-04-01, 21:30 - 2022-04-02, 01:20"
@@ -37,7 +37,7 @@ class Task1Test {
     @Test
     @DisplayName("Ввод пустого листа")
     void emptyList() {
-        // Then
+        // expect
         assertThrows(RuntimeException.class, () -> getDuration(List.of()));
 
     }
