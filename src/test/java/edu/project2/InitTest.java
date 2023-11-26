@@ -27,9 +27,9 @@ class InitTest {
         //when
         Generate a = new Generate(11);
         a.gen3000();
-        //then
         Exception exception =  assertThrows(Exception.class, () ->a.wayFound(start,finish));
         String actualMessage = exception.getMessage();
+        //then
         assertTrue(actualMessage.contains(expectedMessage));
 
     }
