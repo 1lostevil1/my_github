@@ -24,27 +24,32 @@ public class Generate {
     }
 
     public void print() {
+
+        StringBuilder str = new StringBuilder();
         String reset = "\u001B[0m";
         String red = "\u001B[31m";
         String green = "\u001B[32m";
+        String white = "\u001B[37m";
+        str.append(white  + '\n' + reset );
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 if (mazeMatrix[i][j].isStartOrFinish) {
-                    System.out.print(green + "!!!" + reset);
+                    str.append(green + "!!!" + reset);
                     continue;
                 }
                 if (mazeMatrix[i][j].isWay) {
-                    System.out.print(red + " * " + reset);
+                    str.append(red + " * " + reset);
                     continue;
                 }
                 if (mazeMatrix[i][j].isWall) {
-                    System.out.print("[=]");
+                    str.append("[=]");
                 } else {
-                    System.out.print(red + "   " + reset);
+                    str.append(red + "   " + reset);
                 }
             }
-            System.out.println();
+            str.append('\n');
         }
+        LOGGER.info(str.toString());
     }
 
     public void maze() {
