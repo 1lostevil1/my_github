@@ -14,7 +14,6 @@ public class Client implements AutoCloseable {
 
     public Client(String host, int port) throws IOException {
         socket = SocketChannel.open(new InetSocketAddress(host, port));
-        socket.bind(new InetSocketAddress(host, port));
         buffer = ByteBuffer.allocate(256);
     }
 
@@ -23,7 +22,7 @@ public class Client implements AutoCloseable {
             buffer = ByteBuffer.wrap(message.getBytes());
             socket.write(buffer);
             buffer.clear();
-            System.out.println("Ваня: " + message);
+            System.out.println("Хуесос Ваня: " + message);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

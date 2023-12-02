@@ -10,33 +10,33 @@ public class Init {
 
     public static void main(String[] args) throws Exception{
 
-        Thread thread1 = new Thread(
-            ()-> {
+            Server server = new Server(18080, 1);
+            Thread thread = new Thread(() -> {
                 try {
-                    Server server = new Server(8080, 5);
                     server.start();
-                }
-                catch(Exception e){
+                } catch (IOException | InterruptedException e) {
                     throw new RuntimeException(e);
                 }
             });
+            thread.start();
 
-        Thread thread2 = new Thread(
-            ()-> {
-                try {
-                    Client client = new Client("localhost", 8080);
-                    client.sendToServer("vovan tut");
-                }
-                catch(Exception e){
-                    throw new RuntimeException(e);
-                }
-            });
-            thread1.start();
-            thread2.start();
-            try{
-                thread1.join();
-                thread2.join();
-            } catch(Exception e){
+            Thread.sleep(1000);
+
+            Client client = new Client("localhost", 18080);
+            client.sendToServer("глупый");
+            client.readFromServer();
+            try {
+                client.close();
+            } catch (Exception e) {
+                throw new RuntimeException(e);
             }
+            Thread.sleep(1000);
+            try {
+                server.close();
+                thread.join();
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
-}
+

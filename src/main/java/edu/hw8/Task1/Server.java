@@ -6,23 +6,27 @@ import java.nio.ByteBuffer;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
 import java.nio.channels.ServerSocketChannel;
+import java.nio.channels.SocketChannel;
 import java.util.Iterator;
 import java.util.Set;
+import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.LinkedBlockingDeque;
+import static java.nio.charset.StandardCharsets.UTF_8;
 
-public class Server {
+public class Server implements AutoCloseable {
 
     private final static int BufferSize = 1024;
-    private final int port;
     private ServerSocketChannel serverSocket;
+    private BlockingQueue<SocketChannel> blockingQueue;
     private Selector selector;
     private ExecutorService threads;
     private ByteBuffer buffer;
 
     public Server(int port, int CountOfThreads) throws IOException {
-        this.port = port;
-        threads = Executors.newFixedThreadPool(CountOfThreads);
+        blockingQueue = new LinkedBlockingDeque<>(CountOfThreads);
+        threads = Executors.newFixedThreadPool(10);
         serverSocket = ServerSocketChannel.open();
         selector = Selector.open();
         serverSocket.bind(new InetSocketAddress("localhost", port));
@@ -31,16 +35,76 @@ public class Server {
         buffer = ByteBuffer.allocate(BufferSize);
     }
 
-    public void start() throws IOException {
+    public void start() throws IOException, InterruptedException {
         while (selector.isOpen()) {
-            selector.select();
             if (selector.isOpen()) {
-                Set<SelectionKey> selectedKeys = selector.selectedKeys();
-                Iterator<SelectionKey> iter = selectedKeys.iterator();
-                while (iter.hasNext()) {
-                    SelectionKey key = iter.next();
+                selector.select();
+                if (selector.isOpen()) {
+                    Set<SelectionKey> selectedKeys = selector.selectedKeys();
+                    Iterator<SelectionKey> iter = selectedKeys.iterator();
+                    while (iter.hasNext()) {
+                        SelectionKey key = iter.next();
+                        if (!key.isValid()) {
+                            iter.remove();
+                            blockingQueue.poll();
+                            continue;
+                        }
+
+                        if (key.isAcceptable()) {
+                            register(selector, serverSocket);
+                        }
+
+                        if (key.isReadable()) {
+                            threads.submit(() -> {
+                                try {
+                                    answer(buffer, key);
+                                } catch (IOException e) {
+                                    throw new RuntimeException(e);
+                                }
+                            });
+                        }
+                        Thread.sleep(400);
+                    }
                 }
             }
         }
+    }
+
+    private void register(Selector selector, ServerSocketChannel serverSocket)
+        throws IOException, InterruptedException {
+        SocketChannel client = serverSocket.accept();
+        blockingQueue.put(client);
+        System.out.println(blockingQueue.size());
+        client.configureBlocking(false);
+        client.register(selector, SelectionKey.OP_READ);
+
+    }
+
+    private  void answer(ByteBuffer buffer, SelectionKey key)
+        throws IOException {
+        SocketChannel client = (SocketChannel) key.channel();
+       int check =  client.read(buffer);
+            buffer.flip();
+            if(check!= -1){
+                client.write(getAnswer(buffer));
+            }
+            buffer.clear();
+        client.close();
+        blockingQueue.remove(client);
+        }
+
+    private ByteBuffer getAnswer(ByteBuffer byteBuffer) {
+        String currentData = UTF_8.decode(byteBuffer).toString();
+        String answer = "Error\n";
+        if (ReplyMap.replies.containsKey(currentData)) {
+            answer = ReplyMap.replies.get(currentData) + '\n';
+        }
+        return ByteBuffer.wrap(answer.getBytes(UTF_8));
+    }
+
+    @Override public void close() throws Exception {
+        threads.shutdown();
+        serverSocket.close();
+        selector.close();
     }
 }
