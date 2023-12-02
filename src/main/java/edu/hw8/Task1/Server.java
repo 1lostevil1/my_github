@@ -18,15 +18,15 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 public class Server implements AutoCloseable {
 
     private final static int BufferSize = 1024;
-    private ServerSocketChannel serverSocket;
-    private BlockingQueue<SocketChannel> blockingQueue;
-    private Selector selector;
-    private ExecutorService threads;
-    private ByteBuffer buffer;
+    private final ServerSocketChannel serverSocket;
+    private final BlockingQueue<SocketChannel> blockingQueue;
+    private final Selector selector;
+    private final ExecutorService threads;
+    private final ByteBuffer buffer;
 
     public Server(int port, int CountOfThreads) throws IOException {
         blockingQueue = new LinkedBlockingDeque<>(CountOfThreads);
-        threads = Executors.newFixedThreadPool(10);
+        threads = Executors.newFixedThreadPool(CountOfThreads);
         serverSocket = ServerSocketChannel.open();
         selector = Selector.open();
         serverSocket.bind(new InetSocketAddress("localhost", port));
@@ -37,13 +37,13 @@ public class Server implements AutoCloseable {
 
     public void start() throws IOException, InterruptedException {
         while (selector.isOpen()) {
-            if (selector.isOpen()) {
-                selector.select();
+            selector.select();
                 if (selector.isOpen()) {
                     Set<SelectionKey> selectedKeys = selector.selectedKeys();
                     Iterator<SelectionKey> iter = selectedKeys.iterator();
                     while (iter.hasNext()) {
                         SelectionKey key = iter.next();
+
                         if (!key.isValid()) {
                             iter.remove();
                             blockingQueue.poll();
@@ -62,10 +62,9 @@ public class Server implements AutoCloseable {
                                     throw new RuntimeException(e);
                                 }
                             });
+                            Thread.sleep(1000);
                         }
-                        Thread.sleep(400);
                     }
-                }
             }
         }
     }
@@ -73,10 +72,11 @@ public class Server implements AutoCloseable {
     private void register(Selector selector, ServerSocketChannel serverSocket)
         throws IOException, InterruptedException {
         SocketChannel client = serverSocket.accept();
-        blockingQueue.put(client);
-        System.out.println(blockingQueue.size());
-        client.configureBlocking(false);
-        client.register(selector, SelectionKey.OP_READ);
+        if(client!=null) {
+            blockingQueue.put(client);
+            client.configureBlocking(false);
+            client.register(selector, SelectionKey.OP_READ);
+        }
 
     }
 
@@ -99,6 +99,7 @@ public class Server implements AutoCloseable {
         if (ReplyMap.replies.containsKey(currentData)) {
             answer = ReplyMap.replies.get(currentData) + '\n';
         }
+        var x = ByteBuffer.wrap(answer.getBytes(UTF_8));
         return ByteBuffer.wrap(answer.getBytes(UTF_8));
     }
 

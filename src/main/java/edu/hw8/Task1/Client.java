@@ -2,10 +2,10 @@ package edu.hw8.Task1;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
+import java.net.StandardSocketOptions;
 import java.nio.ByteBuffer;
-import java.nio.channels.Selector;
-import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
+import java.nio.charset.StandardCharsets;
 
 public class Client implements AutoCloseable {
 
@@ -14,15 +14,17 @@ public class Client implements AutoCloseable {
 
     public Client(String host, int port) throws IOException {
         socket = SocketChannel.open(new InetSocketAddress(host, port));
-        buffer = ByteBuffer.allocate(256);
+        buffer = ByteBuffer.allocate(1024);
     }
 
     public void sendToServer(String message) {
         try {
-            buffer = ByteBuffer.wrap(message.getBytes());
+            byte[] array= message.getBytes();
+            String str = new String(array);
+            buffer = ByteBuffer.wrap(str.getBytes());
             socket.write(buffer);
             buffer.clear();
-            System.out.println("Хуесос Ваня: " + message);
+            System.out.println( socket.getLocalAddress() +  "\nClient: " + message);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -30,8 +32,11 @@ public class Client implements AutoCloseable {
 
     public void readFromServer() {
         try {
+            buffer = ByteBuffer.allocate(1024);
+            buffer.clear();
              socket.read(buffer);
-            System.out.println("Сервер: " +new String(buffer.array()).trim());
+             String tmp = new String(buffer.array(), StandardCharsets.UTF_8);
+            System.out.println(socket.getRemoteAddress() + "\nСервер: " +new String(buffer.array()).trim());
             buffer.clear();
         } catch (IOException e) {
             throw new RuntimeException(e);
