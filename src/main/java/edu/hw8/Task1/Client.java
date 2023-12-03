@@ -2,28 +2,27 @@ package edu.hw8.Task1;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
-import java.net.StandardSocketOptions;
 import java.nio.ByteBuffer;
 import java.nio.channels.SocketChannel;
-import java.nio.charset.StandardCharsets;
 
+@SuppressWarnings({"MultipleStringLiterals", "RegexpSinglelineJava"})
 public class Client implements AutoCloseable {
 
+    private final static int BUFFER_SIZE = 1024;
     private SocketChannel socket;
     private static ByteBuffer buffer;
 
     public Client(String host, int port) throws IOException {
         socket = SocketChannel.open(new InetSocketAddress(host, port));
-        buffer = ByteBuffer.allocate(1024);
+        buffer = ByteBuffer.allocate(BUFFER_SIZE);
     }
 
     public void sendToServer(String message) {
         try {
-            String str = new String(message.getBytes());
-            buffer = ByteBuffer.wrap(str.getBytes());
+            buffer = ByteBuffer.wrap(message.getBytes());
             socket.write(buffer);
             buffer.clear();
-            System.out.println(   "Ваня: " + message);
+            System.out.println("Ваня: " + message);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -31,11 +30,10 @@ public class Client implements AutoCloseable {
 
     public void readFromServer() {
         try {
-            buffer = ByteBuffer.allocate(1024);
+            buffer = ByteBuffer.allocate(BUFFER_SIZE);
             buffer.clear();
-             socket.read(buffer);
-             String tmp = new String(buffer.array(), StandardCharsets.UTF_8);
-            System.out.println("Сервер: " +new String(buffer.array()).trim());
+            socket.read(buffer);
+            System.out.println("Сервер: " + new String(buffer.array()).trim());
             buffer.clear();
         } catch (IOException e) {
             throw new RuntimeException(e);

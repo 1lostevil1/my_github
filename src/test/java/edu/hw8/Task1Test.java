@@ -13,9 +13,12 @@ public class Task1Test {
     @Test
     @DisplayName("сервер и клиенты общается")
     public void test() throws Exception {
-        List<String> list = List.of("личности", "оскорбления", "глупый", "интеллект");
 
-        Server server = new Server(18080, 2);
+        //given
+        List<String> list = List.of("личности", "оскорбления", "глупый", "интеллект", "характер");
+
+        //when
+        Server server = new Server(18080, 1);
         Thread thread = new Thread(() -> {
             try {
                 server.start();
@@ -31,14 +34,14 @@ public class Task1Test {
         thread.sleep(150);
         Client client2 = new Client("localhost", 18080);
         thread.sleep(150);
-        client1.sendToServer(list.get(ThreadLocalRandom.current().nextInt(4)));
+        client1.sendToServer(list.get(ThreadLocalRandom.current().nextInt(5)));
         client1.readFromServer();
         thread.sleep(150);
-        client2.sendToServer(list.get(ThreadLocalRandom.current().nextInt(4)));
+        client2.sendToServer(list.get(ThreadLocalRandom.current().nextInt(5)));
         client2.readFromServer();
         Client client3 = new Client("localhost", 18080);
         Thread.sleep(100);
-        client3.sendToServer(list.get(ThreadLocalRandom.current().nextInt(4)));
+        client3.sendToServer(list.get(ThreadLocalRandom.current().nextInt(5)));
         client3.readFromServer();
         try {
             client1.close();
