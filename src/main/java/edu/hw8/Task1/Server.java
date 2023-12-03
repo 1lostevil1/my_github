@@ -94,14 +94,12 @@ public class Server implements AutoCloseable {
         }
 
     private ByteBuffer getAnswer(ByteBuffer byteBuffer) {
-        String currentData = UTF_8.decode(byteBuffer).toString().trim();
-        byteBuffer.position(0);
+        String currentData = UTF_8.decode(byteBuffer).toString();
         String answer = "Error\n";
         if (ReplyMap.replies.containsKey(currentData)) {
             answer = ReplyMap.replies.get(currentData) + '\n';
         }
-        byteBuffer.put(answer.getBytes(UTF_8));
-        return  byteBuffer.position(0);
+        return ByteBuffer.wrap(answer.getBytes(UTF_8));
     }
 
     @Override public void close() throws Exception {

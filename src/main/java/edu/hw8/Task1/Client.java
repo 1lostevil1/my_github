@@ -20,11 +20,10 @@ public class Client implements AutoCloseable {
     public void sendToServer(String message) {
         try {
             String str = new String(message.getBytes());
-            buffer.put(str.getBytes());
-            buffer.position(0);
+            buffer = ByteBuffer.wrap(str.getBytes());
             socket.write(buffer);
             buffer.clear();
-            System.out.println(   "Client: " + message);
+            System.out.println(   "Ваня: " + message);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -32,7 +31,8 @@ public class Client implements AutoCloseable {
 
     public void readFromServer() {
         try {
-            buffer.position(0);
+            buffer = ByteBuffer.allocate(1024);
+            buffer.clear();
              socket.read(buffer);
              String tmp = new String(buffer.array(), StandardCharsets.UTF_8);
             System.out.println("Сервер: " +new String(buffer.array()).trim());
