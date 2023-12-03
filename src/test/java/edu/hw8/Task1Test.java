@@ -18,7 +18,7 @@ public class Task1Test {
         List<String> list = List.of("личности", "оскорбления", "глупый", "интеллект", "характер");
 
         //when
-        Server server = new Server(18080, 1);
+        Server server = new Server(18080, 5);
         Thread thread = new Thread(() -> {
             try {
                 server.start();

@@ -13,7 +13,7 @@ public class Init {
     public static void main(String[] args) throws Exception {
         List<String> list = List.of("личности", "оскорбления", "глупый", "интеллект", "характер");
 
-        Server server = new Server(18080, 2);
+        Server server = new Server(18080, 5);
         Thread thread = new Thread(() -> {
             try {
                 server.start();
