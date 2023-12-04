@@ -1,5 +1,31 @@
 package edu.project4;
 
-public record Pixel(int x, int y, Colour rgb, int hitCount) {
+public class Pixel {
+
+    private Colour rgb;
+    private int countHit;
+
+    public Pixel() {
+        countHit = 0;
+        rgb = new Colour(0, 0, 0);
+    }
+
+    public Pixel(int countHit, Colour rgb) {
+        this.countHit = countHit;
+        this.rgb = rgb;
+    }
+
+    public void incrementCountHit() {
+        countHit++;
+    }
+
+    public Colour getColor() {
+        return rgb;
+    }
+
+    public int getCountHit() {
+        return countHit;
+    }
+
 }
 
