@@ -24,31 +24,37 @@ public class FractalFlame {
     private final ExecutorService executorService;
     private final ReentrantLock lock = new ReentrantLock();
     private final boolean symmetry;
-    private final boolean gammaCorrection;
+    private final double gamma;
     private final Pixel[][] image;
 
-    public FractalFlame(int samples, int iterationsPerSample, int CountOfThreads, boolean symmetry, boolean gammaCorrection){
+    public FractalFlame(
+        int samples,
+        int iterationsPerSample,
+        int CountOfThreads,
+        boolean symmetry,
+        double gamma
+    ) {
 
         image = new Pixel[WIDTH][HEIGHT];
-        for(int i =0; i< WIDTH; i++){
-            for (int j = 0; j< HEIGHT; j++){
+        for (int i = 0; i < WIDTH; i++) {
+            for (int j = 0; j < HEIGHT; j++) {
                 image[i][j] = new Pixel();
             }
         }
         this.samples = samples;
         this.iterationsPerSample = iterationsPerSample;
         this.CountOfThreads = CountOfThreads;
-        this.samplesPerThread = samples/CountOfThreads;
+        this.samplesPerThread = samples / CountOfThreads;
         this.executorService = Executors.newFixedThreadPool(CountOfThreads);
         this.symmetry = symmetry;
-        this.gammaCorrection = gammaCorrection;
+        this.gamma = gamma;
     }
 
-    public Pixel[][] getImage(){
+    public Pixel[][] getImage() {
         return image;
     }
 
-    public void render(){
+    public void render() {
         var tasks = Stream.generate(() -> CompletableFuture.runAsync(
             this::renderPerThread,
             executorService
@@ -56,31 +62,53 @@ public class FractalFlame {
         CompletableFuture.allOf(tasks).join();
     }
 
-    private void renderPerThread(){
-        for(int i =0; i< samplesPerThread; i++) {
+    public void gammaCorrection()
+    {
+        double max=0.0;
+        for (int row=0; row<WIDTH; row++)
+            for (int col=0; col<HEIGHT; col++)
+                if (image[row][col].getCountHit() != 0)
+                {
+                    image[row][col].setNormal(Math.log10(image[row][col].getCountHit())) ;
+                    if (image[row][col].getNormal()>max)
+                        max = image[row][col].getNormal();
+                }
+        for (int row=0; row<WIDTH; row++)
+            for (int col=0; col<HEIGHT; col++)
+            {
+                image[row][col].setNormal( image[row][col].getNormal()/max );
+                image[row][col].setColor(new Colour(
+                    (int) (image[row][col].getColor().getRed()*Math.pow(image[row][col].getNormal(),(1.0 / gamma))),
+                    (int) (image[row][col].getColor().getGreen()*Math.pow(image[row][col].getNormal(),(1.0 / gamma))),
+                    (int) (image[row][col].getColor().getBlue()*Math.pow(image[row][col].getNormal(),(1.0 / gamma)))
+                ));
+            }
+    }
+
+    private void renderPerThread() {
+        for (int i = 0; i < samplesPerThread; i++) {
             double newX = ThreadLocalRandom.current().nextDouble(minX, maxX);
             double newY = ThreadLocalRandom.current().nextDouble(minY, maxY);
             for (int j = someSkippedIterations; j < iterationsPerSample; j++) {
                 Function function = Functions.getFunction();
-                Point point = transform(newX, newY, function);
+                Point point = transform(newX, newY, function, j);
                 newX = point.x();
                 newY = point.y();
-                if(j>=0 && isPointInRange(point)){
+                if (j >= 0 && isPointInRange(point)) {
                     point = findLocation(point);
                     if (isPointInDisplay(point)) {
                         try {
                             lock.lock();
-                           int x = (int) point.x();
-                            int y= (int) point.y();
-                            image[x][ y].incrementCountHit();
+                            int x = (int) point.x();
+                            int y = (int) point.y();
+                            image[x][y].incrementCountHit();
                             image[x][y].setColor(new Colour(
-                                (image[x][y].getColor().getRed()+function.rgb().getRed())/2,
-                                (image[x][y].getColor().getGreen()+function.rgb().getGreen())/2,
-                                (image[x][y].getColor().getBlue()+function.rgb().getBlue())/2
+                                (image[x][y].getColor().getRed() + function.rgb().getRed()) / 2,
+                                (image[x][y].getColor().getGreen() + function.rgb().getGreen()) / 2,
+                                (image[x][y].getColor().getBlue() + function.rgb().getBlue()) / 2
                             ));
-                        }
-                        finally {
-                                    lock.unlock();
+                        } finally {
+                            lock.unlock();
                         }
                     }
 
@@ -89,10 +117,8 @@ public class FractalFlame {
         }
     }
 
-    private Point transform(double x, double y, Function function){
+    private Point transform(double x, double y, Function function, int numberOfIter) {
         //Афинное преобразование
-        double newX = 0;
-        double newY = 0;
         double finalX = function.coefficients().a() * x + function.coefficients().b() * y
             + function.coefficients().c();
         double finalY = function.coefficients().d() * x + function.coefficients().e() * y
@@ -101,10 +127,23 @@ public class FractalFlame {
         //Нелинейное преобразование
         List<Fractal> fractals = function.Fractals();
         Point point = new Point(finalX, finalY);
-        for(Fractal fractal : fractals ) {
-                point = fractal.apply(function.coefficients(), point);
+        for (Fractal fractal : fractals) {
+            point = fractal.apply(function.coefficients(), point);
         }
-        return point;
+        finalX = point.x();
+        finalY = point.y();
+        // Поддержка симметрии
+        if (symmetry) {
+            if (numberOfIter % 4 == 0) {
+                finalX *= -1;
+            } else if (numberOfIter % 3 == 0) {
+                finalX *= -1;
+                finalY *= -1;
+            } else if (numberOfIter % 2 == 0) {
+                finalY *= -1;
+            }
+        }
+        return new Point(finalX, finalY);
     }
 
     private boolean isPointInRange(Point point) {
@@ -114,7 +153,7 @@ public class FractalFlame {
 
     private Point findLocation(Point point) {
         return new Point(
-            (point.x() -minX) / (maxX - minX) * WIDTH,
+            (point.x() - minX) / (maxX - minX) * WIDTH,
             (point.y() - minY) / (maxY - minY) * HEIGHT
         );
     }

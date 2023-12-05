@@ -8,25 +8,27 @@ public class Colour {
     private int Green;
     private int Blue;
 
-    public  Colour() {
+    public Colour() {
         Red = ThreadLocalRandom.current().nextInt(256);
         Green = ThreadLocalRandom.current().nextInt(256);
         Blue = ThreadLocalRandom.current().nextInt(256);
     }
 
-    public  Colour(int Red, int Green, int Blue) {
-       this.Red = Red;
-       this.Green = Green;
-       this.Blue = Blue;
+    public Colour(int Red, int Green, int Blue) {
+        this.Red = Red;
+        this.Green = Green;
+        this.Blue = Blue;
     }
 
-    public int getRed(){
+    public int getRed() {
         return Red;
     }
-    public int getGreen(){
+
+    public int getGreen() {
         return Green;
     }
-    public int getBlue(){
+
+    public int getBlue() {
         return Blue;
     }
 
@@ -34,13 +36,15 @@ public class Colour {
         return (Red << 16 | Green << 8 | Blue);
     }
 
-    public void setRed(int Red){
+    public void setRed(int Red) {
         this.Red = Red;
     }
-    public void setGreen(int Green){
+
+    public void setGreen(int Green) {
         this.Green = Green;
     }
-    public void setBlue(int Blue){
+
+    public void setBlue(int Blue) {
         this.Blue = Blue;
     }
 }

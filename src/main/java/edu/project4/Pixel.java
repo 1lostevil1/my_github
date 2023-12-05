@@ -4,8 +4,10 @@ public class Pixel {
 
     private Colour rgb;
     private int countHit;
+    private double normal;
 
     public Pixel() {
+        normal = 0;
         countHit = 0;
         rgb = new Colour(0, 0, 0);
     }
@@ -23,8 +25,16 @@ public class Pixel {
         return rgb;
     }
 
+    public double getNormal() {
+        return normal;
+    }
+
     public void setColor(Colour rgb) {
-         this.rgb = rgb;
+        this.rgb = rgb;
+    }
+
+    public void setNormal(double normal){
+        this.normal = normal;
     }
 
     public int getCountHit() {
