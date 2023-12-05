@@ -26,10 +26,10 @@ public class Functions {
             List.of(new SPIRAL(), new HYPERBOLIC())
         ),
         new Function(Coefficients.getCoefficients(), new Colour(),
-            List.of(new SINUSOIDAL(), new DISC())
+            List.of(new SINUSOIDAL(), new DISC(), new HEART())
         ),
         new Function(Coefficients.getCoefficients(), new Colour(),
-            List.of(new DIAMOND(), new WAVES())
+            List.of(new DIAMOND(), new WAVES(), new HEART())
         )
 
     );
