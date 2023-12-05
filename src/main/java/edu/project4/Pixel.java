@@ -23,6 +23,10 @@ public class Pixel {
         return rgb;
     }
 
+    public void setColor(Colour rgb) {
+         this.rgb = rgb;
+    }
+
     public int getCountHit() {
         return countHit;
     }
