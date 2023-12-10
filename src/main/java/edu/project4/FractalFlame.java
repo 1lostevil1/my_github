@@ -8,6 +8,8 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.stream.Stream;
 
+@SuppressWarnings("MagicNumber")
+
 public class FractalFlame {
 
     private static final int HEIGHT = 1080;
@@ -17,7 +19,7 @@ public class FractalFlame {
     private final double minY = -1.;
     private final double maxY = 1.;
     private final int samples;
-    private final int CountOfThreads;
+    private final int countOfThreads;
     private final int samplesPerThread;
     private final int iterationsPerSample;
     private final int someSkippedIterations = -20;
@@ -30,7 +32,7 @@ public class FractalFlame {
     public FractalFlame(
         int samples,
         int iterationsPerSample,
-        int CountOfThreads,
+        int countOfThreads,
         boolean symmetry,
         double gamma
     ) {
@@ -43,9 +45,9 @@ public class FractalFlame {
         }
         this.samples = samples;
         this.iterationsPerSample = iterationsPerSample;
-        this.CountOfThreads = CountOfThreads;
-        this.samplesPerThread = samples / CountOfThreads;
-        this.executorService = Executors.newFixedThreadPool(CountOfThreads);
+        this.countOfThreads = countOfThreads;
+        this.samplesPerThread = samples / countOfThreads;
+        this.executorService = Executors.newFixedThreadPool(countOfThreads);
         this.symmetry = symmetry;
         this.gamma = gamma;
     }
@@ -58,31 +60,33 @@ public class FractalFlame {
         var tasks = Stream.generate(() -> CompletableFuture.runAsync(
             this::renderPerThread,
             executorService
-        )).limit(CountOfThreads).toArray(CompletableFuture[]::new);
+        )).limit(countOfThreads).toArray(CompletableFuture[]::new);
         CompletableFuture.allOf(tasks).join();
     }
 
-    public void gammaCorrection()
-    {
-        double max=0.0;
-        for (int row=0; row<WIDTH; row++)
-            for (int col=0; col<HEIGHT; col++)
-                if (image[row][col].getCountHit() != 0)
-                {
-                    image[row][col].setNormal(Math.log10(image[row][col].getCountHit())) ;
-                    if (image[row][col].getNormal()>max)
+    public void gammaCorrection() {
+        double max = 0.0;
+        for (int row = 0; row < WIDTH; row++) {
+            for (int col = 0; col < HEIGHT; col++) {
+                if (image[row][col].getCountHit() != 0) {
+                    image[row][col].setNormal(Math.log10(image[row][col].getCountHit()));
+                    if (image[row][col].getNormal() > max) {
                         max = image[row][col].getNormal();
+                    }
                 }
-        for (int row=0; row<WIDTH; row++)
-            for (int col=0; col<HEIGHT; col++)
-            {
-                image[row][col].setNormal( image[row][col].getNormal()/max );
+            }
+        }
+        for (int row = 0; row < WIDTH; row++) {
+            for (int col = 0; col < HEIGHT; col++) {
+                image[row][col].setNormal(image[row][col].getNormal() / max);
                 image[row][col].setColor(new Colour(
-                    (int) (image[row][col].getColor().getRed()*Math.pow(image[row][col].getNormal(),(1.0 / gamma))),
-                    (int) (image[row][col].getColor().getGreen()*Math.pow(image[row][col].getNormal(),(1.0 / gamma))),
-                    (int) (image[row][col].getColor().getBlue()*Math.pow(image[row][col].getNormal(),(1.0 / gamma)))
+                    (int) (image[row][col].getColor().getRed() * Math.pow(image[row][col].getNormal(), (1.0 / gamma))),
+                    (int) (image[row][col].getColor().getGreen()
+                        * Math.pow(image[row][col].getNormal(), (1.0 / gamma))),
+                    (int) (image[row][col].getColor().getBlue() * Math.pow(image[row][col].getNormal(), (1.0 / gamma)))
                 ));
             }
+        }
     }
 
     private void renderPerThread() {
@@ -125,7 +129,7 @@ public class FractalFlame {
             + function.coefficients().f();
 
         //Нелинейное преобразование
-        List<Fractal> fractals = function.Fractals();
+        List<Fractal> fractals = function.fractals();
         Point point = new Point(finalX, finalY);
         for (Fractal fractal : fractals) {
             point = fractal.apply(function.coefficients(), point);

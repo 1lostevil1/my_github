@@ -1,6 +1,14 @@
 package edu.project4;
 
-import edu.project4.SomePatterns.*;
+import edu.project4.SomePatterns.DIAMOND;
+import edu.project4.SomePatterns.DISC;
+import edu.project4.SomePatterns.EXPONENTIAL;
+import edu.project4.SomePatterns.HEART;
+import edu.project4.SomePatterns.HYPERBOLIC;
+import edu.project4.SomePatterns.POPCORN;
+import edu.project4.SomePatterns.SINUSOIDAL;
+import edu.project4.SomePatterns.SPIRAL;
+import edu.project4.SomePatterns.WAVES;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -9,7 +17,7 @@ public class Functions {
     private Functions() {
     }
 
-    private static List<Function> FunctionList = List.of(
+    private static List<Function> functionList = List.of(
         new Function(Coefficients.getCoefficients(), new Colour(),
             List.of(new HEART(), new EXPONENTIAL())
         ),
@@ -35,6 +43,6 @@ public class Functions {
     );
 
     public static Function getFunction() {
-        return FunctionList.get(ThreadLocalRandom.current().nextInt(FunctionList.size()));
+        return functionList.get(ThreadLocalRandom.current().nextInt(functionList.size()));
     }
 }

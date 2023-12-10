@@ -33,7 +33,7 @@ public class Pixel {
         this.rgb = rgb;
     }
 
-    public void setNormal(double normal){
+    public void setNormal(double normal) {
         this.normal = normal;
     }
 

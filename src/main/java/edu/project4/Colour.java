@@ -2,49 +2,51 @@ package edu.project4;
 
 import java.util.concurrent.ThreadLocalRandom;
 
+@SuppressWarnings("MagicNumber")
+
 public class Colour {
 
-    private int Red;
-    private int Green;
-    private int Blue;
+    private int red;
+    private int green;
+    private int blue;
 
     public Colour() {
-        Red = ThreadLocalRandom.current().nextInt(256);
-        Green = ThreadLocalRandom.current().nextInt(256);
-        Blue = ThreadLocalRandom.current().nextInt(256);
+        red = ThreadLocalRandom.current().nextInt(256);
+        green = ThreadLocalRandom.current().nextInt(256);
+        blue = ThreadLocalRandom.current().nextInt(256);
     }
 
-    public Colour(int Red, int Green, int Blue) {
-        this.Red = Red;
-        this.Green = Green;
-        this.Blue = Blue;
+    public Colour(int red, int green, int blue) {
+        this.red = red;
+        this.green = green;
+        this.blue = blue;
     }
 
     public int getRed() {
-        return Red;
+        return red;
     }
 
     public int getGreen() {
-        return Green;
+        return green;
     }
 
     public int getBlue() {
-        return Blue;
+        return blue;
     }
 
     public int getRGB() {
-        return (Red << 16 | Green << 8 | Blue);
+        return (red << 16 | green << 8 | blue);
     }
 
-    public void setRed(int Red) {
-        this.Red = Red;
+    public void setRed(int reded) {
+        this.red = red;
     }
 
-    public void setGreen(int Green) {
-        this.Green = Green;
+    public void setGreen(int green) {
+        this.green = green;
     }
 
-    public void setBlue(int Blue) {
-        this.Blue = Blue;
+    public void setBlue(int blue) {
+        this.blue = blue;
     }
 }

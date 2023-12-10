@@ -1,14 +1,14 @@
 package edu.project4;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import javax.imageio.ImageIO;
-import javax.swing.JFrame;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.UUID;
+import javax.imageio.ImageIO;
+import javax.swing.JFrame;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class Drawer extends JFrame {
     private final BufferedImage image;

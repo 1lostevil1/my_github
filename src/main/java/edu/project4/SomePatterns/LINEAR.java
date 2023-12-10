@@ -5,7 +5,7 @@ import edu.project4.Fractal;
 import edu.project4.Point;
 
 public class LINEAR implements Fractal {
-    public Point apply(Coefficients coefficients, Point point){
+    public Point apply(Coefficients coefficients, Point point) {
         return new Point(point.x(), point.y());
     }
 }

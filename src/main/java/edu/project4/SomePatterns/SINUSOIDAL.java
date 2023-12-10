@@ -5,7 +5,7 @@ import edu.project4.Fractal;
 import edu.project4.Point;
 
 public class SINUSOIDAL implements Fractal {
-    public Point apply(Coefficients coefficients, Point point){
+    public Point apply(Coefficients coefficients, Point point) {
         return new Point(Math.sin(point.x()), Math.sin(point.y()));
     }
 }
