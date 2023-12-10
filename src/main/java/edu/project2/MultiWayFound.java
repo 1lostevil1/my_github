@@ -59,21 +59,27 @@ public class MultiWayFound extends RecursiveTask<List<Cell>> {
     }
 
     private void forkaction(List<Cell> neighboursList, Cell currentCell, List<Cell> path) {
-        if (neighboursList.size() <= 1) {
+        if (neighboursList.size() == 1) {
             coordStack.push(currentCell);
+            makeWay(currentCell, neighboursList.get(0), false);
             path.add(currentCell);
             mazeMatrix[currentCell.x][currentCell.y].isWay = true;
             mazeMatrix[currentCell.x][currentCell.y].isVisited = true;
         } else {
-            MultiWayFound multiWayFound =
-                new MultiWayFound(
-                    coordStack,
-                    mazeMatrix,
-                    new Cell(currentCell.x, currentCell.y, false, true, true, false),
-                    end
-                );
-            multiWayFound.fork();
-            path.addAll(multiWayFound.join());
+            List<MultiWayFound> classes = new ArrayList<>(neighboursList.size());
+            int i = 0;
+            for (var obj : classes) {
+                obj =
+                    new MultiWayFound(
+                        coordStack,
+                        mazeMatrix,
+                        new Cell(neighboursList.get(i).x, neighboursList.get(i).y, false, true, true, false),
+                        end
+                    );
+                i++;
+                obj.fork();
+                path.addAll(obj.join());
+            }
         }
     }
 
@@ -91,46 +97,21 @@ public class MultiWayFound extends RecursiveTask<List<Cell>> {
         while (currentCell.x != finish.x || currentCell.y != finish.y) {
             neighbours = new Neighbours(currentCell);
             neighbours.notIgnoreWallBetween(currentCell);
-            var directions = directions(currentCell, neighbours);
-            for (var direction : directions) {
-
-                switch (direction) {
-                    case 1 -> {
-                        makeWay(currentCell, mazeMatrix[currentCell.x - 2][currentCell.y], false);
-                        currentCell = mazeMatrix[currentCell.x - 2][currentCell.y];
-                        forkaction(neighbours.neighboursList, currentCell, answer);
-                    }
-                    case 2 -> {
-                        makeWay(currentCell, mazeMatrix[currentCell.x + 2][currentCell.y], false);
-                        currentCell = mazeMatrix[currentCell.x + 2][currentCell.y];
-                        forkaction(neighbours.neighboursList, currentCell, answer);
-                    }
-                    case 3 -> {
-                        makeWay(currentCell, mazeMatrix[currentCell.x][currentCell.y - 2], false);
-                        currentCell = mazeMatrix[currentCell.x][currentCell.y - 2];
-                        forkaction(neighbours.neighboursList, currentCell, answer);
-                    }
-                    case 4 -> {
-                        makeWay(currentCell, mazeMatrix[currentCell.x][currentCell.y + 2], false);
-                        currentCell = mazeMatrix[currentCell.x][currentCell.y + 2];
-                        forkaction(neighbours.neighboursList, currentCell, answer);
-                    }
-
-                    default -> {
-                        if (directions.isEmpty()) {
-                            mazeMatrix[coordStack.peek().x][coordStack.peek().y].isWay = false;
-                            answer.remove(answer.indexOf(coordStack.peek()));
-                            makeWay(coordStack.pop(), coordStack.peek(), true);
-                            currentCell = mazeMatrix[coordStack.peek().x][coordStack.peek().y];
-                        }
-                    }
-                }
-
+            if(neighbours.size != 0) {
+                forkaction(neighbours.neighboursList, currentCell, answer);
             }
 
+            if (neighbours.size == 0) {
+                mazeMatrix[coordStack.peek().x][coordStack.peek().y].isWay = false;
+                answer.remove(answer.indexOf(coordStack.peek()));
+                makeWay(coordStack.pop(), coordStack.peek(), true);
+                currentCell = mazeMatrix[coordStack.peek().x][coordStack.peek().y];
+            }
         }
         return answer;
+
     }
+
 
     private List<Integer> directions(Cell currentCell, Neighbours neighbours) {
         List<Integer> answer = new ArrayList<>();
