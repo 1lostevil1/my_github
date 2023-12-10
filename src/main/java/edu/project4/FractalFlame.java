@@ -12,8 +12,8 @@ import java.util.stream.Stream;
 
 public class FractalFlame {
 
-    private final int HEIGHT = 1080;
-    private final int WIDTH = 1920;
+    private final int height = 1080;
+    private final int width = 1920;
     private final double minX = -1.777;
     private final double maxX = 1.777;
     private final double minY = -1.;
@@ -37,9 +37,9 @@ public class FractalFlame {
         double gamma
     ) {
 
-        image = new Pixel[WIDTH][HEIGHT];
-        for (int i = 0; i < WIDTH; i++) {
-            for (int j = 0; j < HEIGHT; j++) {
+        image = new Pixel[width][height];
+        for (int i = 0; i < width; i++) {
+            for (int j = 0; j < height; j++) {
                 image[i][j] = new Pixel();
             }
         }
@@ -66,8 +66,8 @@ public class FractalFlame {
 
     public void gammaCorrection() {
         double max = 0.0;
-        for (int row = 0; row < WIDTH; row++) {
-            for (int col = 0; col < HEIGHT; col++) {
+        for (int row = 0; row < width; row++) {
+            for (int col = 0; col < height; col++) {
                 if (image[row][col].getCountHit() != 0) {
                     image[row][col].setNormal(Math.log10(image[row][col].getCountHit()));
                     if (image[row][col].getNormal() > max) {
@@ -76,8 +76,8 @@ public class FractalFlame {
                 }
             }
         }
-        for (int row = 0; row < WIDTH; row++) {
-            for (int col = 0; col < HEIGHT; col++) {
+        for (int row = 0; row < width; row++) {
+            for (int col = 0; col < height; col++) {
                 image[row][col].setNormal(image[row][col].getNormal() / max);
                 image[row][col].setColor(new Colour(
                     (int) (image[row][col].getColor().getRed() * Math.pow(image[row][col].getNormal(), (1.0 / gamma))),
@@ -157,14 +157,14 @@ public class FractalFlame {
 
     private Point findLocation(Point point) {
         return new Point(
-            (point.x() - minX) / (maxX - minX) * WIDTH,
-            (point.y() - minY) / (maxY - minY) * HEIGHT
+            (point.x() - minX) / (maxX - minX) * width,
+            (point.y() - minY) / (maxY - minY) * height
         );
     }
 
     private boolean isPointInDisplay(Point point) {
-        return 0 <= point.x() && point.x() <= WIDTH
-            && 0 <= point.y() && point.y() <= HEIGHT;
+        return 0 <= point.x() && point.x() <= width
+            && 0 <= point.y() && point.y() <= height;
     }
 
 }
