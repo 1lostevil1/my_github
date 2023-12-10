@@ -12,8 +12,8 @@ import java.util.stream.Stream;
 
 public class FractalFlame {
 
-    private static final int HEIGHT = 1080;
-    private static final int WIDTH = 1920;
+    private final int HEIGHT = 1080;
+    private final int WIDTH = 1920;
     private final double minX = -1.777;
     private final double maxX = 1.777;
     private final double minY = -1.;

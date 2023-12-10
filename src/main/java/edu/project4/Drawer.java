@@ -12,7 +12,7 @@ import org.apache.logging.log4j.Logger;
 
 public class Drawer extends JFrame {
     private final BufferedImage image;
-    private final static Logger LOGGER = LogManager.getLogger();
+    private static final Logger LOGGER = LogManager.getLogger();
 
     public Drawer(int width, int height) {
         super("Pixel Coloring");
