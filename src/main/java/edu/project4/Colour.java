@@ -38,7 +38,7 @@ public class Colour {
         return (red << 16 | green << 8 | blue);
     }
 
-    public void setRed(int reded) {
+    public void setRed(int red) {
         this.red = red;
     }
 
