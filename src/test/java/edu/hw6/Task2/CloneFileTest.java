@@ -17,7 +17,7 @@ public class CloneFileTest {
     private final static String DIRECTORY_PATH = "TestFile";
 
     public static void deleteDirectory(File directory) throws Exception {
-        if(!directory.exists()) {
+        if (!directory.exists()) {
             return;
         }
 
@@ -50,20 +50,25 @@ public class CloneFileTest {
     @Test
     @DisplayName("Ошибка при попытке копирования несуществующего файна")
     void NoSuchFile() throws IOException {
+        //given
         Path path = Path.of(DIRECTORY_PATH, "test.txt");
-        assertThrows(IOException.class,  () ->  CloneFile.cloneFile(path)) ;
+        //expect
+        assertThrows(IOException.class, () -> CloneFile.cloneFile(path));
     }
 
     @Test
     @DisplayName("Первое успешное клонирование")
     void firstClone() throws IOException {
+        //given
         Path path = Path.of(DIRECTORY_PATH, "test.txt");
+        //when
         Files.createFile(path);
         Files.writeString(path, "test");
 
         CloneFile.cloneFile(path);
 
         Path newPath = Path.of(DIRECTORY_PATH, "test - копия.txt");
+        //then
         assertThat(Files.exists(newPath)).isTrue();
         assertThat(Files.readString(newPath)).isEqualTo("test");
     }
@@ -71,21 +76,25 @@ public class CloneFileTest {
     @Test
     @DisplayName("Более одного успешного клонирования")
     void nClone() throws IOException {
+        //given
         Path path = Path.of(DIRECTORY_PATH, "test.txt");
+        //when
         Files.createFile(path);
         CloneFile.cloneFile(path);
         CloneFile.cloneFile(path);
-
+        //then
         assertThat(Files.exists(Path.of(DIRECTORY_PATH, "test - копия (2).txt"))).isTrue();
     }
 
     @Test
     @DisplayName("Работа без расширений")
     void cloneWithNoExtension() throws IOException {
+        //given
         Path path = Path.of(DIRECTORY_PATH, "test");
+        //when
         Files.createFile(path);
         CloneFile.cloneFile(path);
-
+        //then
         assertThat(Files.exists(Path.of(DIRECTORY_PATH, "test - копия"))).isTrue();
     }
 }

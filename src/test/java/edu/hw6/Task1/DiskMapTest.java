@@ -283,17 +283,20 @@ public class DiskMapTest {
     @Test
     @DisplayName("Получение по ключу, значения нет")
     void getNull() throws IOException {
+        //given
         DiskMap map = new DiskMap(DIRECTORY_PATH);
-
+        //when
         Files.createDirectories(Path.of(DIRECTORY_PATH));
-
+        //then
         assertThat(map.get("test")).isNull();
     }
 
     @Test
     @DisplayName("Успешно добавляет значения")
     void successPutAll() throws IOException {
+        //given
         DiskMap map = new DiskMap(DIRECTORY_PATH);
+        //when
         Map<String, String> putValues = Map.of(
             "first", "first",
             "second", "second"
@@ -302,10 +305,12 @@ public class DiskMapTest {
         map.putAll(putValues);
 
         Path first = Path.of(DIRECTORY_PATH, "first");
+        //then
         assertTrue(Files.exists(first));
         assertThat(Files.readString(first)).isEqualTo("first");
-
+        //when
         Path second = Path.of(DIRECTORY_PATH, "second");
+        //then
         assertTrue(Files.exists(second));
         assertThat(Files.readString(second)).isEqualTo("second");
     }
@@ -313,7 +318,9 @@ public class DiskMapTest {
     @Test
     @DisplayName("Файлы уже существует")
     void putAllToExistingFiles() throws IOException {
+        //given
         DiskMap map = new DiskMap(DIRECTORY_PATH);
+        //when
         Map<String, String> putValues = Map.of(
             "first", "first",
             "second", "second"
@@ -326,7 +333,7 @@ public class DiskMapTest {
         Files.createFile(second);
 
         map.putAll(putValues);
-
+        //then
         assertTrue(Files.exists(first));
         assertThat(Files.readString(first)).isEqualTo("first");
 
@@ -337,62 +344,66 @@ public class DiskMapTest {
     @Test
     @DisplayName("Чистка папки")
     void clear() throws IOException {
+        //given
         DiskMap map = new DiskMap(DIRECTORY_PATH);
-
+        //when
         Files.createDirectories(Path.of(DIRECTORY_PATH));
         Files.createFile(Path.of(DIRECTORY_PATH, "first"));
         Files.createFile(Path.of(DIRECTORY_PATH, "second"));
         Files.createFile(Path.of(DIRECTORY_PATH, "third"));
         map.clear();
-
+        //then
         assertThat(Files.list(Path.of(DIRECTORY_PATH)).count()).isEqualTo(0);
     }
 
     @Test
     @DisplayName("Получение списка ключей")
     void getKeys() throws IOException {
+        //given
         DiskMap map = new DiskMap(DIRECTORY_PATH);
         Path first = Path.of(DIRECTORY_PATH, "first");
         Path second = Path.of(DIRECTORY_PATH, "second");
-
+        //when
         Files.createDirectories(first.getParent());
         Files.createFile(first);
         Files.createFile(second);
-
+        //then
         assertThat(map.keySet()).isEqualTo(Set.of("first", "second"));
     }
 
     @Test
     @DisplayName("Получение списка значений")
     void getValues() throws IOException {
+        //given
         DiskMap map = new DiskMap(DIRECTORY_PATH);
         Path first = Path.of(DIRECTORY_PATH, "first");
         Path second = Path.of(DIRECTORY_PATH, "second");
-
+        //when
         Files.createDirectories(first.getParent());
         Files.createFile(first);
         Files.createFile(second);
 
         Files.writeString(first, "first");
         Files.writeString(second, "second");
-
+        //then
         assertThat(map.values().stream().sorted().toList()).isEqualTo(List.of("first", "second"));
     }
 
     @Test
     @DisplayName("Получение сущностей")
     void getEntrySet() throws IOException {
+        //given
         DiskMap map = new DiskMap(DIRECTORY_PATH);
         Path first = Path.of(DIRECTORY_PATH, "first");
         Path second = Path.of(DIRECTORY_PATH, "second");
-
+        //when
         Files.createDirectories(first.getParent());
         Files.createFile(first);
         Files.createFile(second);
 
         Files.writeString(first, "first");
         Files.writeString(second, "second");
-
+        //then
         assertThat(map.entrySet()).isEqualTo(Map.of(
             "first", "first",
             "second", "second"

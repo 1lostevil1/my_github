@@ -48,8 +48,11 @@ public class StreamChainTest {
 
     @Test
     void testChain() throws IOException {
+        //given
         Path path = Path.of(DIRECTORY_PATH, "chain.txt");
+        //when
         StreamChain.streamsChain(path);
+        //when
         assertThat(Files.readString(path)).isEqualTo("Programming is learned by writing programs. ― Brian Kernighan");
     }
 }

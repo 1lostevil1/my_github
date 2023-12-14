@@ -17,13 +17,13 @@ class FilterTest {
     @Test
     @DisplayName("Проверка фильтра largerThan")
     void test1() {
-        // Given
+        // given
         List<Path> list = new ArrayList<>();
         List<Path> expected = List.of(
             Path.of("src/main/java/edu/hw6/Task3/files/2.txt")
         );
 
-        // When
+        // when
         DirectoryStream.Filter<Path> filter = Filter.largerThan(5);
         try (DirectoryStream<Path> entries = Files.newDirectoryStream(DIRECTORY, filter)) {
             for (var entry : entries) {
@@ -33,20 +33,20 @@ class FilterTest {
             throw new RuntimeException(e);
         }
 
-        // Then
+        // then
         assertEquals(expected, list);
     }
 
     @Test
     @DisplayName("Проверка фильтра globMatches")
     void test2() {
-        // Given
+        // given
         List<Path> list = new ArrayList<>();
         List<Path> expected = List.of(
             Path.of("src/main/java/edu/hw6/Task3/files/1.txt, src/main/java/edu/hw6/Task3/files/2.txt")
         );
 
-        // When
+        // when
         DirectoryStream.Filter<Path> filter = Filter.globMatches("(.*).txt");
         try (DirectoryStream<Path> entries = Files.newDirectoryStream(DIRECTORY, filter)) {
             for (var entry : entries) {
@@ -56,20 +56,20 @@ class FilterTest {
             throw new RuntimeException(e);
         }
 
-        // Then
+        // then
         assertEquals(expected.toString(), list.toString());
     }
 
     @Test
     @DisplayName("Проверка фильтра magicNumber")
     void test3() {
-        // Given
+        // given
         List<Path> list = new ArrayList<>();
         List<Path> expected = List.of(
             Path.of("src/main/java/edu/hw6/Task3/files/2.txt")
         );
 
-        // When
+        // when
         DirectoryStream.Filter<Path> filter = Filter.magicNumber('1', '2', '3');
         try (DirectoryStream<Path> entries = Files.newDirectoryStream(DIRECTORY, filter)) {
             for (var entry : entries) {
@@ -79,20 +79,20 @@ class FilterTest {
             throw new RuntimeException(e);
         }
 
-        // Then
+        // then
         assertEquals(expected, list);
     }
 
     @Test
     @DisplayName("Проверка фильтра regexContains")
     void test4() {
-        // Given
+        // given
         List<Path> list = new ArrayList<>();
         List<Path> expected = List.of(
             Path.of("src/main/java/edu/hw6/Task3/files/2.txt")
         );
 
-        // When
+        // when
         DirectoryStream.Filter<Path> filter = regexContains("2");
         try (DirectoryStream<Path> entries = Files.newDirectoryStream(DIRECTORY, filter)) {
             for (var entry : entries) {
@@ -102,21 +102,21 @@ class FilterTest {
             throw new RuntimeException(e);
         }
 
-        // Then
+        // then
         assertEquals(expected, list);
     }
 
     @Test
     @DisplayName("Проверка фильтра READABLE")
     void test5() {
-        // Given
+        // given
         List<Path> list = new ArrayList<>();
         List<Path> expected = List.of(
             Path.of("src/main/java/edu/hw6/Task3/files/1.txt, src/main/java/edu/hw6/Task3/files/2.txt" +
                 ", src/main/java/edu/hw6/Task3/files/3.dox")
         );
 
-        // When
+        // when
         DirectoryStream.Filter<Path> filter = Filter.READABLE;
         try (DirectoryStream<Path> entries = Files.newDirectoryStream(DIRECTORY, filter)) {
             for (var entry : entries) {
@@ -126,20 +126,20 @@ class FilterTest {
             throw new RuntimeException(e);
         }
 
-        // Then
+        // then
         assertEquals(expected.toString(), list.toString());
     }
 
     @Test
     @DisplayName("API - цепочечный")
     void test6() {
-        // Given
+        // given
         List<Path> list = new ArrayList<>();
         List<Path> expected = List.of(
             Path.of("src/main/java/edu/hw6/Task3/files/2.txt")
         );
 
-        // When
+        // when
         DirectoryStream.Filter<Path> filter = Filter
             .globMatches("(.*).txt")
             .and(regexContains("2"));
@@ -151,7 +151,7 @@ class FilterTest {
             throw new RuntimeException(e);
         }
 
-        // Then
+        // then
         assertEquals(expected, list);
     }
 }
