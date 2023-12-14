@@ -9,8 +9,8 @@ import org.apache.logging.log4j.Logger;
 @SuppressWarnings({"UncommentedMain", "RegexpSinglelineJava", "MagicNumber"})
 public class MonteKarloPi {
 
-    private final static int RADIUS = 4;
-    private final static Logger LOGGER = LogManager.getLogger();
+    private static final int RADIUS = 4;
+    private static final Logger LOGGER = LogManager.getLogger();
 
     private MonteKarloPi() {
     }
@@ -78,8 +78,8 @@ public class MonteKarloPi {
         double result2 = parallelPiCalculate(1000000000);
         after = System.nanoTime();
         long nanoSecSecond = after - before;
-        System.out.println(Math.abs((float) result2 - Math.PI));
-        System.out.println((double) nanoSecFirst / nanoSecSecond);
+       LOGGER.info(Math.abs((float) result2 - Math.PI));
+        LOGGER.info((double) nanoSecFirst / nanoSecSecond);
 
     }
 }

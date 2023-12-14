@@ -5,8 +5,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class RaceCondition {
-    private final static int MAX = 100;
-    private final static Logger LOGGER = LogManager.getLogger();
+    private static final int MAX = 100;
+    private static final  Logger LOGGER = LogManager.getLogger();
     private static AtomicInteger value = new AtomicInteger(0);
 
     private RaceCondition() {
