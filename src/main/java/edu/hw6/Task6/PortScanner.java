@@ -10,7 +10,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 @SuppressWarnings({"UncommentedMain", "MagicNumber"})
- public class PortScanner {
+public class PortScanner {
 
     private final static Logger LOGGER = LogManager.getLogger();
 
@@ -36,11 +36,11 @@ import org.apache.logging.log4j.Logger;
         MAP_OF_CONNECTION.put(Connections.Telnet.getPort(), Connections.Telnet);
         MAP_OF_CONNECTION.put(Connections.POP3.getPort(), Connections.POP3);
         MAP_OF_CONNECTION.put(Connections.IMAP.getPort(), Connections.IMAP);
-        MAP_OF_CONNECTION.put(Connections.NTP.getPort(), Connections.NTP );
+        MAP_OF_CONNECTION.put(Connections.NTP.getPort(), Connections.NTP);
         MAP_OF_CONNECTION.put(Connections.SMB.getPort(), Connections.SMB);
         MAP_OF_CONNECTION.put(Connections.AFP.getPort(), Connections.AFP);
         MAP_OF_CONNECTION.put(Connections.HTTPProxy.getPort(), Connections.HTTPProxy);
-        MAP_OF_CONNECTION.put(Connections.PPTP.getPort(), Connections.PPTP );
+        MAP_OF_CONNECTION.put(Connections.PPTP.getPort(), Connections.PPTP);
         MAP_OF_CONNECTION.put(Connections.HTTP.getPort(), Connections.HTTP);
         MAP_OF_CONNECTION.put(Connections.FTP.getPort(), Connections.FTP);
         MAP_OF_CONNECTION.put(Connections.SMTP.getPort(), Connections.SMTP);
