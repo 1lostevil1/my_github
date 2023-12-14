@@ -8,7 +8,7 @@ import org.apache.logging.log4j.Logger;
 
 public class Collector {
 
-    private final static Logger LOGGER = LogManager.getLogger();
+    private static final Logger LOGGER = LogManager.getLogger();
 
     private final BlockingQueue<Metric> collector;
 

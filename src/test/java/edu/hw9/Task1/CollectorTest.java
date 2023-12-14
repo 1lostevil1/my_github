@@ -19,10 +19,11 @@ public class CollectorTest {
     @Test
     @DisplayName("Программа справляется с задачей")
     void test1() throws InterruptedException {
+        //given
         int collectorSize = 3;
         int countOfMetrics = 5;
         Collector collector = new Collector(collectorSize);
-
+        //when
         var send = Stream.generate(() -> CompletableFuture.runAsync(() ->
             {
                 collector.push(
@@ -49,7 +50,7 @@ public class CollectorTest {
             ))
             .limit(countOfMetrics)
             .toArray(CompletableFuture[]::new);
-
+        //expect
         CompletableFuture.allOf(send).join();
         CompletableFuture.allOf(answer).join();
     }
