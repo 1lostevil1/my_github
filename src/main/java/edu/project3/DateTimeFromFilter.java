@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.function.Predicate;
 
 public class DateTimeFromFilter implements Predicate<LocalDateTime> {
+
     private final LocalDateTime from;
 
     public DateTimeFromFilter(LocalDateTime from) {

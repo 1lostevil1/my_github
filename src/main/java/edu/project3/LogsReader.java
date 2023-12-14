@@ -21,7 +21,7 @@ import java.util.stream.Stream;
 import static java.net.http.HttpClient.newHttpClient;
 
 public class LogsReader {
-    private final static int OK = 200;
+    private static final int HTTP_STATUS_CODE_OK = 200;
 
     private LogsReader() {}
 
@@ -35,7 +35,7 @@ public class LogsReader {
             var response = newHttpClient()
                 .send(request, HttpResponse.BodyHandlers.ofString());
 
-            if (response.statusCode() != OK) {
+            if (response.statusCode() != HTTP_STATUS_CODE_OK) {
                 return Stream.empty();
             }
 

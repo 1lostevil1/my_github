@@ -128,39 +128,42 @@ public class NginxLogsStatsTest {
 
     @Test
     void url() throws IOException {
+        //given
         stubFor(get(urlEqualTo("/logs"))
             .willReturn(aResponse()
                 .withStatus(200)
                 .withBody(LOG_BEFORE + "\n" + LOG + "\n" + LOG_AFTER)));
-
+        //when
         String answer = NginxLogsStats.nginxLogsStats(List.of(
             "--path", wireMockServer.url("/logs"),
             "--from", LocalDateTime.of(2023, 11, 15, 21, 34, 33).toString(),
             "--to", LocalDateTime.of(2023, 11, 15, 21, 34, 33).toString(),
             "--format", "markdown"
         ).toArray(new String[0]));
-
+        //then
         assertThat(answer.equals(MARKDOWN_URL));
     }
 
     @Test
     void file() throws IOException {
+        //given
         Path path = Path.of(DIRECTORY_PATH, "file");
         Files.createFile(path);
         Files.writeString(path, LOG);
-
+        //when
         String answer = NginxLogsStats.nginxLogsStats(List.of(
             "--path", path.toString(),
             "--from", LocalDateTime.of(2023, 11, 15, 21, 34, 33).toString(),
             "--to", LocalDateTime.of(2023, 11, 15, 21, 34, 33).toString(),
             "--format", "markdown"
         ).toArray(new String[0]));
-
+        //then
         assertThat(answer.equals(MARKDOWN_FILE));
     }
 
     @Test
     void withoutPath() {
+        //expect
         assertThrows(
             IllegalArgumentException.class,
             () -> NginxLogsStats.nginxLogsStats(new String[] {})

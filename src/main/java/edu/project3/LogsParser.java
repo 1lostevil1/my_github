@@ -8,12 +8,12 @@ import java.util.regex.Pattern;
 import org.jetbrains.annotations.NotNull;
 
 public class LogsParser {
-    private final static String IP_ADDRESS_PATTERN = "\\b(?:\\d{1,3}\\.){3}\\d{1,3}\\b";
-    private final static String ANY_STRING_PATTERN = ".*?";
-    private final static String STATUS_PATTERN = "[1-5]\\d{2}";
-    private final static String BYTES_COUNT_PATTERN = "\\d{1,}";
+    private static final String IP_ADDRESS_PATTERN = "\\b(?:\\d{1,3}\\.){3}\\d{1,3}\\b";
+    private static final String ANY_STRING_PATTERN = ".*?";
+    private static final String STATUS_PATTERN = "[1-5]\\d{2}";
+    private static final String BYTES_COUNT_PATTERN = "\\d{1,}";
     /** [15/Nov/2023:21:33:58 +0000] */
-    private final static String DATE_TIME_PATTERN = "dd/MMM/yyyy:HH:mm:ss xxxx";
+    private static final String DATE_TIME_PATTERN = "dd/MMM/yyyy:HH:mm:ss xxxx";
     private static String generatedPattern = null;
 
     private LogsParser() {}

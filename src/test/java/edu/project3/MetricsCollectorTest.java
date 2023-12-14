@@ -40,6 +40,7 @@ public class MetricsCollectorTest {
 
     @Test
     void severalLogStrings() throws IOException {
+        //given
         LocalDateTime datetimeFirst = LocalDateTime.of(1970, 1, 1, 0, 0);
         LocalDateTime datetimeSecond = LocalDateTime.of(1970, 1, 1, 0, 1);
 
@@ -66,13 +67,13 @@ public class MetricsCollectorTest {
             "referer 2",
             "http user 2"
         );
-
+        //when
         MetricsCollector collector = new MetricsCollector();
         collector.collect(first);
         collector.collect(second);
 
         Metrics metrics = collector.getMetrics();
-
+        //then
         assertThat(metrics.files()).isEqualTo(Set.of("source 1", "source 2"));
         assertThat(metrics.from()).isEqualTo(datetimeFirst);
         assertThat(metrics.to()).isEqualTo(datetimeSecond);
@@ -84,10 +85,11 @@ public class MetricsCollectorTest {
 
     @Test
     void withoutLogs() {
+        //given
         MetricsCollector collector = new MetricsCollector();
-
+        //when
         Metrics metrics = collector.getMetrics();
-
+        //then
         assertThat(metrics.files()).isEqualTo(Set.of());
         assertThat(metrics.from()).isNull();
         assertThat(metrics.to()).isNull();

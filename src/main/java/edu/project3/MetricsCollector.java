@@ -14,7 +14,7 @@ public class MetricsCollector {
     private final static int MAX_COUNT = 3;
     private final Set<String> sources = new HashSet<>();
     private final Map<Integer, Integer> statuses = new HashMap<>();
-    private BigDecimal bytes = new BigDecimal(0);
+    private BigDecimal bytes = BigDecimal.ZERO;
     private final Map<String, Integer> requests = new HashMap<>();
     private int requestsCount = 0;
     private LocalDateTime from;

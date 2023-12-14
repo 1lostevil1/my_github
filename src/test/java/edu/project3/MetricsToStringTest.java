@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 public class MetricsToStringTest {
     @Test
     void markdown() throws IOException {
+        //given
         LocalDateTime datetimeFirst = LocalDateTime.of(1970, 1, 1, 0, 0);
         LocalDateTime datetimeSecond = LocalDateTime.of(1970, 1, 1, 0, 1);
 
@@ -36,13 +37,13 @@ public class MetricsToStringTest {
             "referer 2",
             "http user 2"
         );
-
+        //when
         MetricsCollector collector = new MetricsCollector();
         collector.collect(first);
         collector.collect(second);
 
         Metrics metrics = collector.getMetrics();
-
+        //then
         assertThat(MetricsToString.markdown(metrics)
             .equals("### Общая информация\n" +
                 "\n" +
@@ -72,6 +73,7 @@ public class MetricsToStringTest {
 
     @Test
     void adoc() throws IOException {
+        //given
         LocalDateTime datetimeFirst = LocalDateTime.of(1970, 1, 1, 0, 0);
         LocalDateTime datetimeSecond = LocalDateTime.of(1970, 1, 1, 0, 1);
 
@@ -98,13 +100,13 @@ public class MetricsToStringTest {
             "referer 2",
             "http user 2"
         );
-
+        //when
         MetricsCollector collector = new MetricsCollector();
         collector.collect(first);
         collector.collect(second);
 
         Metrics metrics = collector.getMetrics();
-
+        //then
         assertThat(MetricsToString.adoc(metrics))
             .isEqualTo("== Общая информация\n" +
                 "\n" +
@@ -143,10 +145,11 @@ public class MetricsToStringTest {
 
     @Test
     void markdownEmpty() throws IOException {
+        //given
         MetricsCollector collector = new MetricsCollector();
-
+        //when
         Metrics metrics = collector.getMetrics();
-
+        //then
         assertThat(MetricsToString.markdown(metrics)
             .equals("### Общая информация\n" +
                 "\n" +
@@ -172,10 +175,11 @@ public class MetricsToStringTest {
 
     @Test
     void adocEmpty() throws IOException {
+        //given
         MetricsCollector collector = new MetricsCollector();
-
+        //when
         Metrics metrics = collector.getMetrics();
-
+        //then
         assertThat(MetricsToString.adoc(metrics))
             .isEqualTo("== Общая информация\n" +
                 "\n" +

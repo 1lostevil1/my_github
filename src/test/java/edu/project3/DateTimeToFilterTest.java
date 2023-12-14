@@ -20,7 +20,9 @@ public class DateTimeToFilterTest {
     @DisplayName("Проверка фильтров")
     @MethodSource("expectations")
     void successful(LocalDateTime dateTime, boolean expects) throws Exception {
+        //given
         var filter = new DateTimeToFilter(LocalDateTime.of(1970, 1, 1, 1, 1, 1));
+        //expect
         assertThat(filter.test(dateTime)).isEqualTo(expects);
     }
 }

@@ -26,10 +26,11 @@ public class LogsParserTest {
 
     @Test
     void wrongString() {
+        //given
         String log = "why not!";
-
+        //when
         LogString logString = LogsParser.parseString(log, "test");
-
+        //then
         assertThat(logString).isNull();
     }
 }

@@ -12,8 +12,8 @@ import static edu.project3.LogsReader.readLogsFromFiles;
 import static edu.project3.LogsReader.readLogsFromUrl;
 
 public class NginxLogsStats {
-    private final static String MARKDOWN = "markdown";
-    private final static String ADOC = "adoc";
+    private static final String MARKDOWN = "markdown";
+    private static final String ADOC = "adoc";
 
     private NginxLogsStats() {}
 

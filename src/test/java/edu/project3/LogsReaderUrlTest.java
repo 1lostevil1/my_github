@@ -31,32 +31,35 @@ public class LogsReaderUrlTest {
 
     @Test
     public void answerReturned() {
+        //given
         stubFor(get(urlEqualTo("/logs"))
             .willReturn(aResponse()
                 .withStatus(200)
                 .withBody(LOG)));
-
+        //when
         var stream = LogsReader.readLogsFromUrl(wireMockServer.url("/logs"));
-
+        //then
         assertThat(stream.anyMatch(element -> true)).isTrue();
     }
 
     @Test
     public void notOkStatus() {
+        //given
         stubFor(get(urlEqualTo("/logs"))
             .willReturn(aResponse()
                 .withStatus(404)
                 .withBody(LOG)));
-
+        //when
         var stream = LogsReader.readLogsFromUrl(wireMockServer.url("/logs"));
-
+        //then
         assertThat(stream.anyMatch(element -> true)).isFalse();
     }
 
     @Test
     public void noUrl() {
+        //when
         var stream = LogsReader.readLogsFromUrl("/logs");
-
+        //then
         assertThat(stream.anyMatch(element -> true)).isFalse();
     }
 }

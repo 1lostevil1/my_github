@@ -8,8 +8,8 @@ import net.steppschuh.markdowngenerator.table.Table;
 import net.steppschuh.markdowngenerator.text.Text;
 
 public class MetricsToString {
-    private final static String STATUSES_PROPERTIES = "src/main/resources/http_statuses.properties";
-    private final static String DATE_TIME_PATTERN = "dd/MM/yyyy HH:mm:ss";
+    private static final String STATUSES_PROPERTIES = "src/main/resources/http_statuses.properties";
+    private static final  String DATE_TIME_PATTERN = "dd/MM/yyyy HH:mm:ss";
 
     private MetricsToString() {}
 

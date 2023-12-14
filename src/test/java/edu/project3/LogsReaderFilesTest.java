@@ -52,33 +52,38 @@ public class LogsReaderFilesTest {
 
     @Test
     void oneFile() throws IOException {
+        //given
         Path path = Path.of(DIRECTORY_PATH, "file");
+        //when
         Files.createFile(path);
         Files.writeString(path, LOG);
 
         var stream = LogsReader.readLogsFromFiles(path.toString());
-
+        //then
         assertThat(stream.count() == 1);
     }
 
     @Test
     void severalFiles() throws IOException {
+        //given
         Path first = Path.of(DIRECTORY_PATH, "first");
         Path second = Path.of(DIRECTORY_PATH, "second");
+        //when
         Files.createFile(first);
         Files.writeString(first, LOG);
         Files.createFile(second);
         Files.writeString(second, LOG);
 
         var stream = LogsReader.readLogsFromFiles(DIRECTORY_PATH + "/*");
-
+        //then
         assertThat(stream.count() == 2);
     }
 
     @Test
     void withoutFiles() {
+        //when
         var stream = LogsReader.readLogsFromFiles(DIRECTORY_PATH + "/*");
-
+        //then
         assertThat(stream.anyMatch(element -> true)).isFalse();
     }
 }
