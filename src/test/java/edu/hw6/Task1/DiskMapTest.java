@@ -49,8 +49,9 @@ public class DiskMapTest {
     @Test
     @DisplayName("Успешное создание мапы")
     void successfulConstructor() throws IOException {
+        //given
         DiskMap map = new DiskMap(DIRECTORY_PATH);
-
+        //expect
         assertThat(map).isNotNull();
     }
 
@@ -58,18 +59,19 @@ public class DiskMapTest {
     @DisplayName("Директория уже существует")
     void existDirectory() throws IOException {
         Files.createDirectories(Path.of(DIRECTORY_PATH));
-
+        //given
         DiskMap map = new DiskMap(DIRECTORY_PATH);
-
+        //expect
         assertThat(map).isNotNull();
     }
 
     @Test
     @DisplayName("Существует файл, бросок ошибки")
     void existFile() {
+        //given
         try {
             Files.createFile(Path.of(DIRECTORY_PATH));
-
+            //expect
             assertThrows(
                 IllegalArgumentException.class,
                 () -> new DiskMap(DIRECTORY_PATH)
@@ -82,10 +84,11 @@ public class DiskMapTest {
     @Test
     @DisplayName("Успешно добавляет значения")
     void successPut() throws IOException {
+        //given
         DiskMap map = new DiskMap(DIRECTORY_PATH);
-
+        //when
         map.put("test", "test");
-
+        //then
         Path test = Path.of(DIRECTORY_PATH, "test");
         assertTrue(Files.exists(test));
         assertThat(Files.readString(test)).isEqualTo("test");
@@ -94,13 +97,14 @@ public class DiskMapTest {
     @Test
     @DisplayName("Файл уже существует")
     void putToExistingFile() throws IOException {
+        //given
         DiskMap map = new DiskMap(DIRECTORY_PATH);
         Path test = Path.of(DIRECTORY_PATH, "test");
-
+        //when
         Files.createDirectories(test.getParent());
         Files.createFile(test);
         map.put("test", "test");
-
+        //then
         assertTrue(Files.exists(test));
         assertThat(Files.readString(test)).isEqualTo("test");
     }
@@ -108,23 +112,27 @@ public class DiskMapTest {
     @Test
     @DisplayName("Удаление файла")
     void removeFile() throws IOException {
+        //given
         DiskMap map = new DiskMap(DIRECTORY_PATH);
         Path test = Path.of(DIRECTORY_PATH, "test");
-
+        //when
         Files.createDirectories(test.getParent());
         Files.createFile(test);
+        //then
         assertThat(Files.exists(test)).isTrue();
-
+        //when
         map.remove("test");
+        //then
         assertThat(Files.exists(test)).isFalse();
     }
 
     @Test
     @DisplayName("Удаление несуществующего файла")
     void removeNonExistingFile() throws IOException {
+        //given
         DiskMap map = new DiskMap(DIRECTORY_PATH);
         Path test = Path.of(DIRECTORY_PATH, "test");
-
+        //expect
         assertThat(map.remove("test")).isNull();
         assertThat(Files.exists(test)).isFalse();
     }
@@ -132,71 +140,84 @@ public class DiskMapTest {
     @Test
     @DisplayName("Количество ключей")
     void getSize() throws IOException {
+        //given
         DiskMap map = new DiskMap(DIRECTORY_PATH);
-
+        //when
         Files.createDirectories(Path.of(DIRECTORY_PATH));
         Files.createFile(Path.of(DIRECTORY_PATH, "first"));
         Files.createFile(Path.of(DIRECTORY_PATH, "second"));
         Files.createFile(Path.of(DIRECTORY_PATH, "third"));
+        //expect
         assertThat(map.size()).isEqualTo(3);
     }
 
     @Test
     @DisplayName("Количество ключей при отсутствии файлов")
     void getZeroSize() throws IOException {
+        //given
         DiskMap map = new DiskMap(DIRECTORY_PATH);
-
+        //when
         Files.createDirectories(Path.of(DIRECTORY_PATH));
+        //then
         assertThat(map.size()).isEqualTo(0);
     }
 
     @Test
     @DisplayName("Проверка на пустоту")
     void isEmpty() throws IOException {
+        //given
         DiskMap map = new DiskMap(DIRECTORY_PATH);
-
+        //when
         Files.createDirectories(Path.of(DIRECTORY_PATH));
+        //then
         assertThat(map.isEmpty()).isTrue();
     }
 
     @Test
     @DisplayName("Проверка на отсутствие пустоты")
     void isNotEmpty() throws IOException {
+        //given
         DiskMap map = new DiskMap(DIRECTORY_PATH);
-
+        //when
         Files.createDirectories(Path.of(DIRECTORY_PATH));
         Files.createFile(Path.of(DIRECTORY_PATH, "first"));
         Files.createFile(Path.of(DIRECTORY_PATH, "second"));
         Files.createFile(Path.of(DIRECTORY_PATH, "third"));
-
+        //then
         assertThat(map.isEmpty()).isFalse();
     }
 
     @Test
     @DisplayName("Ключ существует")
     void keyExist() throws IOException {
+        //given
         DiskMap map = new DiskMap(DIRECTORY_PATH);
-
+        //when
         Files.createDirectories(Path.of(DIRECTORY_PATH));
         Files.createFile(Path.of(DIRECTORY_PATH, "test"));
+        //then
         assertThat(map.containsKey("test")).isTrue();
     }
 
     @Test
     @DisplayName("Ключ не существует")
     void keyNotExist() throws IOException {
+        //given
         DiskMap map = new DiskMap(DIRECTORY_PATH);
-
+        //when
         Files.createDirectories(Path.of(DIRECTORY_PATH));
+        //then
         assertThat(map.containsKey("test")).isFalse();
     }
 
     @Test
     @DisplayName("Ключ не строка")
     void keyNotString() throws IOException {
+        //given
         DiskMap map = new DiskMap(DIRECTORY_PATH);
-
+        //when
         Files.createDirectories(Path.of(DIRECTORY_PATH));
+        //then
         assertThrows(
             IllegalArgumentException.class,
             () -> map.containsKey(List.of())
@@ -206,34 +227,39 @@ public class DiskMapTest {
     @Test
     @DisplayName("Значение существует")
     void valueExist() throws IOException {
+        //given
         DiskMap map = new DiskMap(DIRECTORY_PATH);
         Path first = Path.of(DIRECTORY_PATH, "first");
         Path second = Path.of(DIRECTORY_PATH, "second");
-
+        //when
         Files.createDirectories(Path.of(DIRECTORY_PATH));
         Files.createFile(first);
         Files.createFile(second);
         Files.writeString(first, "first");
         Files.writeString(second, "second");
-
+        //then
         assertThat(map.containsValue("first")).isTrue();
     }
 
     @Test
     @DisplayName("Значение не существует")
     void valueNotExist() throws IOException {
+        //given
         DiskMap map = new DiskMap(DIRECTORY_PATH);
-
+        //when
         Files.createDirectories(Path.of(DIRECTORY_PATH));
+        //then
         assertThat(map.containsValue("test")).isFalse();
     }
 
     @Test
     @DisplayName("Значение не строка")
     void valueNotString() throws IOException {
+        //given
         DiskMap map = new DiskMap(DIRECTORY_PATH);
-
+        //when
         Files.createDirectories(Path.of(DIRECTORY_PATH));
+        //then
         assertThrows(
             IllegalArgumentException.class,
             () -> map.containsValue(List.of())
@@ -243,13 +269,14 @@ public class DiskMapTest {
     @Test
     @DisplayName("Получение значения по ключу")
     void getByKey() throws IOException {
+        //given
         DiskMap map = new DiskMap(DIRECTORY_PATH);
         Path first = Path.of(DIRECTORY_PATH, "first");
-
+        //when
         Files.createDirectories(Path.of(DIRECTORY_PATH));
         Files.createFile(first);
         Files.writeString(first, "first");
-
+        //then
         assertThat(map.get("first")).isEqualTo("first");
     }
 

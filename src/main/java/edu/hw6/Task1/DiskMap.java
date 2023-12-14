@@ -8,10 +8,14 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class DiskMap implements Map<String, String> {
+
+    private static final Logger LOGGER = LogManager.getLogger();
 
     private final String directoryPath;
 
@@ -24,7 +28,7 @@ public class DiskMap implements Map<String, String> {
             try {
                 Files.createDirectory(directory);
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                LOGGER.warn(e);
             }
         }
         this.directoryPath = directoryPath;
@@ -107,10 +111,10 @@ public class DiskMap implements Map<String, String> {
         try {
             createFile(key);
             Files.writeString(getPath(key), value);
-            return value;
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            LOGGER.warn(e);
         }
+        return value;
     }
 
     @Override
@@ -120,7 +124,7 @@ public class DiskMap implements Map<String, String> {
         try {
             Files.deleteIfExists(getPath((String) key));
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            LOGGER.warn(e);
         }
 
         return value;
@@ -139,11 +143,12 @@ public class DiskMap implements Map<String, String> {
             stream.forEach(path -> {
                 try {
                     Files.deleteIfExists(path);
-                } catch (IOException ignored) {
+                } catch (IOException e) {
+                    LOGGER.warn(e);
                 }
             });
-        } catch (IOException ignored) {
-
+        } catch (IOException e) {
+            LOGGER.warn(e);
         }
     }
 
@@ -158,7 +163,8 @@ public class DiskMap implements Map<String, String> {
                 .forEach(path -> {
                     keys.add(path.getFileName().toString());
                 });
-        } catch (IOException ignored) {
+        } catch (IOException e) {
+            LOGGER.warn(e);
         }
 
         return keys;
@@ -175,10 +181,12 @@ public class DiskMap implements Map<String, String> {
                 .forEach(path -> {
                     try {
                         values.add(Files.readString(path));
-                    } catch (IOException ignored) {
+                    } catch (IOException e) {
+                        LOGGER.warn(e);
                     }
                 });
-        } catch (IOException ignored) {
+        } catch (IOException e) {
+            LOGGER.warn(e);
         }
 
         return values;
@@ -194,10 +202,12 @@ public class DiskMap implements Map<String, String> {
                 .forEach(path -> {
                     try {
                         entries.add(Map.entry(path.getFileName().toString(), Files.readString(path)));
-                    } catch (IOException ignored) {
+                    } catch (IOException e) {
+                        LOGGER.warn(e);
                     }
                 });
-        } catch (IOException ignored) {
+        } catch (IOException e) {
+            LOGGER.warn(e);
         }
 
         return entries;

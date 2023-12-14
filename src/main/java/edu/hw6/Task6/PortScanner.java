@@ -18,7 +18,7 @@ import org.apache.logging.log4j.Logger;
 
     private static final String UDP_PROTOCOL = "UDP";
 
-    private static final Map<Integer, String> MAP_OF_CONNECTION = new HashMap<>();
+    private static final Map<Integer, Connections> MAP_OF_CONNECTION = new HashMap<>();
 
     private static final String OUTPUT_FORMAT = "%-10s%-10s%-10s";
 
@@ -33,26 +33,21 @@ import org.apache.logging.log4j.Logger;
     }
 
     public static void someConnections() {
-        MAP_OF_CONNECTION.put(23, "Telnet");
-        MAP_OF_CONNECTION.put(110, "POP3 ");
-        MAP_OF_CONNECTION.put(143, "IMAP");
-        MAP_OF_CONNECTION.put(123, "NTP ");
-        MAP_OF_CONNECTION.put(445, "SMB");
-        MAP_OF_CONNECTION.put(548, "AFP");
-        MAP_OF_CONNECTION.put(8080, "HTTP Proxy");
-        MAP_OF_CONNECTION.put(1080, "SOCKS");
-        MAP_OF_CONNECTION.put(1723, "PPTP ");
-        MAP_OF_CONNECTION.put(3128, "Squid");
-        MAP_OF_CONNECTION.put(80, "HTTP");
-        MAP_OF_CONNECTION.put(21, "FTP");
-        MAP_OF_CONNECTION.put(25, "SMTP");
-        MAP_OF_CONNECTION.put(22, "SSH");
-        MAP_OF_CONNECTION.put(443, "HTTPS");
-        MAP_OF_CONNECTION.put(53, "DNS");
-        MAP_OF_CONNECTION.put(3306, "MySQL");
-        MAP_OF_CONNECTION.put(5432, "PostgreSQL");
-        MAP_OF_CONNECTION.put(3389, "RDP");
-        MAP_OF_CONNECTION.put(27017, "MongoDB");
+        MAP_OF_CONNECTION.put(Connections.Telnet.getPort(), Connections.Telnet);
+        MAP_OF_CONNECTION.put(Connections.POP3.getPort(), Connections.POP3);
+        MAP_OF_CONNECTION.put(Connections.IMAP.getPort(), Connections.IMAP);
+        MAP_OF_CONNECTION.put(Connections.NTP.getPort(), Connections.NTP );
+        MAP_OF_CONNECTION.put(Connections.SMB.getPort(), Connections.SMB);
+        MAP_OF_CONNECTION.put(Connections.AFP.getPort(), Connections.AFP);
+        MAP_OF_CONNECTION.put(Connections.HTTPProxy.getPort(), Connections.HTTPProxy);
+        MAP_OF_CONNECTION.put(Connections.PPTP.getPort(), Connections.PPTP );
+        MAP_OF_CONNECTION.put(Connections.HTTP.getPort(), Connections.HTTP);
+        MAP_OF_CONNECTION.put(Connections.FTP.getPort(), Connections.FTP);
+        MAP_OF_CONNECTION.put(Connections.SMTP.getPort(), Connections.SMTP);
+        MAP_OF_CONNECTION.put(Connections.SSH.getPort(), Connections.SSH);
+        MAP_OF_CONNECTION.put(Connections.HTTPS.getPort(), Connections.HTTPS);
+        MAP_OF_CONNECTION.put(Connections.DNS.getPort(), Connections.DNS);
+        MAP_OF_CONNECTION.put(Connections.RDP.getPort(), Connections.RDP);
     }
 
     public static void scannPort() {
@@ -63,7 +58,7 @@ import org.apache.logging.log4j.Logger;
                 serverSocket.close();
             } catch (IOException ignore) {
                 LOGGER.info(OUTPUT_FORMAT
-                    .formatted(TCP_PROTOCOL, port, MAP_OF_CONNECTION.getOrDefault(port, "")));
+                    .formatted(TCP_PROTOCOL, port, MAP_OF_CONNECTION.get(port).toString()));
             }
 
             try {
@@ -71,7 +66,7 @@ import org.apache.logging.log4j.Logger;
                 datagramSocket.close();
             } catch (SocketException ignore) {
                 LOGGER.info(OUTPUT_FORMAT
-                    .formatted(UDP_PROTOCOL, port, MAP_OF_CONNECTION.getOrDefault(port, "")));
+                    .formatted(UDP_PROTOCOL, port, MAP_OF_CONNECTION.get(port).toString()));
             }
         }
     }
