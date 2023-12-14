@@ -1,5 +1,7 @@
 package edu.hw8.Task1;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
@@ -18,7 +20,8 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 @SuppressWarnings("MagicNumber")
 public class Server implements AutoCloseable {
 
-    private final static int BUFFER_SIZE = 1024;
+    private static final Logger LOGGER = LogManager.getLogger();
+    private static final int BUFFER_SIZE = 1024;
     private final ServerSocketChannel serverSocket;
     private final BlockingQueue<SocketChannel> blockingQueue;
     private final Selector selector;
@@ -60,7 +63,7 @@ public class Server implements AutoCloseable {
                             try {
                                 answer(buffer, key);
                             } catch (IOException e) {
-                                throw new RuntimeException(e);
+                               LOGGER.warn(e);
                             }
                         });
                         Thread.sleep(1000);

@@ -1,5 +1,7 @@
 package edu.hw8.Task2;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import java.util.Arrays;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingDeque;
@@ -7,6 +9,7 @@ import java.util.stream.Stream;
 
 public class FixedThreadPool implements ThreadPool {
 
+    private final static Logger LOGGER = LogManager.getLogger();
     private BlockingQueue<Runnable> blockingQueue;
     private Thread[] threads;
 
@@ -39,7 +42,7 @@ public class FixedThreadPool implements ThreadPool {
         try {
             blockingQueue.put(runnable);
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            LOGGER.warn(e);
         }
     }
 

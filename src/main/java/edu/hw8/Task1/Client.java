@@ -1,5 +1,7 @@
 package edu.hw8.Task1;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
@@ -8,7 +10,8 @@ import java.nio.channels.SocketChannel;
 @SuppressWarnings({"MultipleStringLiterals", "RegexpSinglelineJava"})
 public class Client implements AutoCloseable {
 
-    private final static int BUFFER_SIZE = 1024;
+    private static final Logger LOGGER = LogManager.getLogger();
+    private static final int BUFFER_SIZE = 1024;
     private SocketChannel socket;
     private static ByteBuffer buffer;
 
@@ -22,9 +25,9 @@ public class Client implements AutoCloseable {
             buffer = ByteBuffer.wrap(message.getBytes());
             socket.write(buffer);
             buffer.clear();
-            System.out.println("Ваня: " + message);
+            LOGGER.info("Ваня: " + message);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            LOGGER.warn(e);
         }
     }
 
@@ -33,10 +36,10 @@ public class Client implements AutoCloseable {
             buffer = ByteBuffer.allocate(BUFFER_SIZE);
             buffer.clear();
             socket.read(buffer);
-            System.out.println("Сервер: " + new String(buffer.array()).trim());
+            LOGGER.info("Сервер: " + new String(buffer.array()).trim());
             buffer.clear();
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            LOGGER.warn(e);
         }
     }
 

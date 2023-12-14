@@ -43,6 +43,7 @@ public class Task1Test {
         Thread.sleep(100);
         client3.sendToServer(list.get(ThreadLocalRandom.current().nextInt(5)));
         client3.readFromServer();
+        //expect
         try {
             client1.close();
             thread.sleep(100);

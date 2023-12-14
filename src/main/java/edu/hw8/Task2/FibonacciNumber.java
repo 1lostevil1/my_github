@@ -1,5 +1,8 @@
 package edu.hw8.Task2;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 @SuppressWarnings("RegexpSinglelineJava")
 public class FibonacciNumber implements Runnable {
 
@@ -8,6 +11,8 @@ public class FibonacciNumber implements Runnable {
     public FibonacciNumber(int num) {
         this.num = num;
     }
+
+    private final static Logger LOGGER = LogManager.getLogger();
 
     public long findFibonacciNumber(int num) {
         if (num < 1) {
@@ -21,7 +26,7 @@ public class FibonacciNumber implements Runnable {
 
     @Override
     public void run() {
-        System.out.println("[" + Thread.currentThread().getName() + "] looking for the " + num + " Fibonacci number");
-        System.out.println("[" + Thread.currentThread().getName() + "] result = " + findFibonacciNumber(num));
+        LOGGER.info("[" + Thread.currentThread().getName() + "] looking for the " + num + " Fibonacci number");
+        LOGGER.info("[" + Thread.currentThread().getName() + "] result = " + findFibonacciNumber(num));
     }
 }
