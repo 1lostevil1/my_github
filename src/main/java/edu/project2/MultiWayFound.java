@@ -67,19 +67,18 @@ public class MultiWayFound extends RecursiveTask<List<Cell>> {
             mazeMatrix[currentCell.x][currentCell.y].isVisited = true;
         } else {
             List<MultiWayFound> classes = new ArrayList<>(neighboursList.size());
-            int i = 0;
-            for (var obj : classes) {
-                obj =
-                    new MultiWayFound(
-                        coordStack,
-                        mazeMatrix,
-                        new Cell(neighboursList.get(i).x, neighboursList.get(i).y, false, true, true, false),
-                        end
-                    );
-                i++;
+
+            classes.stream().forEach(obj -> {
+                new MultiWayFound(
+                    coordStack,
+                    mazeMatrix,
+                    new Cell(neighboursList.get(0).x, neighboursList.get(0).y, false, true, true, false),
+                    end
+                );
                 obj.fork();
                 path.addAll(obj.join());
-            }
+            });
+
         }
     }
 
@@ -97,7 +96,7 @@ public class MultiWayFound extends RecursiveTask<List<Cell>> {
         while (currentCell.x != finish.x || currentCell.y != finish.y) {
             neighbours = new Neighbours(currentCell);
             neighbours.notIgnoreWallBetween(currentCell);
-            if(neighbours.size != 0) {
+            if (neighbours.size != 0) {
                 forkaction(neighbours.neighboursList, currentCell, answer);
             }
 
@@ -111,7 +110,6 @@ public class MultiWayFound extends RecursiveTask<List<Cell>> {
         return answer;
 
     }
-
 
     private List<Integer> directions(Cell currentCell, Neighbours neighbours) {
         List<Integer> answer = new ArrayList<>();
