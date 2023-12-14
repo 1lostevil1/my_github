@@ -20,11 +20,11 @@ public enum Connections {
 
     private final int port;
 
-    public int getPort(){
+    public int getPort() {
         return port;
     }
 
-     Connections(int port){
+    Connections(int port) {
         this.port = port;
     }
 }
