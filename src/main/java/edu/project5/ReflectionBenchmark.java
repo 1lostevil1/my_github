@@ -50,7 +50,7 @@ public class ReflectionBenchmark {
     @Setup
     public void setup() throws Throwable {
         String methodName = "name";
-        student = new Student("Alexander", "Biryukov");
+        student = new Student("Kireev", "Dmitry");
         method = Student.class.getDeclaredMethod(methodName);
         methodHandle = MethodHandles.lookup().findVirtual(
             Student.class,
